@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="card mt-3">
+    <div class="card-header">Lista de Categorías</div>
+    <div class="card-body">
+      <button type="button" class="btn btn-primary" [routerLink]="['/categorias-form']">Crear</button>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Detalle</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of categorias">
+            <th>{{c.id}}</th>
+            <td>{{c.detalle}}</td>
+            <td>
+              <button  class="btn btn-warning" [routerLink]="['/categorias-form',c.id]">Editar</button>
+              <button  class="btn btn-danger ms-1" (click)="deleteCategoria(c)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
