@@ -30,8 +30,17 @@ export class ProductoService {
       })
     )
   }
-  create2(formData: FormData): Observable<Producto> {
-    return this.http.post<Producto>(this.urlEndPoint,formData)
+  create2(producto: Producto, foto:File): Observable<any> {
+    const formData = new FormData();
+    formData.append('foto', foto);
+    formData.append('producto',JSON.stringify(producto));
+    return this.http.post<any>(`${this.urlEndPoint}-foto`, formData).pipe(
+      catchError(e => {
+        this.router.navigate(['/productos']);
+        Swal.fire('Error ', e.error.mensaje, 'error');
+        return throwError(() => e)
+      })
+    )
   }
 
   getProducto(id: number): Observable<Producto> {

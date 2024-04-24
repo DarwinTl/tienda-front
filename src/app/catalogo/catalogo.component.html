@@ -4,20 +4,34 @@
 
         <div class="row text-center mt-4">
             <div class="col-lg-3 col-md-6 mb-4" *ngFor="let p of productos">
-                <div class="card h-100">
-                    <img class="card-img-top" src="https://wongfood.vtexassets.com/arquivos/ids/624580-800-auto?v=638155349024400000&width=800&height=auto&aspect=true" height="180" width="60" alt="" />
+                <div class="card border-success">
+                    <img class="rounded-menos"
+                        src="https://wongfood.vtexassets.com/arquivos/ids/624580-800-auto?v=638155349024400000&width=800&height=auto&aspect=true"
+                        alt="" />
                     <div class="card-body">
-                        <p class="card-text">Nombre: {{p.nombre}}</p>
-                        <p class="card-text">Marca: {{p.marca.nombre}}</p>
-                        <p class="card-text">Categoría: {{p.categoria.detalle}}</p>
-                        <p class="card-text">Medida: {{p.medida.descripcion}}</p>
+                        <div class="row">
+                            <div class="col-8 text-sm-start fs-5 fw-bold text-dark">
+                                <span class="card-text text-danger">
+                                    {{ p.nombre }}
+                                </span>
+                            </div>
+                            <div class="col-4 text-sm-end fs-5 ">
+                                <span class="card-text text-end fs-6 align-botton text-decoration-line-through">
+                                    S/20.0
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row text-sm-start fs-6 text-color">
+                            <span>{{p.medida.descripcion}}</span>
+                            <span>{{p.categoria.detalle}}</span>
+                        </div>
+
                     </div>
-                    <div class="card-footer">
-                        <button class="btn btn-info">Ver Producto</button>
+                    <div class="card-footer border-success bg">
+                        <button class="btn btn-outline-success">Ver Producto</button>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

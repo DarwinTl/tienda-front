@@ -9,6 +9,8 @@ import { Marca } from '../marcas/marca';
 import { Medida } from '../medidas/medida';
 import { MarcaService } from '../marcas/marca.service';
 import { MedidaService } from '../medidas/medida.service';
+import { NgFor } from '@angular/common';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-form-producto',
@@ -40,6 +42,16 @@ export class FormProductoComponent implements OnInit {
     );
   }
 
+  onSubmit(){
+    this.productoService.create2(this.producto, this.file)
+      .subscribe(
+        (producto) => {
+          this.router.navigate(['/productos']),
+            Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
+        }
+      )
+  }
+
   cargarProducto(): void {
     this.activaRoute.params.subscribe((params) => {
       let id = params['id'];
@@ -60,19 +72,18 @@ export class FormProductoComponent implements OnInit {
     )
   }
 
-  public create2(): void {
-    const formData = new FormData();
-
-    formData.append('file',this.file);
-    formData.append('nombre',this.producto.nombre)
-    formData.append('marca',this.producto.marca.nombre)
-    formData.append('categoria',this.producto.categoria.detalle)
-    this.productoService.create2(formData).subscribe(
+  public create2(productoForm: NgForm, foto:File): void {
+    const newProducto = productoForm.value as  Producto;
+    this.productoService.create2(newProducto,foto).subscribe(
       (producto) => {
         this.router.navigate(['/productos']),
           Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
       }
     )
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
   }
 
   public update(): void {
