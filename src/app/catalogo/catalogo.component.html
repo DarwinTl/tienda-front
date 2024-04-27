@@ -5,8 +5,7 @@
         <div class="row text-center mt-4">
             <div class="col-lg-3 col-md-6 mb-4" *ngFor="let p of productos">
                 <div class="card border-success">
-                    <img class="rounded-menos"
-                        src="https://wongfood.vtexassets.com/arquivos/ids/624580-800-auto?v=638155349024400000&width=800&height=auto&aspect=true"
+                    <img class="rounded-menos" src="http://localhost:8080/tienda/images/img/{{p.ruta}}"
                         alt="" />
                     <div class="card-body">
                         <div class="row">
@@ -28,7 +27,7 @@
 
                     </div>
                     <div class="card-footer border-success bg">
-                        <button class="btn btn-outline-success">Ver Producto</button>
+                        <button class="btn btn-success" [routerLink]="['/productos-detalles',p.id]">Ver Producto</button>
                     </div>
                 </div>
             </div>

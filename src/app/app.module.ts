@@ -15,6 +15,8 @@ import { FormUnidadesComponent } from './medidas/form-unidades.component';
 import { ProductosComponent } from './productos/productos.component';
 import { FormProductoComponent } from './productos/form-producto.component';
 import { CatalogoComponent } from './catalogo/catalogo.component';
+import { VistaProductoComponent } from './catalogo/vista-producto.component';
+
 
 
 const routes: Routes = [
@@ -32,7 +34,7 @@ const routes: Routes = [
   { path: 'productos', component: ProductosComponent, },
   { path: 'productos-form', component: FormProductoComponent, },
   { path: 'productos-form/:id', component: FormProductoComponent, },
-
+  { path: 'productos-detalles/:id', component: VistaProductoComponent, },
 ]
 
 
@@ -49,7 +51,8 @@ const routes: Routes = [
     FormUnidadesComponent,
     ProductosComponent,
     FormProductoComponent,
-    CatalogoComponent
+    CatalogoComponent,
+    VistaProductoComponent
   ],
   imports: [
     BrowserModule,

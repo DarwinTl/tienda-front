@@ -23,7 +23,9 @@ export class FormProductoComponent implements OnInit {
   marcas: Marca[];
   medidas: Medida[];
 
-  file:File;
+  
+
+  file: File;
 
   constructor(private productoService: ProductoService, private router: Router,
     private activaRoute: ActivatedRoute, private categoriaService: CategoriaService,
@@ -42,14 +44,14 @@ export class FormProductoComponent implements OnInit {
     );
   }
 
-  onSubmit(){
-    this.productoService.create2(this.producto, this.file)
-      .subscribe(
-        (producto) => {
-          this.router.navigate(['/productos']),
-            Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
-        }
-      )
+  submitForm() {
+
+    this.productoService.create2(this.producto, this.file).subscribe(
+      (producto) => {
+        this.router.navigate(['/productos']);
+        Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
+      }
+    )
   }
 
   cargarProducto(): void {
@@ -72,22 +74,35 @@ export class FormProductoComponent implements OnInit {
     )
   }
 
-  public create2(productoForm: NgForm, foto:File): void {
-    const newProducto = productoForm.value as  Producto;
-    this.productoService.create2(newProducto,foto).subscribe(
+  public create2(): void {
+   
+    this.productoService.create2(this.producto, this.file).subscribe(
+      (producto) => {
+        this.router.navigate(['/productos']);
+        Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
+      }
+    )   
+  }
+
+  onFileSelected(event: any):void {
+     this.file = (event.target as HTMLInputElement).files[0];
+      if(this.file.type.indexOf('image') <0){
+        Swal.fire('Error el acrchivo debe ser una imagen','Puto','warning')
+      }
+      
+    }
+
+  public update(): void {
+    this.productoService.updateProducto(this.producto).subscribe(
       (producto) => {
         this.router.navigate(['/productos']),
-          Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
+          Swal.fire(`Producto actualizado `, `Producto ${producto.nombre}`, 'success')
       }
     )
   }
 
-  onFileSelected(event: any) {
-    this.file = event.target.files[0];
-  }
-
-  public update(): void {
-    this.productoService.updateProducto(this.producto).subscribe(
+  public update2(): void {
+    this.productoService.updateProducto2(this.producto, this.file).subscribe(
       (producto) => {
         this.router.navigate(['/productos']),
           Swal.fire(`Producto actualizado `, `Medida ${producto.nombre}`, 'success')
@@ -96,6 +111,9 @@ export class FormProductoComponent implements OnInit {
   }
 
   comparar(c1: any, c2: any): boolean {
+    if (c1 === undefined && c2 === undefined) {
+      return true;
+    }
     return c1 == null || c2 == null ? false : c1.id === c2.id;
   }
 
