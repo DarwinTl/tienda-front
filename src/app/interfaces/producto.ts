@@ -1,6 +1,6 @@
-import { Categoria } from '../categorias/categoria';
-import { Marca } from '../marcas/marca';
-import { Medida } from '../medidas/medida';
+import { Categoria } from './categoria';
+import { Marca } from './marca';
+import { Medida } from './medida';
 
 export class Producto {
   id: number;

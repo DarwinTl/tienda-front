@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Categoria } from './categoria';
+import { Categoria } from '../interfaces/categoria';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 

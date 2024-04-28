@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Producto } from './producto';
-import { ProductoService } from './producto.service';
+import { Producto } from '../../interfaces/producto';
+import { ProductoService } from '../../services/producto.service';
 import Swal from 'sweetalert2';
 
 @Component({

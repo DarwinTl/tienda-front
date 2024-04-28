@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductoService } from './producto.service';
+import { ProductoService } from '../../services/producto.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Producto } from './producto';
+import { Producto } from '../../interfaces/producto';
 import Swal from 'sweetalert2';
-import { Categoria } from '../categorias/categoria';
-import { CategoriaService } from '../categorias/categoria.service';
-import { Marca } from '../marcas/marca';
-import { Medida } from '../medidas/medida';
-import { MarcaService } from '../marcas/marca.service';
-import { MedidaService } from '../medidas/medida.service';
+import { Categoria } from '../../interfaces/categoria';
+import { CategoriaService } from '../../services/categoria.service';
+import { Marca } from '../../interfaces/marca';
+import { Medida } from '../../interfaces/medida';
+import { MarcaService } from '../../services/marca.service';
+import { MedidaService } from '../../services/medida.service';
 import { NgFor } from '@angular/common';
 import { NgForm } from '@angular/forms';
 

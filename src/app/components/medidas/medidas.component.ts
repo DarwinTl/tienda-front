@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MedidaService } from './medida.service';
-import { Medida } from './medida';
+import { MedidaService } from '../../services/medida.service';
+import { Medida } from '../../interfaces/medida';
 import Swal from 'sweetalert2';
 
 @Component({

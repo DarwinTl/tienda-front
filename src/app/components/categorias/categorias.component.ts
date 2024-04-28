@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Categoria } from './categoria';
-import { CategoriaService } from './categoria.service';
+import { Categoria } from '../../interfaces/categoria';
+import { CategoriaService } from '../../services/categoria.service';
 import Swal from 'sweetalert2';
 
 @Component({

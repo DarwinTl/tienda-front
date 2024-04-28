@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MarcaService } from './marca.service';
+import { MarcaService } from '../../services/marca.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Marca } from './marca';
+import { Marca } from '../../interfaces/marca';
 import Swal from 'sweetalert2';
 
 @Component({

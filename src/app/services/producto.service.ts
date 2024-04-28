@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { Producto } from './producto';
+import { Producto } from '../interfaces/producto';
 import Swal from 'sweetalert2';
 
 @Injectable({

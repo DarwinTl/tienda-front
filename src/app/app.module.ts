@@ -1,26 +1,31 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { CabeceraComponent } from './cabecera/cabecera.component';
-import { CategoriasComponent } from './categorias/categorias.component';
+import { CabeceraComponent } from './components/cabecera/cabecera.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
 import { RouterModule, Routes } from '@angular/router';
-import { FormCategoriaComponent } from './categorias/form-categoria.component';
+import { FormCategoriaComponent } from './components/categorias/form-categoria.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { MarcasComponent } from './marcas/marcas.component';
-import { FormMarcasComponent } from './marcas/form-marcas.component';
-import { MedidasComponent } from './medidas/medidas.component';
-import { FormUnidadesComponent } from './medidas/form-unidades.component';
-import { ProductosComponent } from './productos/productos.component';
-import { FormProductoComponent } from './productos/form-producto.component';
-import { CatalogoComponent } from './catalogo/catalogo.component';
-import { VistaProductoComponent } from './catalogo/vista-producto.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MarcasComponent } from './components/marcas/marcas.component';
+import { FormMarcasComponent } from './components/marcas/form-marcas.component';
+import { MedidasComponent } from './components/medidas/medidas.component';
+import { FormUnidadesComponent } from './components/medidas/form-unidades.component';
+import { ProductosComponent } from './components/productos/productos.component';
+import { FormProductoComponent } from './components/productos/form-producto.component';
+import { CatalogoComponent } from './components/catalogo/catalogo.component';
+import { VistaProductoComponent } from './components/catalogo/vista-producto.component';
+import { LoginComponent } from './components/login/login.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { addTokenInterceptor } from './services/add-token.interceptor';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/catalogo', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, },
   { path: 'catalogo', component: CatalogoComponent, },
   { path: 'categorias', component: CategoriasComponent, },
   { path: 'categorias-form', component: FormCategoriaComponent, },
@@ -52,15 +57,23 @@ const routes: Routes = [
     ProductosComponent,
     FormProductoComponent,
     CatalogoComponent,
-    VistaProductoComponent
+    VistaProductoComponent,
+    LoginComponent,
+    
+ 
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
+    NgSelectModule,
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS, useClass:addTokenInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
