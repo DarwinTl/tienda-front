@@ -1,36 +1,37 @@
 <div class="container">
-    <div class="text-center">
-        <h1>Catálogo de Productos</h1>
+  <div class="text-center">
+    <h1>Catálogo de Productos</h1>
 
-        <div class="row text-center mt-4">
-            <div class="col-lg-3 col-md-6 mb-4" *ngFor="let p of productos">
-                <div class="card border-success">
-                    <img class="rounded-menos" src="http://localhost:8080/tienda/images/img/{{p.ruta}}"
-                        alt="" />
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-8 text-sm-start fs-5 fw-bold text-dark">
-                                <span class="card-text text-danger">
-                                    {{ p.nombre }}
-                                </span>
-                            </div>
-                            <div class="col-4 text-sm-end fs-5 ">
-                                <span class="card-text text-end fs-6 align-botton text-decoration-line-through">
-                                    S/20.0
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row text-sm-start fs-6 text-color">
-                            <span>{{p.medida.descripcion}}</span>
-                            <span>{{p.categoria.detalle}}</span>
-                        </div>
-
-                    </div>
-                    <div class="card-footer border-success bg">
-                        <button class="btn btn-success" [routerLink]="['/productos-detalles',p.id]">Ver Producto</button>
-                    </div>
+    <div class="row text-center mt-4">
+      @for (p of productos; track p) {
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card border-success">
+            <img class="rounded-menos" src="http://localhost:8080/tienda/images/img/{{p.ruta}}"
+              alt="" />
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-8 text-sm-start fs-5 fw-bold text-dark">
+                    <span class="card-text text-danger">
+                      {{ p.nombre }}
+                    </span>
+                  </div>
+                  <div class="col-4 text-sm-end fs-5 ">
+                    <span class="card-text text-end fs-6 align-botton text-decoration-line-through">
+                      S/20.0
+                    </span>
+                  </div>
                 </div>
+                <div class="row text-sm-start fs-6 text-color">
+                  <span>{{p.medida.descripcion}}</span>
+                  <span>{{p.categoria.detalle}}</span>
+                </div>
+              </div>
+              <div class="card-footer border-success bg">
+                <button class="btn btn-success" [routerLink]="['/productos-detalles',p.id]">Ver Producto</button>
+              </div>
             </div>
-        </div>
+          </div>
+        }
+      </div>
     </div>
-</div>
+  </div>

@@ -13,14 +13,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let m of medidas">
-            <th>{{m.id}}</th>
-            <td>{{m.descripcion}}</td>
-            <td>
-              <button  class="btn btn-warning" [routerLink]="['/unidades-form',m.id]">Editar</button>
-              <button  class="btn btn-danger ms-1" (click)="deleteUnidades(m)">Eliminar</button>
-            </td>
-          </tr>
+          @for (m of medidas; track m) {
+            <tr>
+              <th>{{m.id}}</th>
+              <td>{{m.descripcion}}</td>
+              <td>
+                <button  class="btn btn-warning" [routerLink]="['/unidades-form',m.id]">Editar</button>
+                <button  class="btn btn-danger ms-1" (click)="deleteUnidades(m)">Eliminar</button>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

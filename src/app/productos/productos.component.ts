@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from './producto';
 import { ProductoService } from './producto.service';
 import Swal from 'sweetalert2';
-import { NgFor } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-productos',
     templateUrl: './productos.component.html',
     standalone: true,
-    imports: [RouterLink, NgFor]
+    imports: [RouterLink]
 })
 export class ProductosComponent implements OnInit {
 

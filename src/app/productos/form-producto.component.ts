@@ -9,14 +9,14 @@ import { Marca } from '../marcas/marca';
 import { Medida } from '../medidas/medida';
 import { MarcaService } from '../marcas/marca.service';
 import { MedidaService } from '../medidas/medida.service';
-import { NgFor, NgIf } from '@angular/common';
+
 import { NgForm, FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-form-producto',
     templateUrl: './form-producto.component.html',
     standalone: true,
-    imports: [FormsModule, NgFor, NgIf, RouterLink]
+    imports: [FormsModule, RouterLink]
 })
 export class FormProductoComponent implements OnInit {
 

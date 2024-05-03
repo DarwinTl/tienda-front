@@ -13,14 +13,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let c of categorias">
-            <th>{{c.id}}</th>
-            <td>{{c.detalle}}</td>
-            <td>
-              <button  class="btn btn-warning" [routerLink]="['/categorias-form',c.id]">Editar</button>
-              <button  class="btn btn-danger ms-1" (click)="deleteCategoria(c)">Eliminar</button>
-            </td>
-          </tr>
+          @for (c of categorias; track c) {
+            <tr>
+              <th>{{c.id}}</th>
+              <td>{{c.detalle}}</td>
+              <td>
+                <button  class="btn btn-warning" [routerLink]="['/categorias-form',c.id]">Editar</button>
+                <button  class="btn btn-danger ms-1" (click)="deleteCategoria(c)">Eliminar</button>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

@@ -18,6 +18,7 @@ import { provideRouter, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 const routes: Routes = [
   { path: '', redirectTo: '/catalogo', pathMatch: 'full' },
@@ -47,7 +48,7 @@ bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(BrowserModule, FormsModule),
         provideHttpClient(withInterceptorsFromDi()),
-        provideRouter(routes)
+        provideRouter(routes), provideAnimationsAsync()
     ]
 })
   .catch(err => console.error(err));
