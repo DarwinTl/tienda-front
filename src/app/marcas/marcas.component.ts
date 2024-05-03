@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MarcaService } from './marca.service';
 import { Marca } from './marca';
 import Swal from 'sweetalert2';
+import { NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-marcas',
-  templateUrl: './marcas.component.html'
+    selector: 'app-marcas',
+    templateUrl: './marcas.component.html',
+    standalone: true,
+    imports: [RouterLink, NgFor]
 })
 export class MarcasComponent implements OnInit {
 

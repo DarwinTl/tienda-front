@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from '../productos/producto';
 import { ProductoService } from '../productos/producto.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-vista-producto',
-  templateUrl: './vista-producto.component.html',
-  styleUrls: ['./vista-producto.component.css']
+    selector: 'app-vista-producto',
+    templateUrl: './vista-producto.component.html',
+    styleUrls: ['./vista-producto.component.css'],
+    standalone: true,
+    imports: [FormsModule]
 })
 export class VistaProductoComponent implements OnInit {
 

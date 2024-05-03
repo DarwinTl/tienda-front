@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MarcaService } from './marca.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Marca } from './marca';
 import Swal from 'sweetalert2';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-form-marcas',
-  templateUrl: './form-marcas.component.html'
+    selector: 'app-form-marcas',
+    templateUrl: './form-marcas.component.html',
+    standalone: true,
+    imports: [FormsModule, NgIf, RouterLink]
 })
 export class FormMarcasComponent implements OnInit {
 

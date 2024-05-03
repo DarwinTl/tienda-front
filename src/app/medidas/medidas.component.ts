@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MedidaService } from './medida.service';
 import { Medida } from './medida';
 import Swal from 'sweetalert2';
+import { NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-medidas',
-  templateUrl: './medidas.component.html'
+    selector: 'app-medidas',
+    templateUrl: './medidas.component.html',
+    standalone: true,
+    imports: [RouterLink, NgFor]
 })
 export class MedidasComponent implements OnInit {
 

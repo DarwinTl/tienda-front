@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Medida } from './medida';
 import { MedidaService } from './medida.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-form-unidades',
-  templateUrl: './form-unidades.component.html'
+    selector: 'app-form-unidades',
+    templateUrl: './form-unidades.component.html',
+    standalone: true,
+    imports: [FormsModule, NgIf, RouterLink]
 })
 export class FormUnidadesComponent implements OnInit {
 

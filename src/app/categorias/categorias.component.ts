@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Categoria } from './categoria';
 import { CategoriaService } from './categoria.service';
 import Swal from 'sweetalert2';
+import { NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-categorias',
-  templateUrl: './categorias.component.html'
+    selector: 'app-categorias',
+    templateUrl: './categorias.component.html',
+    standalone: true,
+    imports: [RouterLink, NgFor]
 })
 export class CategoriasComponent implements OnInit {
 

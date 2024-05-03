@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from './producto.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Producto } from './producto';
 import Swal from 'sweetalert2';
 import { Categoria } from '../categorias/categoria';
@@ -9,12 +9,14 @@ import { Marca } from '../marcas/marca';
 import { Medida } from '../medidas/medida';
 import { MarcaService } from '../marcas/marca.service';
 import { MedidaService } from '../medidas/medida.service';
-import { NgFor } from '@angular/common';
-import { NgForm } from '@angular/forms';
+import { NgFor, NgIf } from '@angular/common';
+import { NgForm, FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-form-producto',
-  templateUrl: './form-producto.component.html'
+    selector: 'app-form-producto',
+    templateUrl: './form-producto.component.html',
+    standalone: true,
+    imports: [FormsModule, NgFor, NgIf, RouterLink]
 })
 export class FormProductoComponent implements OnInit {
 
