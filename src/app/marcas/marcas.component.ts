@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MarcaService } from './marca.service';
 import { Marca } from './marca';
-import Swal from 'sweetalert2';
+import { MarcaService } from './marca.service';
+// import Swal from 'sweetalert2';
 
 import { RouterLink } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class MarcasComponent implements OnInit {
 
-  marcas:Marca[];
+  marcas:Marca[] = [];
   
   constructor(private marcaService:MarcaService) { }
 
@@ -24,29 +24,29 @@ export class MarcasComponent implements OnInit {
   }
 
   deleteCategoria(marca: Marca): void {
-    Swal.fire({
-      title: `Estas seguro? la marca`,
-      text: "No podras revertir este cambio",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, borrar registro"
-    }).then((result) => {
-      if (result.isConfirmed) {
+    // Swal.fire({
+    //   title: `Estas seguro? la marca`,
+    //   text: "No podras revertir este cambio",
+    //   icon: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonColor: "#3085d6",
+    //   cancelButtonColor: "#d33",
+    //   confirmButtonText: "Sí, borrar registro"
+    // }).then((result) => {
+      // if (result.isConfirmed) {
         this.marcaService.deleteMarca(marca.id).subscribe(
-          (response) => {
-            this.marcas = this.marcas.filter(c => c !== marca),
-              Swal.fire({
-                title: 'Eliminado',
-                text: `La marca ${marca.detalle} ha sido eliminada con exito!`,
-                icon: 'success'
-              });
+          () => {
+            this.marcas = this.marcas.filter(c => c !== marca);
+              // Swal.fire({
+              //   title: 'Eliminado',
+              //   text: `La marca ${marca.detalle} ha sido eliminada con exito!`,
+              //   icon: 'success'
+              // });
           }
         )
-      }
-    }
-    )
+    //   }
+    // }
+    // )
   }
 
 }

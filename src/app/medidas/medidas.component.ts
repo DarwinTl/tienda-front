@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MedidaService } from './medida.service';
 import { Medida } from './medida';
-import Swal from 'sweetalert2';
+import { MedidaService } from './medida.service';
+// import Swal from 'sweetalert2';
 
 import { RouterLink } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class MedidasComponent implements OnInit {
 
-  medidas: Medida[];
+  medidas: Medida[] = [];
 
   constructor(private medidaService: MedidaService) { }
 
@@ -25,29 +25,29 @@ export class MedidasComponent implements OnInit {
 
 
   deleteUnidades(medida: Medida): void {
-    Swal.fire({
-      title: `Estas seguro? la unidad de medida`,
-      text: "No podras revertir este cambio",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, borrar registro"
-    }).then((result) => {
-      if (result.isConfirmed) {
+    // Swal.fire({
+    //   title: `Estas seguro? la unidad de medida`,
+    //   text: "No podras revertir este cambio",
+    //   icon: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonColor: "#3085d6",
+    //   cancelButtonColor: "#d33",
+    //   confirmButtonText: "Sí, borrar registro"
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
         this.medidaService.deleteMedida(medida.id).subscribe(
-          (response) => {
-            this.medidas = this.medidas.filter(m => m !== medida),
-              Swal.fire({
-                title: 'Eliminado',
-                text: `La marca ${medida.descripcion} ha sido eliminada con exito!`,
-                icon: 'success'
-              });
+          () => {
+            this.medidas = this.medidas.filter(m => m !== medida);
+              // Swal.fire({
+              //   title: 'Eliminado',
+              //   text: `La marca ${medida.descripcion} ha sido eliminada con exito!`,
+              //   icon: 'success'
+              // });
           }
         )
-      }
-    }
-    )
+    //   }
+    // }
+    // )
   }
 
 }

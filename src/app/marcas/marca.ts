@@ -1,4 +1,4 @@
-export class Marca{
+export type Marca = {
     id:number;
     nombre:string;
     detalle:string

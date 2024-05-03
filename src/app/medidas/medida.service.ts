@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Medida } from './medida';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class MedidaService {
     return this.http.post(this.urlEndPoint, medida, { headers: this.httpHeaders }).pipe(
       map((response: any) => response.unidad as Medida),
       catchError(e => {
-        Swal.fire('Error al insertar ', e.error.mensaje, 'error');
+        // Swal.fire('Error al insertar ', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
@@ -35,7 +35,7 @@ export class MedidaService {
     return this.http.get<Medida>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         this.router.navigate(['/medidas']);
-        Swal.fire('Error ', e.error.mensaje, 'error');
+        // Swal.fire('Error ', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
@@ -45,7 +45,7 @@ export class MedidaService {
     return this.http.put(`${this.urlEndPoint}/${medida.id}`, medida, { headers: this.httpHeaders }).pipe(
       map((response: any) => response.unidad as Medida),
       catchError(e => {
-        Swal.fire('Error al actualizar', e.error.mensaje, 'error');
+        // Swal.fire('Error al actualizar', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
@@ -54,7 +54,7 @@ export class MedidaService {
   deleteMedida(id: number): Observable<Medida> {
     return this.http.delete<Medida>(`${this.urlEndPoint}/${id}`, { headers: this.httpHeaders }).pipe(
       catchError(e => {
-        Swal.fire('Error al eliminar la marca ', e.error.mensaje, 'error')
+        // Swal.fire('Error al eliminar la marca ', e.error.mensaje, 'error')
         return throwError(() => e)
       })
     );

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Medida } from './medida';
 import { MedidaService } from './medida.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 import { FormsModule } from '@angular/forms';
 
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class FormUnidadesComponent implements OnInit {
 
-  public medida:Medida= new Medida();
+  public medida!: Medida;
 
 
   constructor(private medidaService: MedidaService, private router: Router,
@@ -26,7 +26,7 @@ export class FormUnidadesComponent implements OnInit {
 
   cargarMedida(): void {
     this.activaRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.medidaService.getMedida(id).subscribe(medida =>
           this.medida = medida
@@ -37,18 +37,18 @@ export class FormUnidadesComponent implements OnInit {
 
   public create(): void {
     this.medidaService.create(this.medida).subscribe(
-      (medida) => {
-        this.router.navigate(['/unidades']),
-          Swal.fire('Unidad de medida creada', `Medida ${medida.descripcion}`, 'success')
+      () => {
+        this.router.navigate(['/unidades']);
+          // Swal.fire('Unidad de medida creada', `Medida ${medida.descripcion}`, 'success')
       }
     )
   }
 
   public update(): void {
     this.medidaService.updateMedida(this.medida).subscribe(
-      (medida) => {
-        this.router.navigate(['/unidades']),
-          Swal.fire(`Unidad de medida actualizada `, `Medida ${medida.descripcion}`, 'success')
+      () => {
+        this.router.navigate(['/unidades']);
+          // Swal.fire(`Unidad de medida actualizada `, `Medida ${medida.descripcion}`, 'success')
       }
     )
   }

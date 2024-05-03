@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Producto } from './producto';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -27,13 +27,13 @@ export class ProductoService {
     return this.http.post(this.urlEndPoint, producto, { headers: this.httpHeaders }).pipe(
       map((response: any) => response.producto as Producto),
       catchError(e => {
-        Swal.fire('Error al insertar ', e.error.mensaje, 'error');
+        // Swal.fire('Error al insertar ', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
   }
   create2(producto: Producto, foto:File): Observable<any> {
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('nombre',producto.nombre);
     formData.append('descripcion',producto.descripcion);
     formData.append('foto', foto);
@@ -46,7 +46,7 @@ export class ProductoService {
       map((response:any) => response.producto as Producto),
       catchError(e => {
         this.router.navigate(['/productos']);
-        Swal.fire('Error ', e.error.mensaje, 'error');
+        // Swal.fire('Error ', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
@@ -56,7 +56,7 @@ export class ProductoService {
     return this.http.get<Producto>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         this.router.navigate(['/productos']);
-        Swal.fire('Error ', e.error.mensaje, 'error');
+        // Swal.fire('Error ', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
@@ -66,7 +66,7 @@ export class ProductoService {
     return this.http.put(`${this.urlEndPoint}/${producto.id}`, producto, { headers: this.httpHeaders }).pipe(
       map((response: any) => response.producto as Producto),
       catchError(e => {
-        Swal.fire('Error al actualizar', e.error.mensaje, 'error');
+        // Swal.fire('Error al actualizar', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
@@ -86,7 +86,7 @@ export class ProductoService {
     return this.http.put(`${this.urlEndPoint}/editar/${producto.id}`, formData).pipe(
       map((response: any) => response.producto as Producto),
       catchError(e => {
-        Swal.fire('Error al actualizar', e.error.mensaje, 'error');
+        // Swal.fire('Error al actualizar', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
@@ -96,7 +96,7 @@ export class ProductoService {
   deleteProducto(id: number): Observable<Producto> {
     return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`, { headers: this.httpHeaders }).pipe(
       catchError(e => {
-        Swal.fire('Error al eliminar la marca ', e.error.mensaje, 'error')
+        // Swal.fire('Error al eliminar la marca ', e.error.mensaje, 'error')
         return throwError(() => e)
       })
     );
@@ -110,7 +110,7 @@ export class ProductoService {
     return this.http.post(`${this.urlEndPoint}-foto`, formData).pipe(
       map((response: any) => response.producto as Producto),
       catchError(e => {
-        Swal.fire('Error al actualizar', e.error.mensaje, 'error');
+        // Swal.fire('Error al actualizar', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )

@@ -1,4 +1,4 @@
-export class Categoria {
+export type Categoria = {
     id: number;
     detalle: string;
 }

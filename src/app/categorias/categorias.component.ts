@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from './categoria';
 import { CategoriaService } from './categoria.service';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 import { RouterLink } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class CategoriasComponent implements OnInit {
 
-  categorias: Categoria[];
+  categorias: Categoria[] = []; 
 
   constructor(private categoriaService: CategoriaService) { }
 
@@ -24,29 +24,29 @@ export class CategoriasComponent implements OnInit {
   }
 
   deleteCategoria(categoria: Categoria): void {
-    Swal.fire({
-      title: `Estas seguro? la categoria`,
-      text: "No podras revertir este cambio",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, borrar registro"
-    }).then((result) => {
-      if (result.isConfirmed) {
+    // Swal.fire({
+    //   title: `Estas seguro? la categoria`,
+    //   text: "No podras revertir este cambio",
+    //   icon: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonColor: "#3085d6",
+    //   cancelButtonColor: "#d33",
+    //   confirmButtonText: "Sí, borrar registro"
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
         this.categoriaService.deleteCategoria(categoria.id).subscribe(
-          (response) => {
-            this.categorias = this.categorias.filter(c => c !== categoria),
-              Swal.fire({
-                title: 'Eliminado',
-                text: `La categoria ${categoria.detalle} ha sido eliminada con exito!`,
-                icon: 'success'
-              });
+          () => {
+            this.categorias = this.categorias.filter(c => c !== categoria);
+              // Swal.fire({
+              //   title: 'Eliminado',
+              //   text: `La categoria ${categoria.detalle} ha sido eliminada con exito!`,
+              //   icon: 'success'
+              // });
           }
         )
-      }
-    }
-    )
+      // }
+    // }
+    // )
   }
 
 

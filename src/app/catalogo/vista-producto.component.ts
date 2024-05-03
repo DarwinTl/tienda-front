@@ -13,7 +13,7 @@ import { ProductoService } from '../productos/producto.service';
 })
 export class VistaProductoComponent implements OnInit {
 
-  producto: Producto
+  producto!: Producto
 
   constructor(private productoService:ProductoService, private activateRoute:ActivatedRoute) { }
 
@@ -23,7 +23,7 @@ export class VistaProductoComponent implements OnInit {
 
   cargarProducto(): void {
     this.activateRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.productoService.getProducto(id).subscribe(producto =>
           this.producto = producto

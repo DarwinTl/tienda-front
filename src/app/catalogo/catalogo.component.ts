@@ -13,7 +13,7 @@ import { ProductoService } from '../productos/producto.service';
 })
 export class CatalogoComponent implements OnInit {
 
-  productos: Producto[];
+  productos: Producto[] = [];
 
   constructor(private productoService:ProductoService) { }
 

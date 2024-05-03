@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Categoria } from './categoria';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import Swal from 'sweetalert2';
+import { Categoria } from './categoria';
+// import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class CategoriaService {
     return this.http.post(this.urlEndPoint, categoria, { headers: this.httpHeaders }).pipe(
       map((response: any) => response.categoria as Categoria),
       catchError(e => {
-        Swal.fire('Error al insertar', e.error.mensaje, 'error');
+        // Swal.fire('Error al insertar', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
@@ -36,7 +36,7 @@ export class CategoriaService {
     return this.http.get<Categoria>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         this.router.navigate(['/categorias']);
-        Swal.fire('Error al editar', e.error.mensaje, 'error');
+        // Swal.fire('Error al editar', e.error.mensaje, 'error');
         return throwError(() => e)
       })
     )
@@ -46,7 +46,7 @@ export class CategoriaService {
     return this.http.put(`${this.urlEndPoint}/${categoria.id}`, categoria, { headers: this.httpHeaders }).pipe(
       map((response: any) => response.categoria as Categoria),
       catchError(e => {
-        Swal.fire('Error al actualizar', e.error.mensaje, 'error');
+        // Swal.fire('Error al actualizar', e.error.mensaje, 'error');
         return throwError(() => e)
       }
       )
@@ -56,7 +56,7 @@ export class CategoriaService {
   deleteCategoria(id: number): Observable<Categoria> {
     return this.http.delete<Categoria>(`${this.urlEndPoint}/${id}`, { headers: this.httpHeaders }).pipe(
       catchError(e => {
-        Swal.fire('Error al eliminar la categoria ', e.error.mensaje, 'error')
+        // Swal.fire('Error al eliminar la categoria ', e.error.mensaje, 'error')
         return throwError(() => e)
       })
     );

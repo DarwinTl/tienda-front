@@ -1,24 +1,23 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 
-import { environment } from './environments/environment';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter, Routes } from '@angular/router';
 import { AppComponent } from './app/app.component';
+import { CatalogoComponent } from './app/catalogo/catalogo.component';
 import { VistaProductoComponent } from './app/catalogo/vista-producto.component';
-import { FormProductoComponent } from './app/productos/form-producto.component';
-import { ProductosComponent } from './app/productos/productos.component';
-import { FormUnidadesComponent } from './app/medidas/form-unidades.component';
-import { MedidasComponent } from './app/medidas/medidas.component';
+import { CategoriasComponent } from './app/categorias/categorias.component';
+import { FormCategoriaComponent } from './app/categorias/form-categoria.component';
 import { FormMarcasComponent } from './app/marcas/form-marcas.component';
 import { MarcasComponent } from './app/marcas/marcas.component';
-import { FormCategoriaComponent } from './app/categorias/form-categoria.component';
-import { CategoriasComponent } from './app/categorias/categorias.component';
-import { CatalogoComponent } from './app/catalogo/catalogo.component';
-import { provideRouter, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { FormUnidadesComponent } from './app/medidas/form-unidades.component';
+import { MedidasComponent } from './app/medidas/medidas.component';
+import { FormProductoComponent } from './app/productos/form-producto.component';
+import { ProductosComponent } from './app/productos/productos.component';
+import { environment } from './environments/environment';
 
 const routes: Routes = [
   { path: '', redirectTo: '/catalogo', pathMatch: 'full' },

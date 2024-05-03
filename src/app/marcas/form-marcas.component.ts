@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MarcaService } from './marca.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Marca } from './marca';
-import Swal from 'sweetalert2';
+import { MarcaService } from './marca.service';
+// import Swal from 'sweetalert2';
 
 import { FormsModule } from '@angular/forms';
 
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class FormMarcasComponent implements OnInit {
 
-  public marca: Marca = new Marca()
+  public marca!: Marca;
 
   constructor(private marcaService: MarcaService, private router: Router,
     private activaRoute: ActivatedRoute) { }
@@ -25,7 +25,7 @@ export class FormMarcasComponent implements OnInit {
 
   cargarMarca(): void {
     this.activaRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.marcaService.getMarca(id).subscribe(marca =>
           this.marca = marca
@@ -36,18 +36,18 @@ export class FormMarcasComponent implements OnInit {
 
   public create(): void {
     this.marcaService.create(this.marca).subscribe(
-      (marca) => {
-        this.router.navigate(['/marcas']),
-          Swal.fire('Marca creada', `Marca ${marca.nombre}`, 'success')
+      () => {
+        this.router.navigate(['/marcas']);
+          // Swal.fire('Marca creada', `Marca ${marca.nombre}`, 'success')
       }
     )
   }
 
   public update(): void {
     this.marcaService.updateMarca(this.marca).subscribe(
-      (marca) => {
-        this.router.navigate(['/marcas']),
-          Swal.fire(`Marca actualizada `, `Marca ${marca.nombre}`, 'success')
+      () => {
+        this.router.navigate(['/marcas']);
+          // Swal.fire(`Marca actualizada `, `Marca ${marca.nombre}`, 'success')
       }
     )
   }

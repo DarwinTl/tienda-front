@@ -1,4 +1,4 @@
-export class Medida{
+export type Medida = {
     id:number;
     descripcion:string;
 }

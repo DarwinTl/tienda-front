@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductoService } from './producto.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Producto } from './producto';
-import Swal from 'sweetalert2';
+import { ProductoService } from './producto.service';
+// import Swal from 'sweetalert2';
 import { Categoria } from '../categorias/categoria';
 import { CategoriaService } from '../categorias/categoria.service';
 import { Marca } from '../marcas/marca';
-import { Medida } from '../medidas/medida';
 import { MarcaService } from '../marcas/marca.service';
+import { Medida } from '../medidas/medida';
 import { MedidaService } from '../medidas/medida.service';
 
-import { NgForm, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-form-producto',
@@ -20,14 +20,14 @@ import { NgForm, FormsModule } from '@angular/forms';
 })
 export class FormProductoComponent implements OnInit {
 
-  public producto: Producto = new Producto();
-  categorias: Categoria[];
-  marcas: Marca[];
-  medidas: Medida[];
+  producto!: Producto;
+  categorias: Categoria[] = [];
+  marcas: Marca[] = [];
+  medidas: Medida[] = [];
 
   
 
-  file: File;
+  file!: File;
 
   constructor(private productoService: ProductoService, private router: Router,
     private activaRoute: ActivatedRoute, private categoriaService: CategoriaService,
@@ -49,16 +49,16 @@ export class FormProductoComponent implements OnInit {
   submitForm() {
 
     this.productoService.create2(this.producto, this.file).subscribe(
-      (producto) => {
+      () => {
         this.router.navigate(['/productos']);
-        Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
+        // Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
       }
     )
   }
 
   cargarProducto(): void {
     this.activaRoute.params.subscribe((params) => {
-      let id = params['id'];
+      const id = params['id'];
       if (id) {
         this.productoService.getProducto(id).subscribe(producto =>
           this.producto = producto
@@ -69,9 +69,9 @@ export class FormProductoComponent implements OnInit {
 
   public create(): void {
     this.productoService.create(this.producto).subscribe(
-      (producto) => {
-        this.router.navigate(['/productos']),
-          Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
+      () => {
+        this.router.navigate(['/productos']);
+          // Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
       }
     )
   }
@@ -79,35 +79,36 @@ export class FormProductoComponent implements OnInit {
   public create2(): void {
    
     this.productoService.create2(this.producto, this.file).subscribe(
-      (producto) => {
+      () => {
         this.router.navigate(['/productos']);
-        Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
+        // Swal.fire('Producto creado', `Producto ${producto.nombre}`, 'success')
       }
     )   
   }
 
   onFileSelected(event: any):void {
-     this.file = (event.target as HTMLInputElement).files[0];
+     // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+     this.file = (event.target as HTMLInputElement)?.files?.[0]!;
       if(this.file.type.indexOf('image') <0){
-        Swal.fire('Error el acrchivo debe ser una imagen','Puto','warning')
+        // Swal.fire('Error el acrchivo debe ser una imagen','Puto','warning')
       }
       
     }
 
   public update(): void {
     this.productoService.updateProducto(this.producto).subscribe(
-      (producto) => {
-        this.router.navigate(['/productos']),
-          Swal.fire(`Producto actualizado `, `Producto ${producto.nombre}`, 'success')
+      () => {
+        this.router.navigate(['/productos']);
+          // Swal.fire(`Producto actualizado `, `Producto ${producto.nombre}`, 'success')
       }
     )
   }
 
   public update2(): void {
     this.productoService.updateProducto2(this.producto, this.file).subscribe(
-      (producto) => {
-        this.router.navigate(['/productos']),
-          Swal.fire(`Producto actualizado `, `Medida ${producto.nombre}`, 'success')
+      () => {
+        this.router.navigate(['/productos']);
+          // Swal.fire(`Producto actualizado `, `Medida ${producto.nombre}`, 'success')
       }
     )
   }
