@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductoService } from '../productos/producto.service';
-import { Producto } from '../productos/producto';
 import { RouterLink } from '@angular/router';
+import { Producto } from '../productos/producto';
+import { ProductoService } from '../productos/producto.service';
 
 
 @Component({
     selector: 'app-catalogo',
     templateUrl: './catalogo.component.html',
-    styleUrls: ['./catalogo.component.css'],
+    styleUrls: ['./catalogo.component.scss'],
     standalone: true,
     imports: [RouterLink]
 })
