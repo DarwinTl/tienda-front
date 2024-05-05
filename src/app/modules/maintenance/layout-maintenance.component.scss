@@ -1,0 +1,21 @@
+.maintenance-root {
+  display: grid;
+  grid-template-columns: 268px auto;
+  grid-template-rows: 80px auto;
+  grid-template-areas: "sidebar siderbar" "sidebar main";
+}
+
+.maintenance-sidebar {
+  grid-area: sidebar;
+  padding: 1rem;
+  min-height: 100vh;
+  @apply shadow-md;
+}
+
+.maintenance-sidebar {
+  grid-area: sidebar;
+}
+
+.main {
+  grid-area: main;
+}

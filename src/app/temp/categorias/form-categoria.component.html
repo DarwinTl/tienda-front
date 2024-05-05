@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="card mt-2">
+    <div class="card-header">Formulario de Categorías</div>
+    <div class="card-body">
+      <form #categoriaForm="ngForm">
+        <div class="row">
+          <div class="col-6">
+            <label for="detalle" class="form-label">Detalle</label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="detalle"
+            [(ngModel)]="categoria.detalle"
+            name="detalle"
+            required
+            #detalle="ngModel"
+            minlength="4"
+          />
+          @if (detalle.invalid && (detalle.dirty || detalle.touched)) {
+            <div class="alert alert-danger mt-2">
+              @if (detalle.errors.required) {
+                <div>El campo no debe estar vacio</div>
+              }
+              @if (detalle.errors.minlength) {
+                <div>El campo debe tener mínimo 4 carácteres</div>
+              }
+            </div>
+          }
+        </div>
+        @if (!categoria.id) {
+          <button
+            type="submit"
+            class="btn btn-success"
+            (click)="create()"
+            [disabled]="!categoriaForm.form.valid"
+          >
+            Crear
+          </button>
+        } @else {
+          <button type="submit" class="btn btn-success" (click)="update()">
+            Actualizar
+          </button>
+        }
+
+        <button type="button" routerLink="/" class="btn btn-danger ms-2">
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
