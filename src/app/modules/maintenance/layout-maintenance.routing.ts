@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
+import { MaintenanceRoutes } from './layout.routes';
 
 const routes: Routes = [
   {
-    path: 'categorias',
+    path: MaintenanceRoutes.CATEGORIAS,
     title: 'Mantenimiento de categorías | Market Don Pepe',
     loadComponent: () =>
       import('@maintenance/pages/categories/categories.component').then(
@@ -10,7 +11,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'productos',
+    path: MaintenanceRoutes.PRODUCTOS,
     title: 'Mantenimiento de productos | Market Don Pepe',
     loadComponent: () =>
       import('@maintenance/pages/products/products.component').then(
@@ -19,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'categorias',
+    redirectTo: MaintenanceRoutes.CATEGORIAS,
     pathMatch: 'full',
   },
 ];

@@ -26,13 +26,14 @@
       "@api/*": ["src/app/shared/api/*"],
       "@components/*": ["src/app/shared/components/*"],
       "@shared/*": ["src/app/shared/*"],
-    }
+      "@auth/*": ["src/app/modules/auth/*"],
+    },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": false,
     "strictInputAccessModifiers": false,
-    "strictTemplates": false,
+    "strictTemplates": true,
     "_enabledBlockTypes": [
       "if", "switch", "for"
     ],
