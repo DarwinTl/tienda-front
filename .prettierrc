@@ -3,7 +3,16 @@
     {
       "files": "*.html",
       "options": {
-        "parser": "angular"
+        "parser": "angular",
+        "tabWidth": 2,
+        "printWidth": 80,
+        "semi": true,
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "arrowParens": "avoid",
+        "bracketSameLine": false,
+        "endOfLine": "auto",
+        "useTabs": false
       }
     }
   ]

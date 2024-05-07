@@ -1,0 +1,7 @@
+# Utiliza una imagen de Node.js para desarrollo
+FROM node:18.19.1-alpine
+
+WORKDIR /app
+
+# Expone el puerto para ng serve
+EXPOSE 4200

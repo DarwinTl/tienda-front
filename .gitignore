@@ -43,3 +43,8 @@ Thumbs.db
 
 # Nx
 .nx/*
+
+*.pem
+*.zip
+*.tar
+*.gz

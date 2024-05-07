@@ -45,7 +45,9 @@
             "outputPath": "dist/",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -53,16 +55,16 @@
               "src/assets"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/assets/sass"]
+              "includePaths": [
+                "src/assets/sass"
+              ]
             },
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "scripts": [
-            ],
-            "allowedCommonJsDependencies": [
-            ]
+            "scripts": [],
+            "allowedCommonJsDependencies": []
           },
           "configurations": {
             "production": {
@@ -116,7 +118,10 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
@@ -145,7 +150,9 @@
   "cli": {
     "packageManager": "yarn",
     "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+      "@angular-eslint/schematics",
+      "@ngrx/schematics"
+    ],
+    "analytics": false
   }
 }

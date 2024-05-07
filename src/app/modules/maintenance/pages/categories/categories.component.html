@@ -13,14 +13,14 @@
       <ng-container [matColumnDef]="data">
         <th mat-header-cell *matHeaderCellDef>{{ data | titlecase }}</th>
         <td mat-cell *matCellDef="let cell">
-          @if (data === "estado") {
+          @if (data === 'estado') {
             <mat-checkbox
               #ref
               (click)="onChangeState(cell[data], ref)"
               [checked]="cell[data]"
               color="primary"
             ></mat-checkbox>
-          } @else if (data === "acciones") {
+          } @else if (data === 'acciones') {
             <button
               mat-icon-button
               color="accent"

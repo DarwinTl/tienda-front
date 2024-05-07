@@ -6,10 +6,10 @@ import {
   ReqPutCategoria,
   RespPostCategoria,
 } from '@api/interface/api-categoria.interface';
-import { ApiHttpBase } from '@shared/models/http';
+import { HttpBase } from '@shared/models/http';
 
 @Injectable()
-export class ApiCategoria extends ApiHttpBase {
+export class ApiCategoria extends HttpBase {
   getCategories() {
     const endpoint = `${API.apiCategoria}`;
     return this.http.get(endpoint);
