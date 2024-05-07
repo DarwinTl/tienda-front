@@ -3,7 +3,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 
@@ -45,7 +51,9 @@ import { MainContainerComponent } from '@components/main-container/main-containe
       <header class="maintenance-header">
         <mat-toolbar class="shadow-md bg-white">
           <div class="flex max-w-5xl grow justify-end mx-auto">
-            <button (click)="logout()" type="button" mat-button color="primary">Cerrar sesión</button>
+            <button (click)="logout()" type="button" mat-button color="primary">
+              Cerrar sesión
+            </button>
           </div>
         </mat-toolbar>
       </header>
@@ -74,7 +82,6 @@ export class LayoutMaintenanceComponent {
       link: 'productos',
     },
   ];
-
 
   logout() {
     this.router.navigate(['/']);

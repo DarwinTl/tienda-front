@@ -3,7 +3,7 @@ import {
   Component,
   effect,
   inject,
-  signal
+  signal,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
@@ -40,7 +40,7 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
     ErrorFieldComponent,
     MatError,
     LoadingComponent,
-    MatProgressSpinner
+    MatProgressSpinner,
   ],
   providers: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,15 +59,17 @@ export class AuthComponent {
   formLogin = this.#createLoginForm();
 
   constructor() {
-    effect(() => {
-      console.log('effect', this.authStore.isLogged());
-      if (this.authStore.isLogged()) {
-        this.router.navigate(['mantenimiento']);
-      }
-
-    }, { allowSignalWrites: true });
+    effect(
+      () => {
+        console.log('effect', this.authStore.isLogged());
+        if (this.authStore.isLogged()) {
+          this.router.navigate(['mantenimiento']);
+        }
+      },
+      { allowSignalWrites: true },
+    );
   }
-  
+
   #createRegisterForm() {
     return this.fb.group<AuthRegisterForm>({
       correo: this.fb.control('', {
