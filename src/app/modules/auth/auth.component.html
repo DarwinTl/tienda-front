@@ -12,11 +12,15 @@
     <app-loading [isLoading]="authStore.isLoading()">
       <div class="grid grid-cols-[45%_55%] h-full">
         <div class="h-full">
-          <img
-            class="w-full h-full object-cover"
-            src="assets/imagenes/login-banner.jpg"
-            alt="login banner"
-          />
+          <picture>
+            <source type="image/webp" srcset="assets/imagenes/login-banner.webp">
+            <source type="image/jpg" srcset="assets/imagenes/login-banner.jpg">
+            <img
+              class="w-full h-full object-cover"
+              src="assets/imagenes/login-banner.jpg"
+              alt="login banner"
+            />
+          </picture>
         </div>
         <div class="py-12 px-8 max-w-md mx-auto">
           <h4 class="text-gray-700 mb-10 text-center font-bold text-xl">
