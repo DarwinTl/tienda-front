@@ -1,6 +1,7 @@
 export type DataTableCategories = {
   id: number;
-  nombre: string;
-  descripcion: string;
-  estado: boolean;
+  detalle: string;
+  // nombre: string;
+  // descripcion: string;
+  // estado: boolean;
 };

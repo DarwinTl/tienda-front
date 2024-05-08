@@ -27,7 +27,7 @@ const initialState: AuthState = {
 };
 
 export const AuthStore = signalStore(
-  // { provideIn: 'root' },
+  { providedIn: 'root' },
   withState(initialState),
   withComputed(({ token }) => ({
     isLogged: computed(() => token() !== null),
@@ -39,11 +39,22 @@ export const AuthStore = signalStore(
         debounceTime(500),
         switchMap((payload) =>
           apiAuth.postLogin({ ...payload }).pipe(
-            tap(({ token }) => patchState(store, { token })),
+            tap(({ token }) => {
+              localStorage.setItem('token', token);
+              patchState(store, { token });
+            }),
             finalize(() => patchState(store, { isLoading: false })),
           ),
         ),
       ),
     ),
+    logout: () => {
+      localStorage.removeItem('token');
+      patchState(store, { token: null });
+    },
+    findCookie: () => {
+      const token = localStorage.getItem('token');
+      if (token !== null) patchState(store, { token });
+    }
   })),
 );

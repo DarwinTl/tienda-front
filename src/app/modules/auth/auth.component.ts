@@ -13,12 +13,14 @@ import { MatInput } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatToolbar } from '@angular/material/toolbar';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ApiReqPostLogin } from '@api/interface/api.auth';
 import { AuthLoginForm, AuthRegisterForm } from '@auth/auth.type';
 import { ErrorFieldComponent } from '@components/error-field/error-field.component';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { LoadingComponent } from '@components/loading/loading.component';
+import { Role } from '@shared/enums/role.enum';
+import { JwtService } from '@shared/services/jwt.service';
 import { AuthStore } from '@shared/store/auth.store';
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
 
@@ -49,10 +51,9 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
 export class AuthComponent {
   private readonly fb = inject(FormBuilder);
   private readonly validator = inject(CustomValidatorService);
-  // private readonly apiAuth = inject(ApiAuth);
   private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
   readonly authStore = inject(AuthStore);
+  readonly jwtService = inject(JwtService);
 
   isRegisterForm = signal(true);
   formRegister = this.#createRegisterForm();
@@ -61,9 +62,12 @@ export class AuthComponent {
   constructor() {
     effect(
       () => {
-        console.log('effect', this.authStore.isLogged());
         if (this.authStore.isLogged()) {
-          this.router.navigate(['mantenimiento']);
+          if (this.jwtService.authorities().includes(Role.ADMIN)) {
+            this.router.navigate(['mantenimiento']);
+          } else {
+            this.router.navigate(['/']);
+          }
         }
       },
       { allowSignalWrites: true },

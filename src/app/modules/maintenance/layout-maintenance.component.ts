@@ -12,6 +12,7 @@ import {
 } from '@angular/router';
 
 import { MainContainerComponent } from '@components/main-container/main-container.component';
+import { AuthStore } from '@shared/store/auth.store';
 
 @Component({
   selector: 'app-layout-maintenance',
@@ -69,6 +70,7 @@ import { MainContainerComponent } from '@components/main-container/main-containe
 export class LayoutMaintenanceComponent {
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
+  authStore = inject(AuthStore);
 
   opciones: { title: string; icon: string; link: string }[] = [
     {
@@ -84,6 +86,7 @@ export class LayoutMaintenanceComponent {
   ];
 
   logout() {
+    this.authStore.logout();
     this.router.navigate(['/']);
   }
 }

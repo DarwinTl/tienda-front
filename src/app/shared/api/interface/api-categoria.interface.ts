@@ -1,8 +1,24 @@
-export interface RespGetCategoria {}
-export interface RespPostCategoria {}
-export interface RespPutCategoria {}
+export interface RespGetCategoria {
+
+}
+export interface RespPostCategoria {
+    mensaje: string;
+    categoria: {
+        id: number;
+        detalle: string;
+    };
+}
+export interface RespPutCategoria {
+
+}
 export interface RespDeleteCategoria {}
 
-export interface ReqPostCategoria {}
-export interface ReqPutCategoria {}
+export interface ReqPostCategoria {
+    detalle: string;
+}
+export interface ReqPutCategoria {
+    id: number;
+    detalle: string;
+}
 export interface ReqDeleteCategoria {}
+

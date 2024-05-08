@@ -29,7 +29,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
           <span>Market Don Pepe</span>
         </div>
         <div class="mr-8">
-          <button routerLink="login" class="" mat-raised-button color="primary">
+          <button routerLink="login" mat-raised-button color="primary">
             Ingresar
           </button>
         </div>

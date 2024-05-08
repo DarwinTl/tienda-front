@@ -1,5 +1,7 @@
 import { TitleCasePipe } from '@angular/common';
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,11 +12,13 @@ import {
   ConfirmDialogComponent,
   DialogConfirmData,
 } from '@components/dialog/confirm/confirm.component';
+import { LoadingComponent } from '@components/loading/loading.component';
+import { delay, finalize, tap } from 'rxjs';
 import { ApiCategoria } from 'src/app/shared/api/service/api.categoria';
 import { DataTableCategories } from './categories.type';
 import {
+  CategoriaField,
   FormCategorieComponent,
-  NuevoRegistroField,
 } from './form-categorie.component';
 
 @Component({
@@ -27,215 +31,67 @@ import {
     MatButtonModule,
     MatCheckboxModule,
     MatIconModule,
+    LoadingComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ApiCategoria],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
 })
-export class CategoriesComponent implements AfterViewInit {
+export class CategoriesComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'id',
-    'nombre',
-    'descripcion',
-    'estado',
+    'detalle',
+    // 'descripcion',
+    // 'estado',
     'acciones',
   ];
   dataSource: MatTableDataSource<DataTableCategories>;
-  data: DataTableCategories[] = [
-    {
-      id: 1,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 2,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 3,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 4,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 5,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: false,
-    },
-    {
-      id: 6,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 7,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 8,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 9,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 10,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 11,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 12,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: false,
-    },
-    {
-      id: 13,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 14,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 15,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 16,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 17,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 18,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 19,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 20,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 21,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 22,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 23,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 24,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 25,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 26,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 27,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 28,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 29,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 30,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-  ];
 
   dialog = inject(MatDialog);
   apiCategoria = inject(ApiCategoria);
+  destroyRef = inject(DestroyRef);
+
+  isLoading = signal(false);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
   constructor() {
-    this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource = new MatTableDataSource();
+  }
+
+  ngOnInit(): void {
+    this.onLoadInbox();
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+    this.changePage();
+  }
+
+  changePage() {
+    this.paginator.page.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      tap(() => this.onLoadInbox(this.paginator.pageIndex)),
+    ).subscribe();
+  }
+
+  onLoadInbox(page: number = 0) {
+    this.isLoading.set(true);
+    this.apiCategoria.getCategories(page).pipe( 
+      delay(1000),
+      finalize(() => this.isLoading.set(false))).subscribe({
+      next: (resp) => {
+        console.log({ resp });
+        this.paginator.pageSize = resp.itemsPerPage;
+        this.paginator.length = resp.totalElements;
+        this.dataSource = new MatTableDataSource(resp.content);
+      },
+      error: (error) => {
+        console.error({ error });
+      },
+    });
   }
 
   onChangeState(state: boolean, checkboxRef: MatCheckbox) {
@@ -260,15 +116,45 @@ export class CategoriesComponent implements AfterViewInit {
   }
 
   openDialogCreate() {
-    this.dialog.open(FormCategorieComponent);
+    const dialog = this.dialog.open(FormCategorieComponent);
+    dialog.afterClosed().subscribe(result => {
+      console.log({ result});
+      this.handledCreate(result);
+    })
   }
+
+  handledCreate(payload: CategoriaField) {
+    this.apiCategoria.createCategory({ detalle: payload.nombre }).subscribe({
+      next: (resp) => {
+        console.log({ resp });
+      },
+      error: (error) => {
+        console.error({ error });
+      },
+    });
+  } 
 
   openDialogEdit(data: DataTableCategories) {
     this.dialog.open(FormCategorieComponent, {
       data: {
-        nombre: data.nombre,
-        descripcion: data.descripcion,
-      } as NuevoRegistroField,
+        nombre: data.detalle,
+        descripcion: '',
+      } as CategoriaField,
+    }).afterClosed().subscribe(result => {
+      console.log({ result });
+      this.handledEdit(data.id, result);
+    }
+    );
+  }
+
+  handledEdit(id: number, payload: CategoriaField) {
+    this.apiCategoria.updateCategory(id, { detalle: payload.nombre, id }).subscribe({
+      next: () => {
+        this.onLoadInbox(this.paginator.pageIndex)
+      },
+      error: (error) => {
+        console.error({ error });
+      },
     });
   }
 }

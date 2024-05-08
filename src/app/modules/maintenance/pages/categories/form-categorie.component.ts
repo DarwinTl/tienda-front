@@ -14,9 +14,9 @@ import { MatInputModule } from '@angular/material/input';
 
 import { CustomAbstractControl } from '@shared/types/utilities.type';
 
-export type NuevoRegistroForm = CustomAbstractControl<NuevoRegistroField>;
+export type CategoriaForm = CustomAbstractControl<CategoriaField>;
 
-export type NuevoRegistroField = {
+export type CategoriaField = {
   nombre: string;
   descripcion: string;
 };
@@ -75,9 +75,8 @@ export type NuevoRegistroField = {
 export class FormCategorieComponent {
   private readonly fb = inject(FormBuilder);
   private readonly dialogRef = inject(MatDialogRef);
-  data: NuevoRegistroField = inject(DIALOG_DATA);
-
-  form: FormGroup<NuevoRegistroForm>;
+  data: CategoriaField = inject(DIALOG_DATA);
+  form: FormGroup<CategoriaForm>;
 
   constructor() {
     this.form = this.#createForm();
@@ -85,7 +84,7 @@ export class FormCategorieComponent {
   }
 
   #createForm() {
-    return this.fb.group<NuevoRegistroForm>({
+    return this.fb.group<CategoriaForm>({
       nombre: this.fb.control('', {
         nonNullable: true,
         validators: Validators.required,
