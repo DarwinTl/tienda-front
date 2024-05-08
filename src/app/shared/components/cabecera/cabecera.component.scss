@@ -1,0 +1,48 @@
+a {
+    font-size: 18px;
+    // color: white;
+  }
+  
+  .btn-menu-navbar {
+    height: 40px;
+    width: 40px;
+  }
+  
+  .custome-toolbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ajusta este valor según sea necesario */
+    /* Estilos adicionales según tus preferencias */
+    background-color: #cc292e;
+    // color: white;
+    .img-banner {
+      max-width: 15%;
+    }
+  }
+  
+  .spacer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+  
+    .search-bar {
+      width: 700px;
+      height: 40px;
+      padding: 10px;
+      font-size: 75%;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+  
+      &:focus {
+        outline: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+   
+  }
+
+  
