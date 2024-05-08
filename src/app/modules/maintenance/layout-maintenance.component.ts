@@ -79,8 +79,13 @@ export class LayoutMaintenanceComponent {
       link: 'categorias',
     },
     {
+      title: 'Marcas',
+      icon: 'fact_check',
+      link: 'marcas',
+    },
+    {
       title: 'Productos',
-      icon: 'folder',
+      icon: 'fact_check',
       link: 'productos',
     },
   ];

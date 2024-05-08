@@ -1,7 +1,6 @@
-export type DataTableCategories = {
+export type DataTableCategories = Required<Categoria>;
+
+export type Categoria = {
   id: number;
   detalle: string;
-  // nombre: string;
-  // descripcion: string;
-  // estado: boolean;
 };

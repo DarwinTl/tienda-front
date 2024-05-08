@@ -11,12 +11,14 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 
 import { CustomAbstractControl } from '@shared/types/utilities.type';
 
 export type CategoriaForm = CustomAbstractControl<CategoriaField>;
 
 export type CategoriaField = {
+  id?: number;
   nombre: string;
   descripcion: string;
 };
@@ -25,6 +27,7 @@ export type CategoriaField = {
   selector: 'app-form-categorie',
   standalone: true,
   imports: [
+    OnlyLettersDirective,
     MatFormFieldModule,
     MatLabel,
     MatInputModule,
@@ -47,6 +50,7 @@ export type CategoriaField = {
           <mat-form-field class="grow">
             <mat-label>Nombre</mat-label>
             <input
+              appOnlyLetters
               formControlName="nombre"
               matInput
               placeholder="Nombre"
@@ -85,6 +89,7 @@ export class FormCategorieComponent {
 
   #createForm() {
     return this.fb.group<CategoriaForm>({
+      id: this.fb.control<number | undefined>(undefined, { nonNullable: true }),
       nombre: this.fb.control('', {
         nonNullable: true,
         validators: Validators.required,
@@ -101,10 +106,8 @@ export class FormCategorieComponent {
 
   onSubmit() {
     if (this.form.invalid) {
-      console.log('Formulario inválido');
       return;
     }
-    console.log(this.form.value);
     this.dialogRef.close(this.form.getRawValue());
   }
 }

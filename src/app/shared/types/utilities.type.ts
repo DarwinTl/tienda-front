@@ -42,3 +42,7 @@ export type Inbox<T> = {
   firstPage: boolean;
   itemsPerPage: number;
 }
+
+export interface Request<T> {
+  [key: string]: T;
+} 

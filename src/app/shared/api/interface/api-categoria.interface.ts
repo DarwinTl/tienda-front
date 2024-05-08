@@ -1,4 +1,6 @@
-export interface RespGetCategoria {
+export interface Request {}
+
+export interface RespGetCategoria extends Request {
 
 }
 export interface RespPostCategoria {
@@ -16,7 +18,7 @@ export interface RespDeleteCategoria {}
 export interface ReqPostCategoria {
     detalle: string;
 }
-export interface ReqPutCategoria {
+export interface ReqPutCategoria extends Request {
     id: number;
     detalle: string;
 }

@@ -8,11 +8,10 @@ import { MatTableModule } from '@angular/material/table';
 import { LoadingComponent } from '@components/loading/loading.component';
 import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
 import { Maintenance } from '@shared/models/maintenance.model';
-import { DataTableMarcas } from '../marcas/marcas.type';
-import { DataTableProducts } from './products.type';
+import { DataTableMarcas } from './marcas.type';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-marcas',
   standalone: true,
   imports: [
     TitleCasePipe,
@@ -25,8 +24,8 @@ import { DataTableProducts } from './products.type';
     MaintenanceTableComponent,
   ],
   template: `
-      <app-maintenance-table
-  title="Productos"
+    <app-maintenance-table
+  title="Marcas"
   [dataSource]="dataSource"
   [displayedColumns]="displayedColumns"
   [isLoading]="isLoadingDataTable()"
@@ -35,11 +34,11 @@ import { DataTableProducts } from './products.type';
   (eventEdit)="openDialogEdit($event)"
   (eventDelete)="openDialogDelete($event)"
 >
-  <mat-paginator aria-label="Páginas de productos" />
+  <mat-paginator aria-label="Páginas de articulos" />
 </app-maintenance-table>
   `,
 })
-export class ProductsComponent extends Maintenance<DataTableProducts> {
+export class MarcasComponent extends Maintenance<DataTableMarcas> {
   openDialogCreate() {
     throw new Error('Method not implemented.');
   }

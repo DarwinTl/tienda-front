@@ -6,13 +6,14 @@ import { ApiAuth } from '@api/service/api.auth';
 import { AuthStore } from '@shared/store/auth.store';
 import { routes } from './app.routes';
 import { CoreModule } from './core/core.module';
+import { unAuthorizedInterceptor } from './core/interceptors/error.interceptor';
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([tokenInterceptor])),
+    provideHttpClient(withInterceptors([tokenInterceptor, unAuthorizedInterceptor])),
     importProvidersFrom(CoreModule),
     ApiAuth,
     AuthStore,

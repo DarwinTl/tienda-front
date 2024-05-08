@@ -36,6 +36,7 @@ export class ApiCategoria extends HttpBase {
   }
 
   deleteCategory(id: number) {
-    return this.http.delete(`/categories/${id}`);
+    const endpoint = `${API.apiCategoria}/${id}`;
+    return this.http.delete(endpoint);
   }
 }
