@@ -1,11 +1,11 @@
 import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
 import {
- patchState,
+  patchState,
   signalStore,
   withComputed,
   withMethods,
-  withState
+  withState,
 } from '@ngrx/signals';
 import { debounceTime, pipe, switchMap, tap } from 'rxjs';
 
