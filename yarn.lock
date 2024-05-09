@@ -2474,6 +2474,13 @@
     semver "^7.3.5"
     strip-json-comments "3.1.1"
 
+"@ngrx/operators@^17.2.0":
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/operators/-/operators-17.2.0.tgz#aa449cbd8565b50353715c568ba38488d4495069"
+  integrity sha512-W7SrGK4VQSJlCtMrkxNChVBDgJGSCdZ4yLBi80xoE9CmhTMMhu9J+8BbDDhZ+PPbTHylKJobkwHq+tJ8mkf4eQ==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngrx/schematics@17.2.0":
   version "17.2.0"
   resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-17.2.0.tgz#2b35f4962f08d32a9904a468ec4353d6a40c9496"
@@ -7108,6 +7115,18 @@ pretty-format@^29.7.0:
     "@jest/schemas" "^29.6.3"
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
+
+primeicons@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-7.0.0.tgz#6b25c3fdcb29bb745a3035bdc1ed5902f4a419cf"
+  integrity sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==
+
+primeng@^17.16.1:
+  version "17.16.1"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-17.16.1.tgz#740db77926f84a16f9ceb4721627cda10b945e25"
+  integrity sha512-bNCUxdXgT4ikOG/aKA2PW9FCFnD/EtB+fLoGLuQXAGB1PJU72x5c0yQoGFDQcAgx78o3d/4LjZOdOPYwovN9Lg==
+  dependencies:
+    tslib "^2.3.0"
 
 proc-log@^3.0.0:
   version "3.0.0"

@@ -1,12 +1,13 @@
 import { computed, inject } from '@angular/core';
+import { tapResponse } from '@ngrx/operators';
 import {
- patchState,
+  patchState,
   signalStore,
   withComputed,
   withMethods,
-  withState
+  withState,
 } from '@ngrx/signals';
-import { debounceTime, finalize, pipe, switchMap, tap } from 'rxjs';
+import { debounceTime, pipe, switchMap, tap } from 'rxjs';
 
 import { ApiReqPostLogin } from '@api/interface/api.auth';
 import { ApiAuth } from '@api/service/api.auth';
@@ -17,6 +18,7 @@ type AuthState = {
   token: string | null;
   correo: string;
   password: string;
+  error: string | null;
 };
 
 const initialState: AuthState = {
@@ -24,6 +26,7 @@ const initialState: AuthState = {
   token: null,
   correo: '',
   password: '',
+  error: null,
 };
 
 export const AuthStore = signalStore(
@@ -39,11 +42,15 @@ export const AuthStore = signalStore(
         debounceTime(500),
         switchMap((payload) =>
           apiAuth.postLogin({ ...payload }).pipe(
-            tap(({ token }) => {
-              localStorage.setItem('token', token);
-              patchState(store, { token });
+            tapResponse({
+              next: ({ token }) => {
+                localStorage.setItem('token', token);
+                patchState(store, { token, error: null });
+              },
+              error: (error: { mensaje: string }) =>
+                patchState(store, { ...initialState, error: error.mensaje }),
+              finalize: () => patchState(store, { isLoading: false }),
             }),
-            finalize(() => patchState(store, { isLoading: false })),
           ),
         ),
       ),

@@ -132,6 +132,13 @@
                   type="password"
                 />
               </mat-form-field>
+
+              @if (authStore.error()) {
+                <div class="flex mx-2 pb-4">
+                  <p class="text-red-500 text-sm">{{ authStore.error() }}</p>
+                </div>
+              }
+
               <div class="flex">
                 <button
                   type="submit"
