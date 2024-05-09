@@ -6,6 +6,7 @@ import {
   ReqPutMarca,
   RespPostMarca,
 } from '@api/interface/api-marca.interface';
+import { Marca } from '@maintenance/pages/marcas/marcas.type';
 import { HttpBase } from '@shared/models/http';
 import { Inbox, ResponseInbox } from '@shared/types/utilities.type';
 import { map, Observable } from 'rxjs';
@@ -45,5 +46,10 @@ export class ApiMarca extends HttpBase {
   deleteMarca(id: number) {
     const endpoint = `${API.apiMarca}/${id}`;
     return this.http.delete(endpoint);
+  }
+
+  getMarcas() {
+    const endpoint = `${API.apiMarca}`;
+    return this.http.get<Marca[]>(endpoint);
   }
 }

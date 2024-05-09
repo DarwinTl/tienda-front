@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ApiCategoria } from '@api/service/api-categoria';
+import { ApiHome } from '@api/service/api-home';
 import { ApiMarca } from '@api/service/api-marca';
 import { ApiProducto } from '@api/service/api-producto';
 import {
@@ -48,6 +49,8 @@ const routes: Routes = [
       { provide: COLUMNS_DATA_TABLE, useValue: PRODUCTOS_COLUMNS_DATA_TABLE },
       { provide: Repository, useClass: ProductoRepository },
       ApiProducto,
+      ApiHome,
+      ApiMarca,
     ],
     loadComponent: () =>
       import('@maintenance/pages/products/products.component').then(
