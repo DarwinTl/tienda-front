@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AuthStore } from '@shared/store/auth.store';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,8 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
 })
 export class AppComponent {
-  title = 'Market Don Pepe';
+  readonly authStore = inject(AuthStore);
+  constructor() {
+    this.authStore.findCookie();
+  }
 }

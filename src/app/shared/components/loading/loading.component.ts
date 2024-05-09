@@ -14,7 +14,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
             <mat-spinner [diameter]="diameter" />
           </div>
         </div>
-      } 
+      }
       @if (failed) {
         <div class="p-8 text-center text-red-500 min-h-40">
           <mat-icon>error</mat-icon>
