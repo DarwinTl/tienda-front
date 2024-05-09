@@ -118,7 +118,10 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
@@ -147,7 +150,9 @@
   "cli": {
     "packageManager": "yarn",
     "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+      "@angular-eslint/schematics",
+      "@ngrx/schematics"
+    ],
+    "analytics": false
   }
 }

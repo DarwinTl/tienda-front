@@ -1,11 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 
 import { MainContainerComponent } from '@components/main-container/main-container.component';
+import { AuthStore } from '@shared/store/auth.store';
 
 @Component({
   selector: 'app-layout-maintenance',
@@ -25,11 +32,15 @@ import { MainContainerComponent } from '@components/main-container/main-containe
       <div class="maintenance-sidebar">
         <mat-list>
           <div class="flex justify-center">
+<<<<<<< HEAD
             <img
               src="../../../../assets/imagenes/logo_banner.png"
               alt="logo_banner"
               class="img-banner"
             />
+=======
+            <img class="w-40 h-40" src="assets/imagenes/logo.png" alt="logo" />
+>>>>>>> b08c0355e108ad5c1f871af420920ae068cc3140
           </div>
           <h3 mat-subheader class="text-gray-600">General</h3>
           @for (opcion of opciones; track opcion) {
@@ -49,7 +60,9 @@ import { MainContainerComponent } from '@components/main-container/main-containe
       <header class="maintenance-header">
         <mat-toolbar class="shadow-md bg-white">
           <div class="flex max-w-5xl grow justify-end mx-auto">
-            <button mat-button color="primary">Cerrar sesión</button>
+            <button (click)="logout()" type="button" mat-button color="primary">
+              Cerrar sesión
+            </button>
           </div>
         </mat-toolbar>
       </header>
@@ -63,6 +76,10 @@ import { MainContainerComponent } from '@components/main-container/main-containe
   styleUrl: './layout-maintenance.component.scss',
 })
 export class LayoutMaintenanceComponent {
+  readonly router = inject(Router);
+  readonly route = inject(ActivatedRoute);
+  authStore = inject(AuthStore);
+
   opciones: { title: string; icon: string; link: string }[] = [
     {
       title: 'Categorías',
@@ -70,9 +87,19 @@ export class LayoutMaintenanceComponent {
       link: 'categorias',
     },
     {
+      title: 'Marcas',
+      icon: 'fact_check',
+      link: 'marcas',
+    },
+    {
       title: 'Productos',
-      icon: 'folder',
+      icon: 'fact_check',
       link: 'productos',
     },
   ];
+
+  logout() {
+    this.authStore.logout();
+    this.router.navigate(['/']);
+  }
 }

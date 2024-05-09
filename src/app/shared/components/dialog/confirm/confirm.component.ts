@@ -5,11 +5,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 
 export type DialogConfirmData = {
-  title: string;
-  message: string;
-  icon: string;
-  accept: string;
-  cancel: string;
+  title?: string;
+  message?: string;
+  icon?: string;
+  accept?: string;
+  cancel?: string;
 };
 
 @Component({
@@ -20,7 +20,7 @@ export type DialogConfirmData = {
     <div class="min-w-xl max-w-3xl">
       <div class="p-6 text-gray-600">
         <div class="flex justify-center mb-4">
-          <mat-icon color="primary">{{ data?.icon ?? 'info' }}</mat-icon>
+          <mat-icon color="primary">{{ data.icon ?? 'info' }}</mat-icon>
         </div>
         <h4 class="text-xl mb-4 text-center">
           {{ data.title ?? 'Confirmar' }}

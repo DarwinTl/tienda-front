@@ -1,244 +1,65 @@
-import { TitleCasePipe } from '@angular/common';
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { JsonPipe, TitleCasePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+
+import { ApiCategoriaAdapter } from '@api/adapters/api-categoria.adapter';
 import {
   ConfirmDialogComponent,
   DialogConfirmData,
 } from '@components/dialog/confirm/confirm.component';
-import { ApiCategoria } from 'src/app/shared/api/service/api.categoria';
+import { LoadingComponent } from '@components/loading/loading.component';
+import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
+import { ApiCategoria } from '@shared/api/service/api-categoria';
+import { Maintenance } from '@shared/models/maintenance.model';
 import { DataTableCategories } from './categories.type';
 import {
+  CategoriaField,
   FormCategorieComponent,
-  NuevoRegistroField,
-} from './form-categorie.component';
+} from './form-categories.component';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   imports: [
     TitleCasePipe,
+    JsonPipe,
     MatPaginatorModule,
     MatTableModule,
     MatButtonModule,
     MatCheckboxModule,
     MatIconModule,
+    LoadingComponent,
+    MaintenanceTableComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ApiCategoria],
-  templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss',
+  template: `
+    <app-maintenance-table
+      title="Categorías"
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [isLoading]="isLoadingDataTable()"
+      (eventCreate)="openDialogCreate()"
+      (eventChangeState)="onChangeState($event)"
+      (eventEdit)="openDialogEdit($event)"
+      (eventDelete)="openDialogDelete($event)"
+    >
+      <mat-paginator aria-label="Páginas de articulos" />
+    </app-maintenance-table>
+  `,
 })
-export class CategoriesComponent implements AfterViewInit {
-  displayedColumns: string[] = [
-    'id',
-    'nombre',
-    'descripcion',
-    'estado',
-    'acciones',
-  ];
-  dataSource: MatTableDataSource<DataTableCategories>;
-  data: DataTableCategories[] = [
-    {
-      id: 1,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 2,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 3,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 4,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 5,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: false,
-    },
-    {
-      id: 6,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 7,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 8,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 9,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 10,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 11,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 12,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: false,
-    },
-    {
-      id: 13,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 14,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 15,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 16,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 17,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 18,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 19,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 20,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 21,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 22,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 23,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 24,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 25,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 26,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 27,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 28,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 29,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-    {
-      id: 30,
-      nombre: 'Categoría 1',
-      descripcion: 'Descripción de la categoría 1',
-      estado: true,
-    },
-  ];
-
-  dialog = inject(MatDialog);
-  apiCategoria = inject(ApiCategoria);
-
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-  constructor() {
-    this.dataSource = new MatTableDataSource(this.data);
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  onChangeState(state: boolean, checkboxRef: MatCheckbox) {
+export class CategoriesComponent extends Maintenance<DataTableCategories> {
+  onChangeState({
+    state,
+    checkboxRef,
+  }: {
+    state: boolean;
+    checkboxRef: MatCheckbox;
+  }) {
     this.dialog
       .open(ConfirmDialogComponent, {
         data: {
@@ -260,15 +81,41 @@ export class CategoriesComponent implements AfterViewInit {
   }
 
   openDialogCreate() {
-    this.dialog.open(FormCategorieComponent);
+    const dialog = this.dialog.open(FormCategorieComponent);
+    dialog.afterClosed().subscribe((result) => {
+      result && this.onCreate(ApiCategoriaAdapter.postCategoria(result));
+    });
   }
 
   openDialogEdit(data: DataTableCategories) {
-    this.dialog.open(FormCategorieComponent, {
-      data: {
-        nombre: data.nombre,
-        descripcion: data.descripcion,
-      } as NuevoRegistroField,
-    });
+    this.dialog
+      .open(FormCategorieComponent, {
+        data: {
+          id: data.id,
+          nombre: data.detalle,
+          descripcion: '',
+        } as CategoriaField,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        result && this.onUpdate(ApiCategoriaAdapter.putCategoria(result));
+      });
+  }
+
+  openDialogDelete(data: DataTableCategories) {
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: {
+          title: 'Eliminar categoría',
+          message: `¿Estás seguro de eliminar la categoría ${data.detalle ?? '-'}?`,
+          icon: 'warning',
+          accept: 'Eliminar',
+          cancel: 'Cancelar',
+        } as DialogConfirmData,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        result && this.onDelete(data.id);
+      });
   }
 }

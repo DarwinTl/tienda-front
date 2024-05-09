@@ -42,4 +42,9 @@ testem.log
 Thumbs.db
 
 # Nx
-.nx
+.nx/*
+
+*.pem
+*.zip
+*.tar
+*.gz
