@@ -25,17 +25,17 @@ import { DataTableMarcas } from './marcas.type';
   ],
   template: `
     <app-maintenance-table
-  title="Marcas"
-  [dataSource]="dataSource"
-  [displayedColumns]="displayedColumns"
-  [isLoading]="isLoadingDataTable()"
-  (eventCreate)="openDialogCreate()"
-  (eventChangeState)="onChangeState($event)"
-  (eventEdit)="openDialogEdit($event)"
-  (eventDelete)="openDialogDelete($event)"
->
-  <mat-paginator aria-label="Páginas de articulos" />
-</app-maintenance-table>
+      title="Marcas"
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [isLoading]="isLoadingDataTable()"
+      (eventCreate)="openDialogCreate()"
+      (eventChangeState)="onChangeState($event)"
+      (eventEdit)="openDialogEdit($event)"
+      (eventDelete)="openDialogDelete($event)"
+    >
+      <mat-paginator aria-label="Páginas de articulos" />
+    </app-maintenance-table>
   `,
 })
 export class MarcasComponent extends Maintenance<DataTableMarcas> {
@@ -50,7 +50,13 @@ export class MarcasComponent extends Maintenance<DataTableMarcas> {
   openDialogDelete($event: DataTableMarcas) {
     throw new Error('Method not implemented.');
   }
-  onChangeState({ state, checkboxRef}: { state: boolean; checkboxRef: MatCheckbox }) {
+  onChangeState({
+    state,
+    checkboxRef,
+  }: {
+    state: boolean;
+    checkboxRef: MatCheckbox;
+  }) {
     throw new Error('Method not implemented.');
   }
 }

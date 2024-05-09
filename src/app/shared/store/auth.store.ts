@@ -55,6 +55,6 @@ export const AuthStore = signalStore(
     findCookie: () => {
       const token = localStorage.getItem('token');
       if (token !== null) patchState(store, { token });
-    }
+    },
   })),
 );

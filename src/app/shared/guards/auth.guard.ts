@@ -9,7 +9,7 @@ export const existTokenGuard: CanActivateFn = () => {
   authStore.findCookie();
   console.log({ authStore, token: authStore.token() });
   console.log('existTokenGuard');
-  
+
   return true;
   // if (!authStore.isLogged()) {
   //   return true;

@@ -12,17 +12,23 @@ import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class ApiCategoria extends HttpBase {
-  getCategories(page: number): Observable<Inbox<{ id: number; detalle: string}> >{
+  getCategories(
+    page: number,
+  ): Observable<Inbox<{ id: number; detalle: string }>> {
     const endpoint = `${API.apiCategoria}/pagina/${page}`;
-    return this.http.get<ResponseInbox<{id: number; detalle: string;}>>(endpoint).pipe(map(resp => ({
-      content: resp.content,
-      totalElements: resp.totalElements,
-      totalPages: resp.totalPages,
-      currentPage: resp.number,
-      lastPage: resp.last,
-      firstPage: resp.first,
-      itemsPerPage: resp.size,
-    })));
+    return this.http
+      .get<ResponseInbox<{ id: number; detalle: string }>>(endpoint)
+      .pipe(
+        map((resp) => ({
+          content: resp.content,
+          totalElements: resp.totalElements,
+          totalPages: resp.totalPages,
+          currentPage: resp.number,
+          lastPage: resp.last,
+          firstPage: resp.first,
+          itemsPerPage: resp.size,
+        })),
+      );
   }
 
   createCategory(data: ReqPostCategoria) {
@@ -31,7 +37,7 @@ export class ApiCategoria extends HttpBase {
   }
 
   updateCategory(id: number, data: ReqPutCategoria) {
-    const endpoint = `${API.apiCategoria}/${id}`;	
+    const endpoint = `${API.apiCategoria}/${id}`;
     return this.http.put(endpoint, data);
   }
 

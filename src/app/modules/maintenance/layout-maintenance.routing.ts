@@ -2,7 +2,10 @@ import { Routes } from '@angular/router';
 import { ApiCategoria } from '@api/service/api-categoria';
 import { ApiMarca } from '@api/service/api-marca';
 import { ApiProducto } from '@api/service/api-producto';
-import { COLUMNS_DATA_TABLE, Repository } from '@shared/models/maintenance.model';
+import {
+  COLUMNS_DATA_TABLE,
+  Repository,
+} from '@shared/models/maintenance.model';
 import { MaintenanceRoutes } from './layout.routes';
 import { CATEGORIAS_COLUMNS_DATA_TABLE } from './pages/categories/categories.const';
 import { MARCAS_COLUMNS_DATA_TABLE } from './pages/marcas/marcas.const';

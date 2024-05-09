@@ -25,18 +25,18 @@ import { DataTableProducts } from './products.type';
     MaintenanceTableComponent,
   ],
   template: `
-      <app-maintenance-table
-  title="Productos"
-  [dataSource]="dataSource"
-  [displayedColumns]="displayedColumns"
-  [isLoading]="isLoadingDataTable()"
-  (eventCreate)="openDialogCreate()"
-  (eventChangeState)="onChangeState($event)"
-  (eventEdit)="openDialogEdit($event)"
-  (eventDelete)="openDialogDelete($event)"
->
-  <mat-paginator aria-label="Páginas de productos" />
-</app-maintenance-table>
+    <app-maintenance-table
+      title="Productos"
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [isLoading]="isLoadingDataTable()"
+      (eventCreate)="openDialogCreate()"
+      (eventChangeState)="onChangeState($event)"
+      (eventEdit)="openDialogEdit($event)"
+      (eventDelete)="openDialogDelete($event)"
+    >
+      <mat-paginator aria-label="Páginas de productos" />
+    </app-maintenance-table>
   `,
 })
 export class ProductsComponent extends Maintenance<DataTableProducts> {
@@ -51,7 +51,13 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
   openDialogDelete($event: DataTableMarcas) {
     throw new Error('Method not implemented.');
   }
-  onChangeState({ state, checkboxRef}: { state: boolean; checkboxRef: MatCheckbox }) {
+  onChangeState({
+    state,
+    checkboxRef,
+  }: {
+    state: boolean;
+    checkboxRef: MatCheckbox;
+  }) {
     throw new Error('Method not implemented.');
   }
 }

@@ -11,7 +11,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: { verticalPosition: 'top', duration: 1500 },
-    }
+    },
   ],
 })
 export class CoreModule {}

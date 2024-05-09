@@ -38,23 +38,28 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ApiCategoria],
   template: `
-  <app-maintenance-table
-  title="Categorías"
-  [dataSource]="dataSource"
-  [displayedColumns]="displayedColumns"
-  [isLoading]="isLoadingDataTable()"
-  (eventCreate)="openDialogCreate()"
-  (eventChangeState)="onChangeState($event)"
-  (eventEdit)="openDialogEdit($event)"
-  (eventDelete)="openDialogDelete($event)"
->
-  <mat-paginator aria-label="Páginas de articulos" />
-</app-maintenance-table>
+    <app-maintenance-table
+      title="Categorías"
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [isLoading]="isLoadingDataTable()"
+      (eventCreate)="openDialogCreate()"
+      (eventChangeState)="onChangeState($event)"
+      (eventEdit)="openDialogEdit($event)"
+      (eventDelete)="openDialogDelete($event)"
+    >
+      <mat-paginator aria-label="Páginas de articulos" />
+    </app-maintenance-table>
   `,
 })
 export class CategoriesComponent extends Maintenance<DataTableCategories> {
-
-  onChangeState({state, checkboxRef}: {state: boolean; checkboxRef: MatCheckbox}) {
+  onChangeState({
+    state,
+    checkboxRef,
+  }: {
+    state: boolean;
+    checkboxRef: MatCheckbox;
+  }) {
     this.dialog
       .open(ConfirmDialogComponent, {
         data: {
@@ -77,35 +82,40 @@ export class CategoriesComponent extends Maintenance<DataTableCategories> {
 
   openDialogCreate() {
     const dialog = this.dialog.open(FormCategorieComponent);
-    dialog.afterClosed().subscribe(result => {
+    dialog.afterClosed().subscribe((result) => {
       result && this.onCreate(ApiCategoriaAdapter.postCategoria(result));
-    })
+    });
   }
 
   openDialogEdit(data: DataTableCategories) {
-    this.dialog.open(FormCategorieComponent, {
-      data: {
-        id: data.id,
-        nombre: data.detalle,
-        descripcion: '',
-      } as CategoriaField,
-    }).afterClosed().subscribe(result => {
-      result && this.onUpdate(ApiCategoriaAdapter.putCategoria(result));
-    }
-    );
+    this.dialog
+      .open(FormCategorieComponent, {
+        data: {
+          id: data.id,
+          nombre: data.detalle,
+          descripcion: '',
+        } as CategoriaField,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        result && this.onUpdate(ApiCategoriaAdapter.putCategoria(result));
+      });
   }
 
   openDialogDelete(data: DataTableCategories) {
-    this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        title: 'Eliminar categoría',
-        message: `¿Estás seguro de eliminar la categoría ${data.detalle ?? '-'}?`,
-        icon: 'warning',
-        accept: 'Eliminar',
-        cancel: 'Cancelar',
-      } as DialogConfirmData,
-    }).afterClosed().subscribe(result => {
-      result && this.onDelete(data.id);
-    });
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: {
+          title: 'Eliminar categoría',
+          message: `¿Estás seguro de eliminar la categoría ${data.detalle ?? '-'}?`,
+          icon: 'warning',
+          accept: 'Eliminar',
+          cancel: 'Cancelar',
+        } as DialogConfirmData,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        result && this.onDelete(data.id);
+      });
   }
 }

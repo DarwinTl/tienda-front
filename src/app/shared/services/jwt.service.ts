@@ -4,7 +4,7 @@ import { JwtAuthorities, JwtPayload } from '@shared/types/jwt.type';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JwtService {
   authStore = inject(AuthStore);
@@ -16,6 +16,8 @@ export class JwtService {
   }
 
   authorities() {
-    return (JSON.parse(this.decodedToken().authorities) as JwtAuthorities[]).map(auth => auth.authority);
+    return (
+      JSON.parse(this.decodedToken().authorities) as JwtAuthorities[]
+    ).map((auth) => auth.authority);
   }
 }

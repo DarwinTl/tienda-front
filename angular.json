@@ -45,9 +45,7 @@
             "outputPath": "dist/",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -55,16 +53,18 @@
               "src/assets"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/assets/sass"
-              ]
+              "includePaths": ["src/assets/sass"]
             },
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "allowedCommonJsDependencies": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+            ]
           },
           "configurations": {
             "production": {

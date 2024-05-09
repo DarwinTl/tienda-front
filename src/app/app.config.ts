@@ -13,7 +13,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([tokenInterceptor, unAuthorizedInterceptor])),
+    provideHttpClient(
+      withInterceptors([tokenInterceptor, unAuthorizedInterceptor]),
+    ),
     importProvidersFrom(CoreModule),
     ApiAuth,
     AuthStore,

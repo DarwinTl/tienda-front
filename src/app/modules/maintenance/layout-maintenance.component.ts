@@ -32,7 +32,7 @@ import { AuthStore } from '@shared/store/auth.store';
       <div class="maintenance-sidebar">
         <mat-list>
           <div class="flex justify-center">
-            <img class="w-40 h-40" src="/assets/imagenes/logo.png" alt="logo" />
+            <img class="w-40 h-40" src="assets/imagenes/logo.png" alt="logo" />
           </div>
           <h3 mat-subheader class="text-gray-600">General</h3>
           @for (opcion of opciones; track opcion) {
