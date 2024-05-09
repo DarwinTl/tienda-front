@@ -129,12 +129,15 @@ export class AuthComponent {
   }
 
   onSubmitLogin() {
+    console.log('submit');
+
     if (this.formLogin.invalid) return;
     const formValue = this.formLogin.getRawValue();
     const payload: ApiReqPostLogin = {
       correo: formValue.correo,
       password: formValue.contrasenia,
     };
+
     this.#login(payload);
   }
 
@@ -143,6 +146,7 @@ export class AuthComponent {
   }
 
   #login(payload: ApiReqPostLogin) {
+    console.log('send login');
     this.authStore.login(payload);
   }
 }
