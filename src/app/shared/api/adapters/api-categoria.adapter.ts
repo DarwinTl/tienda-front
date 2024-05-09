@@ -7,14 +7,18 @@ import { CategoriaField } from '@maintenance/pages/categories/form-categories.co
 export class ApiCategoriaAdapter {
   static postCategoria(data: CategoriaField): ReqPostCategoria {
     return {
-      detalle: data.nombre.toUpperCase(),
+      nombre: data.nombre.toUpperCase(),
+      detalle: data.detalle.toUpperCase(),
+      icono: data.icono,
     };
   }
 
   static putCategoria(data: Required<CategoriaField>): ReqPutCategoria {
     return {
       id: data.id,
-      detalle: data.nombre.toUpperCase(),
+      nombre: data.nombre.toUpperCase(),
+      detalle: data.detalle.toUpperCase(),
+      icono: data.icono,
     };
   }
 }

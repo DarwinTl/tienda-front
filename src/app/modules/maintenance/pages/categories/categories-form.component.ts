@@ -11,20 +11,24 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 
 import { CustomAbstractControl } from '@shared/types/utilities.type';
 
-export type NuevoRegistroForm = CustomAbstractControl<NuevoRegistroField>;
+export type CategoriaForm = CustomAbstractControl<CategoriaField>;
 
-export type NuevoRegistroField = {
+export type CategoriaField = {
+  id?: number;
   nombre: string;
-  descripcion: string;
+  detalle: string;
+  icono?: string;
 };
 
 @Component({
-  selector: 'app-form-categorie',
+  selector: 'app-categories-form',
   standalone: true,
   imports: [
+    OnlyLettersDirective,
     MatFormFieldModule,
     MatLabel,
     MatInputModule,
@@ -47,6 +51,7 @@ export type NuevoRegistroField = {
           <mat-form-field class="grow">
             <mat-label>Nombre</mat-label>
             <input
+              appOnlyLetters
               formControlName="nombre"
               matInput
               placeholder="Nombre"
@@ -55,11 +60,7 @@ export type NuevoRegistroField = {
           </mat-form-field>
           <mat-form-field class="grow">
             <mat-label>Description</mat-label>
-            <textarea
-              formControlName="descripcion"
-              matInput
-              type="text"
-            ></textarea>
+            <textarea formControlName="detalle" matInput type="text"></textarea>
           </mat-form-field>
           <div class="flex justify-center gap-4">
             <button mat-button color="warn" mat-dialog-close>Cerrar</button>
@@ -72,12 +73,11 @@ export type NuevoRegistroField = {
     </div>
   `,
 })
-export class FormCategorieComponent {
+export class CategoriesFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly dialogRef = inject(MatDialogRef);
-  data: NuevoRegistroField = inject(DIALOG_DATA);
-
-  form: FormGroup<NuevoRegistroForm>;
+  data: CategoriaField = inject(DIALOG_DATA);
+  form: FormGroup<CategoriaForm>;
 
   constructor() {
     this.form = this.#createForm();
@@ -85,12 +85,13 @@ export class FormCategorieComponent {
   }
 
   #createForm() {
-    return this.fb.group<NuevoRegistroForm>({
+    return this.fb.group<CategoriaForm>({
+      id: this.fb.control<number | undefined>(undefined, { nonNullable: true }),
       nombre: this.fb.control('', {
         nonNullable: true,
         validators: Validators.required,
       }),
-      descripcion: this.fb.control('', { nonNullable: true }),
+      detalle: this.fb.control('', { nonNullable: true }),
     });
   }
 
@@ -102,10 +103,8 @@ export class FormCategorieComponent {
 
   onSubmit() {
     if (this.form.invalid) {
-      console.log('Formulario inválido');
       return;
     }
-    console.log(this.form.value);
     this.dialogRef.close(this.form.getRawValue());
   }
 }
