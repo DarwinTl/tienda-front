@@ -25,7 +25,11 @@ import { MainContainerComponent } from '@components/main-container/main-containe
       <div class="maintenance-sidebar">
         <mat-list>
           <div class="flex justify-center">
-          <img src="../../../../assets/imagenes/logo_banner.png" alt="logo_banner" class="img-banner">
+            <img
+              src="../../../../assets/imagenes/logo_banner.png"
+              alt="logo_banner"
+              class="img-banner"
+            />
           </div>
           <h3 mat-subheader class="text-gray-600">General</h3>
           @for (opcion of opciones; track opcion) {

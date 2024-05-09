@@ -5,7 +5,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
+import {
+  MatDrawer,
+  MatDrawerContainer,
+  MatDrawerContent,
+} from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MainContainerComponent } from '@components/main-container/main-container.component';
@@ -28,10 +32,10 @@ import { MainContainerComponent } from '@components/main-container/main-containe
     MainContainerComponent,
     RouterLink,
     RouterLinkActive,
-    RouterOutlet
+    RouterOutlet,
   ],
   templateUrl: './cabecera.component.html',
-  styleUrl: './cabecera.component.scss'
+  styleUrl: './cabecera.component.scss',
 })
 export class CabeceraComponent {
   badgevisible = false;
