@@ -24,5 +24,5 @@ export type categoria_product_list = {
 
 export type medida_product_list = {
   id: number;
-  detalle: string;
+  descripcion: string;
 };

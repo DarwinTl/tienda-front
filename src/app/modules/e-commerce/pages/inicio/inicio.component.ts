@@ -32,12 +32,13 @@ export class InicioComponent implements OnInit {
   productos: product_List[] = []
   customOptions: OwlOptions = {
     loop: true,
-    mouseDrag: false,
+    mouseDrag: true,
     touchDrag: false,
     pullDrag: false,
-    dots: false,
+    dots: true,
     navSpeed: 700,
-    navText: ['', ''],
+    autoplay: true,
+    navText: ['Anterior', 'Siguiente'],
     responsive: {
       0: {
         items: 1
@@ -55,10 +56,6 @@ export class InicioComponent implements OnInit {
     nav: true
   }
 
-
-  longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
-  from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-  originally bred for hunting.`
   constructor(private router: Router, private _ecommerceService: ecommerceService) {
 
   }
@@ -70,7 +67,10 @@ export class InicioComponent implements OnInit {
   fngetList() {
     this._ecommerceService.getProducts().subscribe({
       next: (res) => {
-        console.log(res);
+
+        this.productos = res;
+
+        console.log(this.productos)
       },
       error: (e: HttpErrorResponse) => {
         console.log('Error :', e)

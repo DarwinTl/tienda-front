@@ -29,67 +29,28 @@
   </button>
 </div>
 
-<section>
-  <h1 style="text-align: left; margin-left: 8px; margin-top: 8px">
-    Lo más vendido
-  </h1>
-
-  <mat-grid-list cols="3" rowHeight="350px">
-    <mat-grid-tile>
+<section  style="margin-top: 20px; margin-left: 20px; padding: auto;" >
+  <owl-carousel-o [options]="customOptions">
+    @for(producto of productos; track producto){
+    <ng-template carouselSlide>
       <mat-card class="example-card">
         <mat-card-header>
           <mat-card-title-group>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Small</mat-card-subtitle>
-            <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="" />
+            <mat-card-title>{{ producto.nombre }}</mat-card-title>
+            <mat-card-subtitle style="text-align: left;">{{ producto.marca.detalle }}</mat-card-subtitle>
+            <img  class="img-carousel" src="http://localhost:8080/api/mantenimiento/productos/img/{{producto.ruta}}" alt="" />
           </mat-card-title-group>
         </mat-card-header>
-        <mat-card-content>
-          {{ longText }}
+        <mat-card-content style="margin-top: 8px;">
+          {{ producto.descripcion }} x {{ producto.medida.descripcion }}
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Small</mat-card-subtitle>
-            <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="" />
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-          {{ longText }}
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Small</mat-card-subtitle>
-            <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="" />
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-          {{ longText }}
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+    </ng-template>
+    }
+  </owl-carousel-o>
 </section>
 
-<div>Some tags before</div>
-<owl-carousel-o [options]="customOptions">
-  <ng-template carouselSlide>Slide 1</ng-template>
-  <ng-template carouselSlide>Slide 2</ng-template>
-  <ng-template carouselSlide>Slide 3</ng-template>
-</owl-carousel-o>
-<div>Some tags after</div>
-
-
-<footer class="footer">
+<footer class="footer" style="margin-top: 10px;">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
