@@ -2,7 +2,7 @@ import {
   ReqPostCategoria,
   ReqPutCategoria,
 } from '@api/interface/api-categoria.interface';
-import { CategoriaField } from '@maintenance/pages/categories/form-categories.component';
+import { CategoriaField } from '@maintenance/pages/categories/categories-form.component';
 
 export class ApiCategoriaAdapter {
   static postCategoria(data: CategoriaField): ReqPostCategoria {

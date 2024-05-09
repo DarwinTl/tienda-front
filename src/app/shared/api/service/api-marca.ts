@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API } from '@api/api.const';
 import {
@@ -12,11 +13,12 @@ import { map, Observable } from 'rxjs';
 @Injectable()
 export class ApiMarca extends HttpBase {
   getMarca(page: number): Observable<Inbox<{ id: number; detalle: string }>> {
-    const endpoint = `${API.apiMarca}/pagina/${page}`;
+    const params = new HttpParams({ fromObject: { page, num: 5 } });
+    const endpoint = `${API.apiMarca}/pagina`;
     return this.http
       .get<
         ResponseInbox<{ id: number; nombre: string; detalle: string }>
-      >(endpoint)
+      >(endpoint, { params })
       .pipe(
         map((resp) => ({
           content: resp.content,

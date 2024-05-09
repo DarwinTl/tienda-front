@@ -5,9 +5,11 @@ import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { ConfirmDialogComponent, DialogConfirmData } from '@components/dialog/confirm/confirm.component';
 import { LoadingComponent } from '@components/loading/loading.component';
 import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
 import { Maintenance } from '@shared/models/maintenance.model';
+import { MarcasFormComponent } from './marcas-form.component';
 import { DataTableMarcas } from './marcas.type';
 
 @Component({
@@ -40,15 +42,40 @@ import { DataTableMarcas } from './marcas.type';
 })
 export class MarcasComponent extends Maintenance<DataTableMarcas> {
   openDialogCreate() {
-    throw new Error('Method not implemented.');
+    const dialog = this.dialog.open(MarcasFormComponent);
+    dialog.afterClosed().subscribe(result => {
+      result && this.onCreate(result);
+    });
   }
 
-  openDialogEdit($event: DataTableMarcas) {
-    throw new Error('Method not implemented.');
+  openDialogEdit(data: DataTableMarcas) {
+    const dialog = this.dialog.open(MarcasFormComponent,
+      {
+        data: {
+          id: data.id,
+          nombre: data.nombre,
+          detalle: data.detalle,
+        }
+      }
+    );
+    dialog.afterClosed().subscribe(result => {
+      result && this.onUpdate(result);
+    })
   }
 
-  openDialogDelete($event: DataTableMarcas) {
-    throw new Error('Method not implemented.');
+  openDialogDelete(data: DataTableMarcas) {
+    const dialog = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Eliminar marca',
+        message: `¿Estás seguro de eliminar la marca ${data.nombre}?`,
+        icon: 'warning',
+          accept: 'Eliminar',
+          cancel: 'Cancelar',
+      } as DialogConfirmData,
+    });
+    dialog.afterClosed().subscribe(result => {
+      result && this.onDelete(data.id);
+    });
   }
   onChangeState({
     state,
@@ -57,6 +84,6 @@ export class MarcasComponent extends Maintenance<DataTableMarcas> {
     state: boolean;
     checkboxRef: MatCheckbox;
   }) {
-    throw new Error('Method not implemented.');
+    console.log({ state, checkboxRef });
   }
 }
