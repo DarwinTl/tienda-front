@@ -1,10 +1,10 @@
 import { computed, inject } from '@angular/core';
 import {
-  patchState,
+ patchState,
   signalStore,
   withComputed,
   withMethods,
-  withState,
+  withState
 } from '@ngrx/signals';
 import { debounceTime, finalize, pipe, switchMap, tap } from 'rxjs';
 

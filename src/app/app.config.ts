@@ -13,16 +13,11 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
-<<<<<<< HEAD
-    provideHttpClient(),
-    importProvidersFrom(CoreModule),
-=======
     provideHttpClient(
       withInterceptors([tokenInterceptor, unAuthorizedInterceptor]),
     ),
     importProvidersFrom(CoreModule),
     ApiAuth,
     AuthStore,
->>>>>>> b08c0355e108ad5c1f871af420920ae068cc3140
   ],
 };

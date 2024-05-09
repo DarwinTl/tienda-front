@@ -10,17 +10,13 @@ a {
 
 .custome-toolbar {
   position: fixed;
-<<<<<<< HEAD
-  top: 0 !important ;
+  top: 0 !important;
   width: 100%;
-  z-index: 1002; /* Ajusta este valor según sea necesario */
-=======
-  top: 0;
-  width: 100%;
-  z-index: 1000; /* Ajusta este valor según sea necesario */
-  /* Estilos adicionales según tus preferencias */
->>>>>>> b08c0355e108ad5c1f871af420920ae068cc3140
+  z-index: 1000;
+
+  /* Ajusta este valor según sea necesario */
   background-color: #cc292e;
+
   // color: white;
   .img-banner {
     max-width: 15%;

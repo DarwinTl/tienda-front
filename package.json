@@ -23,12 +23,10 @@
     "@angular/platform-browser-dynamic": "^17.3.7",
     "@angular/router": "^17.3.7",
     "@ngrx/signals": "17.2.0",
+    "@ngrx/store": "^17.2.0",
     "bootstrap": "^5.3.3",
-<<<<<<< HEAD
-    "ngx-owl-carousel-o": "^17.0.0",
-=======
     "jwt-decode": "^4.0.0",
->>>>>>> b08c0355e108ad5c1f871af420920ae068cc3140
+    "ngx-owl-carousel-o": "^17.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.5"
