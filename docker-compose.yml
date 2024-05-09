@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  frontend-local:
+    image: market/angular-framework:1.0.0
+    container_name: frontend
+    build:
+      dockerfile: Dockerfile.local
+    ports:
+      - '4200:4200'
+    volumes:
+      - .:/app:wr
+    working_dir: /app
+    stdin_open: true
+    tty: true

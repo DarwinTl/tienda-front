@@ -1,0 +1,158 @@
+<div class="login-root">
+  <header>
+    <mat-toolbar class="shadow-sm">
+      <div class="flex">
+        <button class="w-28" routerLink="/" mat-button>
+          <mat-icon>chevron_left</mat-icon> Volver
+        </button>
+      </div>
+    </mat-toolbar>
+  </header>
+  <main class="main-content">
+    <app-loading [isLoading]="authStore.isLoading()">
+      <div class="grid grid-cols-[45%_55%] h-full">
+        <div class="h-full">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/imagenes/login-banner.webp"
+            />
+            <source
+              type="image/jpg"
+              srcset="assets/imagenes/login-banner.jpg"
+            />
+            <img
+              class="w-full h-full object-cover"
+              src="assets/imagenes/login-banner.jpg"
+              alt="login banner"
+            />
+          </picture>
+        </div>
+        <div class="py-12 px-8 max-w-md mx-auto">
+          <h4 class="text-gray-700 mb-10 text-center font-bold text-xl">
+            Regístrate o ingresa para continuar
+          </h4>
+          @if (isRegisterForm()) {
+            <form
+              [formGroup]="formRegister"
+              class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1"
+              (submit)="onSubmitRegister()"
+            >
+              <mat-form-field class="md:col-span-2">
+                <mat-label>Correo electrónico</mat-label>
+                <input formControlName="correo" matInput type="text" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input formControlName="contrasenia" matInput type="text" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Repetir contraseña</mat-label>
+                <input
+                  formControlName="contraseniaValid"
+                  matInput
+                  type="text"
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input formControlName="nombre" matInput type="text" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Apellido paterno</mat-label>
+                <input formControlName="apellidoPaterno" matInput type="text" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Apellido materno</mat-label>
+                <input formControlName="apellidoMaterno" matInput type="text" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Tipo documento</mat-label>
+                <mat-select
+                  formControlName="tipoDocumento"
+                  matInput
+                  type="text"
+                >
+                  <mat-option value="1">DNI</mat-option>
+                  <mat-option value="2">PS</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Número de documento</mat-label>
+                <input formControlName="numeroDocumento" matInput type="text" />
+              </mat-form-field>
+              <div class="flex justify-center md:col-span-2">
+                <button
+                  type="submit"
+                  class="w-full"
+                  mat-raised-button
+                  color="primary"
+                >
+                  Crear cuenta
+                </button>
+              </div>
+            </form>
+
+            <span class="my-4 line-divider">o</span>
+
+            <div class="flex justify-center">
+              <button
+                type="button"
+                (click)="toggleForm()"
+                class="w-full"
+                mat-button
+              >
+                Ya tengo una cuenta
+              </button>
+            </div>
+          } @else {
+            <button class="mb-4" (click)="toggleForm()" mat-button>
+              <mat-icon>chevron_left</mat-icon> Regresar
+            </button>
+            <form
+              [formGroup]="formLogin"
+              class="grid grid-cols-1"
+              (submit)="onSubmitLogin()"
+            >
+              <mat-form-field>
+                <mat-label>Correo electrónico</mat-label>
+                <input
+                  class="w-full"
+                  formControlName="correo"
+                  matInput
+                  type="text"
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input
+                  class="w-full"
+                  formControlName="contrasenia"
+                  matInput
+                  type="password"
+                />
+              </mat-form-field>
+
+              @if (authStore.error()) {
+                <div class="flex mx-2 pb-4">
+                  <p class="text-red-500 text-sm">{{ authStore.error() }}</p>
+                </div>
+              }
+
+              <div class="flex">
+                <button
+                  type="submit"
+                  class="w-full"
+                  mat-raised-button
+                  color="accent"
+                >
+                  Iniciar sesión
+                </button>
+              </div>
+            </form>
+          }
+        </div>
+      </div>
+    </app-loading>
+  </main>
+</div>

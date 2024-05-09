@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { AuthStore } from '@shared/store/auth.store';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  standalone: true,
+  template: ` <router-outlet></router-outlet> `,
+  styles: [],
+  imports: [RouterOutlet],
 })
 export class AppComponent {
-  title = 'tienda-front';
+  readonly authStore = inject(AuthStore);
+  constructor() {
+    this.authStore.findCookie();
+  }
 }

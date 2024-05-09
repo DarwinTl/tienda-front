@@ -1,0 +1,11 @@
+:root {
+  --mdc-list-list-item-container-shape: 4px;
+  --mdc-list-list-item-focus-state-layer-color: rgb(
+    75 85 99 / var(--tw-text-opacity)
+  );
+  --mat-toolbar-container-background-color: white;
+}
+
+.mdc-notched-outline__notch {
+  border-right: none;
+}
