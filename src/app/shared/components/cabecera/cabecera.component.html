@@ -26,72 +26,15 @@
 <mat-drawer-container autosize style="margin-top: 64px;">
   <mat-drawer #drawer opened="true" mode="side" position="start">
     <mat-nav-list>
-      <mat-list-item>
-        <button routerLink="" mat-button>
+      @for(c of categorias; track c){
+      <mat-list-item  >
+        <button [routerLink]="['/cuerpo', { parametro: c.id }]" mat-button>
 
-          <mat-icon><img src="assets/imagenes/carne.png" alt="" /></mat-icon>
-          Carnes, Aves y Pescados
+          <mat-icon><img [src]="'assets/imagenes/' + c.icono" alt="" /></mat-icon>
+          {{c.nombre}}
         </button>
       </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/frutas_verduras.png" alt="" /></mat-icon>
-          Frutas y Verduras
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/congelador.png" alt="" /></mat-icon>Congelados
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/productos-lacteos.png" alt="" /></mat-icon>Lacteos y Huevos
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-
-          <mat-icon><img src="assets/imagenes/embutido.png" alt="" /></mat-icon>Fiambres
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <i class="fa-solid fa-basket-shopping"></i> Abarrotes
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-
-          <mat-icon><img src="assets/imagenes/desayuno.png" alt="" /></mat-icon>Desayuno
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/panaderia.png" alt="" /></mat-icon>Panaderia y Pasteleria
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-
-          <mat-icon><img src="assets/imagenes/bebidas.png" alt="" /></mat-icon>Bebidas
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/mascotas.png" alt="" /></mat-icon>Mascotas
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/cuidado-dental.png" alt="" /></mat-icon>Cuidado Personal
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/productos-de-limpieza.png" alt="" /></mat-icon>Limpieza
-        </button>
-      </mat-list-item>
+    }
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
