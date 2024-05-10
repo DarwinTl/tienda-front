@@ -15,11 +15,11 @@ import { LoadingComponent } from '@components/loading/loading.component';
 import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
 import { ApiCategoria } from '@shared/api/service/api-categoria';
 import { Maintenance } from '@shared/models/maintenance.model';
-import { DataTableCategories } from './categories.type';
 import {
   CategoriaField,
-  FormCategorieComponent,
-} from './form-categories.component';
+  CategoriesFormComponent,
+} from './categories-form.component';
+import { DataTableCategories } from './categories.type';
 
 @Component({
   selector: 'app-categories',
@@ -81,7 +81,7 @@ export class CategoriesComponent extends Maintenance<DataTableCategories> {
   }
 
   openDialogCreate() {
-    const dialog = this.dialog.open(FormCategorieComponent);
+    const dialog = this.dialog.open(CategoriesFormComponent);
     dialog.afterClosed().subscribe((result) => {
       result && this.onCreate(ApiCategoriaAdapter.postCategoria(result));
     });
@@ -89,11 +89,11 @@ export class CategoriesComponent extends Maintenance<DataTableCategories> {
 
   openDialogEdit(data: DataTableCategories) {
     this.dialog
-      .open(FormCategorieComponent, {
+      .open(CategoriesFormComponent, {
         data: {
           id: data.id,
-          nombre: data.detalle,
-          descripcion: '',
+          nombre: data.nombre,
+          detalle: data.detalle,
         } as CategoriaField,
       })
       .afterClosed()

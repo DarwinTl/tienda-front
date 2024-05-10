@@ -15,16 +15,16 @@ import { OnlyLettersDirective } from '@shared/directives/only-letters.directive'
 
 import { CustomAbstractControl } from '@shared/types/utilities.type';
 
-export type CategoriaForm = CustomAbstractControl<CategoriaField>;
+export type MarcaForm = CustomAbstractControl<MarcaField>;
 
-export type CategoriaField = {
+export type MarcaField = {
   id?: number;
   nombre: string;
-  descripcion: string;
+  detalle: string;
 };
 
 @Component({
-  selector: 'app-form-categorie',
+  selector: 'app-marcas-form',
   standalone: true,
   imports: [
     OnlyLettersDirective,
@@ -40,7 +40,7 @@ export type CategoriaField = {
     <div class="max-w-xl">
       <div class="p-8">
         <h4 class="text-xl mb-6 text-center">
-          {{ data ? 'Editar' : 'Registro de nueva' }} categoria
+          {{ data ? 'Editar' : 'Registro de nueva' }} marca
         </h4>
         <form
           [formGroup]="form"
@@ -59,11 +59,7 @@ export type CategoriaField = {
           </mat-form-field>
           <mat-form-field class="grow">
             <mat-label>Description</mat-label>
-            <textarea
-              formControlName="descripcion"
-              matInput
-              type="text"
-            ></textarea>
+            <textarea formControlName="detalle" matInput type="text"></textarea>
           </mat-form-field>
           <div class="flex justify-center gap-4">
             <button mat-button color="warn" mat-dialog-close>Cerrar</button>
@@ -76,11 +72,11 @@ export type CategoriaField = {
     </div>
   `,
 })
-export class FormCategorieComponent {
+export class MarcasFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly dialogRef = inject(MatDialogRef);
-  data: CategoriaField = inject(DIALOG_DATA);
-  form: FormGroup<CategoriaForm>;
+  data: MarcaField = inject(DIALOG_DATA);
+  form: FormGroup<MarcaForm>;
 
   constructor() {
     this.form = this.#createForm();
@@ -88,13 +84,13 @@ export class FormCategorieComponent {
   }
 
   #createForm() {
-    return this.fb.group<CategoriaForm>({
+    return this.fb.group<MarcaForm>({
       id: this.fb.control<number | undefined>(undefined, { nonNullable: true }),
       nombre: this.fb.control('', {
         nonNullable: true,
         validators: Validators.required,
       }),
-      descripcion: this.fb.control('', { nonNullable: true }),
+      detalle: this.fb.control('', { nonNullable: true }),
     });
   }
 

@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API } from '@api/api.const';
 import {
@@ -14,11 +15,12 @@ export class ApiProducto extends HttpBase {
   getProducto(
     page: number,
   ): Observable<Inbox<{ id: number; detalle: string }>> {
-    const endpoint = `${API.apiProducto}/pagina/${page}`;
+    const params = new HttpParams({ fromObject: { page, num: 5 } });
+    const endpoint = `${API.apiProducto}/pagina`;
     return this.http
       .get<
         ResponseInbox<{ id: number; nombre: string; detalle: string }>
-      >(endpoint)
+      >(endpoint, { params })
       .pipe(
         map((resp) => ({
           content: resp.content,
