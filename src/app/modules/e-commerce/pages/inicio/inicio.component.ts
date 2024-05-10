@@ -6,7 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { product_List } from './Inicio.type';
+import { categoria_product_list, product_List } from './Inicio.type';
 import { Router } from '@angular/router';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -30,6 +30,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class InicioComponent implements OnInit {
   productos: product_List[] = []
+  categorias: categoria_product_list[] = []
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -62,6 +63,7 @@ export class InicioComponent implements OnInit {
 
   ngOnInit(): void {
     this.fngetList()
+    this.fngeCatList()
   }
 
   fngetList() {
@@ -78,4 +80,20 @@ export class InicioComponent implements OnInit {
       }
     });
   }
+
+  fngeCatList() {
+    this._ecommerceService.getCategories().subscribe({
+      next: (res) => {
+
+        this.categorias = res;
+
+        console.log(this.categorias)
+      },
+      error: (e: HttpErrorResponse) => {
+        console.log('Error :', e)
+        return
+      }
+    });
+  }
+
 }

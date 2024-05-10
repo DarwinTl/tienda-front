@@ -19,7 +19,9 @@ export type marca_product_list = {
 
 export type categoria_product_list = {
   id: number;
+  nombre: string;
   detalle: string;
+  icono: string;
 };
 
 export type medida_product_list = {
