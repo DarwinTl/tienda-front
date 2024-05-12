@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { MatToolbar } from '@angular/material/toolbar';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatListModule } from '@angular/material/list';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatBadge } from '@angular/material/badge';
+import { MatButton } from '@angular/material/button';
+import { MatFormField } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatList } from '@angular/material/list';
+import { MatMenu } from '@angular/material/menu';
 import {
   MatDrawer,
   MatDrawerContainer,
   MatDrawerContent,
 } from '@angular/material/sidenav'; // For compatibility with older Angular Material versions
+import { MatToolbar } from '@angular/material/toolbar';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { CabeceraComponent } from '../../shared/components/cabecera/cabecera.component';
 
@@ -21,17 +21,17 @@ import { CabeceraComponent } from '../../shared/components/cabecera/cabecera.com
   standalone: true,
   template: ` <app-cabecera></app-cabecera>`,
   imports: [
-    MatMenuModule,
-    MatListModule,
+    MatMenu,
+    MatList,
     MatDrawer,
     MatDrawerContainer,
-    MatBadgeModule,
-    MatIconModule,
+    MatBadge,
+    MatIcon,
     MatDrawerContent,
     RouterOutlet,
     MatToolbar,
-    MatButtonModule,
-    MatFormFieldModule,
+    MatButton,
+    MatFormField,
     MainContainerComponent,
     RouterLink,
     RouterLinkActive,

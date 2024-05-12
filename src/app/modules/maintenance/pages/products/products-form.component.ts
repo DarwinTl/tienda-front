@@ -7,14 +7,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatOptionModule } from '@angular/material/core';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatOption } from '@angular/material/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
 import { ProductoRepository } from '@maintenance/repositories/producto.repository';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 
@@ -56,15 +56,15 @@ export type ProductoField = {
     NgFor,
     NgIf,
     OnlyLettersDirective,
-    MatFormFieldModule,
+    MatFormField,
     MatLabel,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
+    MatInput,
+    MatButton,
+    MatIcon,
     MatDialogModule,
-    MatCheckboxModule,
-    MatSelectModule,
-    MatOptionModule,
+    MatCheckbox,
+    MatSelect,
+    MatOption,
     ReactiveFormsModule,
     FileUploadModule,
     ButtonModule,

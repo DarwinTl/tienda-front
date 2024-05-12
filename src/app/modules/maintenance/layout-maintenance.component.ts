@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatList } from '@angular/material/list';
+import { MatToolbar } from '@angular/material/toolbar';
 import {
   ActivatedRoute,
   Router,
@@ -20,10 +20,10 @@ import { MaintenanceRoutes } from './layout.routes';
   standalone: true,
   imports: [
     MainContainerComponent,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
+    MatList,
+    MatIcon,
+    MatButton,
+    MatToolbar,
     RouterLink,
     RouterLinkActive,
     RouterOutlet,

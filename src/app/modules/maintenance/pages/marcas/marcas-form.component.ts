@@ -6,11 +6,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 
 import { CustomAbstractControl } from '@shared/types/utilities.type';
@@ -28,11 +28,11 @@ export type MarcaField = {
   standalone: true,
   imports: [
     OnlyLettersDirective,
-    MatFormFieldModule,
+    MatFormField,
     MatLabel,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
+    MatInput,
+    MatButton,
+    MatIcon,
     MatDialogModule,
     ReactiveFormsModule,
   ],
