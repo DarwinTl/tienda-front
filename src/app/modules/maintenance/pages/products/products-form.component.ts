@@ -49,8 +49,8 @@ export type ProductoField = {
   descripcion: string;
   ruta: string;
   estado: boolean;
-  stock: number;
-  precioVenta: number;
+  stock: number | null;
+  precioVenta: number | null;
   marca: number | null;
   categoria: number | null;
   medida: number | null;
@@ -161,12 +161,10 @@ export class ProductsFormComponent {
       }),
       ruta: this.fb.control('', { nonNullable: true }),
       estado: this.fb.control(true, { nonNullable: true }),
-      stock: this.fb.control(0, {
-        nonNullable: true,
+      stock: this.fb.control<number | null>(null, {
         validators: [Validators.required],
       }),
-      precioVenta: this.fb.control(0, {
-        nonNullable: true,
+      precioVenta: this.fb.control<number | null>(null, {
         validators: [Validators.required],
       }),
       marca: this.fb.control<number | null>(null, {
