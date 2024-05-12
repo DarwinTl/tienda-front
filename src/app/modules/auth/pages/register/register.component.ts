@@ -3,12 +3,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
+import { MatTooltip } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { ApiReqPostRegister } from '@api/interface/api.auth';
 import { AuthRegisterForm } from '@auth/auth.type';
 import { AuthRepository } from '@auth/repositories/auth-repository';
+import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 import { OnlyNumbersDirective } from '@shared/directives/only-numbers.directive';
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
@@ -24,6 +27,9 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
     MatSelect,
     MatButton,
     MatInput,
+    FormFieldComponent,
+    MatIcon,
+    MatTooltip,
     OnlyLettersDirective,
     OnlyNumbersDirective,
     RouterLink,

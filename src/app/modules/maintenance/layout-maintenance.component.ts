@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatList } from '@angular/material/list';
+import { MatList, MatListItem, MatListItemIcon } from '@angular/material/list';
 import { MatToolbar } from '@angular/material/toolbar';
 import {
   ActivatedRoute,
@@ -21,6 +21,8 @@ import { MaintenanceRoutes } from './layout.routes';
   imports: [
     MainContainerComponent,
     MatList,
+    MatListItem,
+    MatListItemIcon,
     MatIcon,
     MatButton,
     MatToolbar,

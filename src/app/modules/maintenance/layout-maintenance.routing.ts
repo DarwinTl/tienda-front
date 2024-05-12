@@ -54,6 +54,7 @@ const routes: Routes = [
       ApiProducto,
       ApiHome,
       ApiMarca,
+      ApiUnidadMedida,
     ],
     loadComponent: () =>
       import('@maintenance/pages/products/products.component').then(
@@ -67,10 +68,14 @@ const routes: Routes = [
       import('@maintenance/pages/unidades/unidades.component').then(
         (c) => c.UnidadesComponent,
       ),
-      providers: [
-        { provide: COLUMNS_DATA_TABLE, useValue: UNIDAD_MEDIDA_COLUMNS_DATA_TABLE },
-        { provide: Repository, useClass: UnidadMedidaRepository },
-        ApiUnidadMedida]
+    providers: [
+      {
+        provide: COLUMNS_DATA_TABLE,
+        useValue: UNIDAD_MEDIDA_COLUMNS_DATA_TABLE,
+      },
+      { provide: Repository, useClass: UnidadMedidaRepository },
+      ApiUnidadMedida,
+    ],
   },
   {
     path: '',

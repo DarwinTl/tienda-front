@@ -8,12 +8,13 @@ import {
 } from '@api/interface/api-categoria.interface';
 import { ReqPostUnidadMedida, ReqPutUnidadMedida } from '@api/interface/api-unidad-medida.interface';
 import { Categoria } from '@maintenance/pages/categories/categories.type';
+import { UnidadMedida } from '@maintenance/pages/unidades/unidad.type';
 import { HttpBase } from '@shared/models/http';
 import { Inbox, ResponseInbox } from '@shared/types/utilities.type';
 
 @Injectable()
 export class ApiUnidadMedida extends HttpBase {
-  getUnidaddes(page: number): Observable<Inbox<Categoria>> {
+  getUnidades(page: number): Observable<Inbox<Categoria>> {
     const params = new HttpParams({ fromObject: { page, num: 5 } });
     const endpoint = `${API.apiUnidad}/pagina`;
     return this.http.get<ResponseInbox<Categoria>>(endpoint, { params }).pipe(
@@ -27,6 +28,11 @@ export class ApiUnidadMedida extends HttpBase {
         itemsPerPage: resp.size,
       })),
     );
+  }
+
+  getAll() {
+    const endpoint = `${API.apiUnidad}`;
+    return this.http.get<UnidadMedida[]>(endpoint);
   }
 
   createUnidad(data: ReqPostUnidadMedida) {

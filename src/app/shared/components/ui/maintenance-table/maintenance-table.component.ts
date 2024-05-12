@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JsonPipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatColumnDef, MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LoadingComponent } from '@components/loading/loading.component';
 import { ToastModule } from 'primeng/toast';
 
@@ -17,12 +17,13 @@ import { ToastModule } from 'primeng/toast';
     JsonPipe,
     MatPaginator,
     MatTable,
+    MatIconButton,
     MatButton,
     MatCheckbox,
     MatIcon,
     LoadingComponent,
     ToastModule,
-    MatColumnDef
+    MatTableModule,
   ],
   template: `
     <section class="p-4">

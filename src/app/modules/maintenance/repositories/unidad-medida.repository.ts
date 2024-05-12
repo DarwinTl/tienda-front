@@ -1,5 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { ReqPostUnidadMedida, ReqPutUnidadMedida } from '@api/interface/api-unidad-medida.interface';
+import {
+  ReqPostUnidadMedida,
+  ReqPutUnidadMedida,
+} from '@api/interface/api-unidad-medida.interface';
 import { ApiUnidadMedida } from '@api/service/api-unidad-medida';
 import { Repository } from '@shared/models/maintenance.model';
 
@@ -7,7 +10,7 @@ import { Repository } from '@shared/models/maintenance.model';
 export class UnidadMedidaRepository implements Repository {
   private api = inject(ApiUnidadMedida);
   get(page: number) {
-    return this.api.getUnidaddes(page);
+    return this.api.getUnidades(page);
   }
   create(data: ReqPostUnidadMedida) {
     return this.api.createUnidad(data);
@@ -17,5 +20,9 @@ export class UnidadMedidaRepository implements Repository {
   }
   delete(id: number) {
     return this.api.deleteUnidad(id);
+  }
+
+  getAll() {
+    return this.api.getAll();
   }
 }

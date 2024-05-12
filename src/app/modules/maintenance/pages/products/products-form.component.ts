@@ -11,7 +11,11 @@ import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatOption } from '@angular/material/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import {
+  MatFormField,
+  MatLabel,
+  MatPrefix,
+} from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
@@ -25,6 +29,8 @@ import { ApiProducto } from '@api/service/api-producto';
 import { CustomAbstractControl } from '@shared/types/utilities.type';
 import { Categoria } from '../categories/categories.type';
 
+import { ApiUnidadMedida } from '@api/service/api-unidad-medida';
+import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { PrimeNGConfig } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
@@ -33,6 +39,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { Marca } from '../marcas/marcas.type';
+import { UnidadMedida } from '../unidades/unidad.type';
 
 export type ProductoForm = CustomAbstractControl<ProductoField>;
 
@@ -44,9 +51,9 @@ export type ProductoField = {
   estado: boolean;
   stock: number;
   precioVenta: number;
-  marca: number;
-  categoria: number;
-  medida: number;
+  marca: number | null;
+  categoria: number | null;
+  medida: number | null;
 };
 
 @Component({
@@ -59,6 +66,7 @@ export type ProductoField = {
     MatFormField,
     MatLabel,
     MatInput,
+    MatPrefix,
     MatButton,
     MatIcon,
     MatDialogModule,
@@ -72,8 +80,15 @@ export type ProductoField = {
     ProgressBarModule,
     InputTextModule,
     FloatLabelModule,
+    FormFieldComponent,
   ],
-  providers: [ProductoRepository, ApiProducto, ApiMarca, ApiHome],
+  providers: [
+    ProductoRepository,
+    ApiProducto,
+    ApiMarca,
+    ApiHome,
+    ApiUnidadMedida,
+  ],
   templateUrl: './products-form.component.html',
 })
 export class ProductsFormComponent {
@@ -86,12 +101,14 @@ export class ProductsFormComponent {
 
   categories = signal<Categoria[]>([]);
   marcas = signal<Marca[]>([]);
+  unidades = signal<UnidadMedida[]>([]);
 
   constructor() {
     this.form = this.#createForm();
     this.#loadData();
     this.onLoadCategories();
     this.onLoadMarcas();
+    this.onLoadUnidades();
   }
 
   get rutaControl() {
@@ -120,6 +137,17 @@ export class ProductsFormComponent {
     });
   }
 
+  onLoadUnidades() {
+    this.repository.getUnidades().subscribe({
+      next: (response) => {
+        this.unidades.set(response);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
   #createForm() {
     return this.fb.group<ProductoForm>({
       id: this.fb.control<number | undefined>(undefined, { nonNullable: true }),
@@ -127,14 +155,29 @@ export class ProductsFormComponent {
         nonNullable: true,
         validators: Validators.required,
       }),
-      descripcion: this.fb.control('', { nonNullable: true }),
+      descripcion: this.fb.control('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
       ruta: this.fb.control('', { nonNullable: true }),
       estado: this.fb.control(true, { nonNullable: true }),
-      stock: this.fb.control(0, { nonNullable: true }),
-      precioVenta: this.fb.control(0, { nonNullable: true }),
-      marca: this.fb.control(-1, { nonNullable: true }),
-      categoria: this.fb.control(-1, { nonNullable: true }),
-      medida: this.fb.control(0, { nonNullable: true }),
+      stock: this.fb.control(0, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      precioVenta: this.fb.control(0, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      marca: this.fb.control<number | null>(null, {
+        validators: [Validators.required],
+      }),
+      categoria: this.fb.control<number | null>(null, {
+        validators: [Validators.required],
+      }),
+      medida: this.fb.control<number | null>(null, {
+        validators: [Validators.required],
+      }),
     });
   }
 

@@ -1,11 +1,17 @@
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
+import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 import { CustomAbstractControl } from '@shared/types/utilities.type';
 
@@ -28,6 +34,7 @@ export type UnidadMedidaField = {
     MatIcon,
     MatDialogModule,
     ReactiveFormsModule,
+    FormFieldComponent,
   ],
   template: `
     <div class="max-w-xl">
@@ -40,10 +47,13 @@ export type UnidadMedidaField = {
           class="grid grid-cols-1 gap-2 mx-4"
           (submit)="onSubmit()"
         >
-          <mat-form-field class="grow">
-            <mat-label>Description</mat-label>
-            <input formControlName="descripcion" matInput type="text" />
-          </mat-form-field>
+          <app-form-field>
+            <mat-form-field class="grow">
+              <mat-label>Description</mat-label>
+              <input formControlName="descripcion" matInput type="text" />
+            </mat-form-field>
+          </app-form-field>
+
           <div class="flex justify-center gap-4">
             <button mat-button color="warn" mat-dialog-close>Cerrar</button>
             <button type="submit" mat-raised-button color="primary">
@@ -54,7 +64,7 @@ export type UnidadMedidaField = {
       </div>
     </div>
   `,
-  styles: ``
+  styles: ``,
 })
 export class UnidadesFormComponent {
   private readonly fb = inject(FormBuilder);
@@ -70,7 +80,10 @@ export class UnidadesFormComponent {
   #createForm() {
     return this.fb.group<UnidadMedidaForm>({
       id: this.fb.control<number | undefined>(undefined, { nonNullable: true }),
-      descripcion: this.fb.control('', { nonNullable: true, validators: [Validators.required]}),
+      descripcion: this.fb.control('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
     });
   }
 

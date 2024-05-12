@@ -5,7 +5,10 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
-import { ConfirmDialogComponent, DialogConfirmData } from '@components/dialog/confirm/confirm.component';
+import {
+  ConfirmDialogComponent,
+  DialogConfirmData,
+} from '@components/dialog/confirm/confirm.component';
 import { LoadingComponent } from '@components/loading/loading.component';
 import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
 import { Maintenance } from '@shared/models/maintenance.model';
@@ -39,7 +42,7 @@ import { UnidadesFormComponent } from './unidades-form.component';
       <mat-paginator aria-label="Páginas de articulos" />
     </app-maintenance-table>
   `,
-  styles: ``
+  styles: ``,
 })
 export class UnidadesComponent extends Maintenance<DataTableUnidadMedida> {
   openDialogCreate() {

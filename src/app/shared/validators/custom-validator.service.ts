@@ -27,6 +27,8 @@ export class CustomValidatorService {
     const password = group.get('contrasenia')!.value;
     const confirmPassword = group.get('confirmarContrasenia')!.value;
 
+    if (password == '' || confirmPassword == '') return null;
+
     if (password !== confirmPassword) {
       return { passwordsDontMatch: true };
     }
