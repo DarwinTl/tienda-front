@@ -43,69 +43,102 @@
                 style="font-size: 1.5rem"
               ></i>
               <p class="text-md mt-4 mb-0">
-                Drag and drop files to here to upload.
+                Arrastre y suelta un archivo aquí para cargarlo.
               </p>
             </div>
           </ng-template>
         </p-fileUpload>
       </div>
 
-      <mat-form-field>
-        <mat-label>Nombre</mat-label>
-        <input appOnlyLetters formControlName="nombre" matInput type="text" />
-      </mat-form-field>
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input appOnlyLetters formControlName="nombre" matInput type="text" />
+        </mat-form-field>
+      </app-form-field>
 
-      <mat-form-field>
-        <mat-label>Stock</mat-label>
-        <input
-          class="text-end"
-          formControlName="stock"
-          matInput
-          placeholder="Stock"
-          type="number"
-        />
-      </mat-form-field>
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Stock</mat-label>
+          <input
+            class="text-end"
+            formControlName="stock"
+            matInput
+            placeholder="0"
+            type="number"
+          />
+        </mat-form-field>
+      </app-form-field>
 
-      <mat-form-field>
-        <mat-label>Precio de venta</mat-label>
-        <input
-          formControlName="precioVenta"
-          matInput
-          class="text-end"
-          placeholder="Precio de venta"
-          type="number"
-        />
-        <span matTextPrefix>S/.&nbsp;</span>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Categoria</mat-label>
-        <mat-select
-          formControlName="categoria"
-          placeholder="Seleccione una categoria"
-        >
-          <mat-option
-            *ngFor="let categoria of categories()"
-            [value]="categoria.id"
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Unidad de medida</mat-label>
+          <mat-select
+            formControlName="medida"
+            placeholder="Seleccione una medida"
           >
-            {{ categoria.nombre }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+            <mat-option *ngFor="let medida of unidades()" [value]="medida.id">
+              {{ medida.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </app-form-field>
 
-      <mat-form-field>
-        <mat-label>Marca</mat-label>
-        <mat-select formControlName="marca" placeholder="Seleccione una marca">
-          <mat-option *ngFor="let marca of marcas()" [value]="marca.id">
-            {{ marca.nombre }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Precio de venta</mat-label>
+          <input
+            formControlName="precioVenta"
+            matInput
+            class="text-end"
+            placeholder="0.00"
+            type="number"
+          />
+          <span matTextPrefix>S/.&nbsp;</span>
+        </mat-form-field>
+      </app-form-field>
 
-      <mat-form-field class="md:col-span-2">
-        <mat-label>Description</mat-label>
-        <textarea formControlName="descripcion" matInput type="text"></textarea>
-      </mat-form-field>
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Categoria</mat-label>
+          <mat-select
+            formControlName="categoria"
+            placeholder="Seleccione una categoria"
+          >
+            <mat-option
+              *ngFor="let categoria of categories()"
+              [value]="categoria.id"
+            >
+              {{ categoria.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </app-form-field>
+
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Marca</mat-label>
+          <mat-select
+            formControlName="marca"
+            placeholder="Seleccione una marca"
+          >
+            <mat-option *ngFor="let marca of marcas()" [value]="marca.id">
+              {{ marca.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </app-form-field>
+
+      <app-form-field class="md:col-span-2">
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea
+            formControlName="descripcion"
+            matInput
+            type="text"
+          ></textarea>
+        </mat-form-field>
+      </app-form-field>
 
       <div class="flex justify-center gap-4 md:col-span-2">
         <button mat-button color="warn" mat-dialog-close>Cerrar</button>

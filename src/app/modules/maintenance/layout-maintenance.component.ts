@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListItem, MatListItemIcon } from '@angular/material/list';
+import { MatToolbar } from '@angular/material/toolbar';
 import {
   ActivatedRoute,
   Router,
@@ -13,16 +13,19 @@ import {
 
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { AuthStore } from '@shared/store/auth.store';
+import { MaintenanceRoutes } from './layout.routes';
 
 @Component({
   selector: 'app-layout-maintenance',
   standalone: true,
   imports: [
     MainContainerComponent,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
+    MatList,
+    MatListItem,
+    MatListItemIcon,
+    MatIcon,
+    MatButton,
+    MatToolbar,
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
@@ -76,17 +79,22 @@ export class LayoutMaintenanceComponent {
     {
       title: 'Categorías',
       icon: 'fact_check',
-      link: 'categorias',
+      link: MaintenanceRoutes.CATEGORIAS,
     },
     {
       title: 'Marcas',
       icon: 'fact_check',
-      link: 'marcas',
+      link: MaintenanceRoutes.MARCAS,
     },
     {
       title: 'Productos',
       icon: 'fact_check',
-      link: 'productos',
+      link: MaintenanceRoutes.PRODUCTOS,
+    },
+    {
+      title: 'Unidad de Medida',
+      icon: 'fact_check',
+      link: MaintenanceRoutes.UNIDADES,
     },
   ];
 

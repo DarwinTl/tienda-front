@@ -13,20 +13,17 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
-
 import { CustomAbstractControl } from '@shared/types/utilities.type';
 
-export type CategoriaForm = CustomAbstractControl<CategoriaField>;
+export type UnidadMedidaForm = CustomAbstractControl<UnidadMedidaField>;
 
-export type CategoriaField = {
+export type UnidadMedidaField = {
   id?: number;
-  nombre: string;
-  detalle: string;
-  icono?: string;
+  descripcion: string;
 };
 
 @Component({
-  selector: 'app-categories-form',
+  selector: 'app-unidades-form',
   standalone: true,
   imports: [
     OnlyLettersDirective,
@@ -43,7 +40,7 @@ export type CategoriaField = {
     <div class="max-w-xl">
       <div class="p-8">
         <h4 class="text-xl mb-6 text-center">
-          {{ data ? 'Editar' : 'Registro de nueva' }} categoria
+          {{ data ? 'Editar' : 'Registro de nueva' }} unidad medida
         </h4>
         <form
           [formGroup]="form"
@@ -52,25 +49,8 @@ export type CategoriaField = {
         >
           <app-form-field>
             <mat-form-field class="grow">
-              <mat-label>Nombre</mat-label>
-              <input
-                appOnlyLetters
-                formControlName="nombre"
-                matInput
-                placeholder="Nombre"
-                type="text"
-              />
-            </mat-form-field>
-          </app-form-field>
-
-          <app-form-field>
-            <mat-form-field class="grow">
               <mat-label>Description</mat-label>
-              <textarea
-                formControlName="detalle"
-                matInput
-                type="text"
-              ></textarea>
+              <input formControlName="descripcion" matInput type="text" />
             </mat-form-field>
           </app-form-field>
 
@@ -84,12 +64,13 @@ export type CategoriaField = {
       </div>
     </div>
   `,
+  styles: ``,
 })
-export class CategoriesFormComponent {
+export class UnidadesFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly dialogRef = inject(MatDialogRef);
-  data: CategoriaField = inject(DIALOG_DATA);
-  form: FormGroup<CategoriaForm>;
+  data: UnidadMedidaField = inject(DIALOG_DATA);
+  form: FormGroup<UnidadMedidaForm>;
 
   constructor() {
     this.form = this.#createForm();
@@ -97,13 +78,12 @@ export class CategoriesFormComponent {
   }
 
   #createForm() {
-    return this.fb.group<CategoriaForm>({
+    return this.fb.group<UnidadMedidaForm>({
       id: this.fb.control<number | undefined>(undefined, { nonNullable: true }),
-      nombre: this.fb.control('', {
+      descripcion: this.fb.control('', {
         nonNullable: true,
-        validators: Validators.required,
+        validators: [Validators.required],
       }),
-      detalle: this.fb.control('', { nonNullable: true }),
     });
   }
 

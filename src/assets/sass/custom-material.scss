@@ -9,3 +9,8 @@
 .mdc-notched-outline__notch {
   border-right: none;
 }
+
+.mat-mdc-form-field-subscript-wrapper,
+.mat-mdc-form-field-bottom-align::before {
+  display: none;
+}

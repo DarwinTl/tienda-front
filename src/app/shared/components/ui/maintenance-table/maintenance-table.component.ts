@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JsonPipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatIcon } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LoadingComponent } from '@components/loading/loading.component';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-maintenance-table',
@@ -14,12 +15,15 @@ import { LoadingComponent } from '@components/loading/loading.component';
   imports: [
     TitleCasePipe,
     JsonPipe,
-    MatPaginatorModule,
-    MatTableModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
+    MatPaginator,
+    MatTable,
+    MatIconButton,
+    MatButton,
+    MatCheckbox,
+    MatIcon,
     LoadingComponent,
+    ToastModule,
+    MatTableModule,
   ],
   template: `
     <section class="p-4">
@@ -78,6 +82,7 @@ import { LoadingComponent } from '@components/loading/loading.component';
         <ng-content></ng-content>
       </app-loading>
     </section>
+    <p-toast />
   `,
   styles: ``,
 })

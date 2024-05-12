@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
+import { authGuard, hasLoginGuard } from '@shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
+    canActivate: [hasLoginGuard],
     loadComponent: () =>
       import('@ecommerce/layout.component').then((c) => c.LayoutComponent),
     children: [
@@ -14,6 +16,7 @@ export const routes: Routes = [
   },
   {
     path: 'mantenimiento',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('@maintenance/layout-maintenance.component').then(
         (c) => c.LayoutMaintenanceComponent,
@@ -26,8 +29,7 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'login',
-    loadComponent: () =>
-      import('@auth/auth.component').then((c) => c.AuthComponent),
+    path: 'autenticacion',
+    loadChildren: () => import('@auth/auth.routing'),
   },
 ];

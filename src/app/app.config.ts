@@ -4,6 +4,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router';
 import { ApiAuth } from '@api/service/api.auth';
 import { AuthStore } from '@shared/store/auth.store';
+import { MessageService } from 'primeng/api';
 import { routes } from './app.routes';
 import { CoreModule } from './core/core.module';
 import { unAuthorizedInterceptor } from './core/interceptors/error.interceptor';
@@ -19,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(CoreModule),
     ApiAuth,
     AuthStore,
+    MessageService,
   ],
 };
