@@ -13,6 +13,7 @@ import {
 
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { AuthStore } from '@shared/store/auth.store';
+import { MaintenanceRoutes } from './layout.routes';
 
 @Component({
   selector: 'app-layout-maintenance',
@@ -76,17 +77,22 @@ export class LayoutMaintenanceComponent {
     {
       title: 'Categorías',
       icon: 'fact_check',
-      link: 'categorias',
+      link: MaintenanceRoutes.CATEGORIAS,
     },
     {
       title: 'Marcas',
       icon: 'fact_check',
-      link: 'marcas',
+      link: MaintenanceRoutes.MARCAS,
     },
     {
       title: 'Productos',
       icon: 'fact_check',
-      link: 'productos',
+      link: MaintenanceRoutes.PRODUCTOS,
+    },
+    {
+      title: 'Unidad de Medida',
+      icon: 'fact_check',
+      link: MaintenanceRoutes.UNIDADES,
     },
   ];
 

@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LoadingComponent } from '@components/loading/loading.component';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-maintenance-table',
@@ -20,6 +21,7 @@ import { LoadingComponent } from '@components/loading/loading.component';
     MatCheckboxModule,
     MatIconModule,
     LoadingComponent,
+    ToastModule,
   ],
   template: `
     <section class="p-4">
@@ -78,6 +80,7 @@ import { LoadingComponent } from '@components/loading/loading.component';
         <ng-content></ng-content>
       </app-loading>
     </section>
+    <p-toast />
   `,
   styles: ``,
 })

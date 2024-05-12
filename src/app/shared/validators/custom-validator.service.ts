@@ -20,19 +20,22 @@ export class CustomValidatorService {
       ? null
       : { invalidEmail: true };
   }
-  
-  passwordMatchAndStrength: ValidatorFn = (group: AbstractControl): ValidationErrors | null  => {
+
+  passwordMatchAndStrength: ValidatorFn = (
+    group: AbstractControl,
+  ): ValidationErrors | null => {
     const password = group.get('contrasenia')!.value;
     const confirmPassword = group.get('confirmarContrasenia')!.value;
-  
+
     if (password !== confirmPassword) {
       return { passwordsDontMatch: true };
     }
-  
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-  
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+
     return passwordRegex.test(password) ? null : { invalidPassword: true };
-  }
+  };
 
   regex(regex: RegExp, error: string) {
     return ({ value }: AbstractControl): ValidationErrors | null =>

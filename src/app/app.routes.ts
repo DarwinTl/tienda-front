@@ -26,8 +26,7 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'login',
-    loadComponent: () =>
-      import('@auth/auth.component').then((c) => c.AuthComponent),
+    path: 'autenticacion',
+    loadChildren: () => import('@auth/auth.routing'),
   },
 ];
