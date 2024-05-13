@@ -40,31 +40,51 @@
             >
               <mat-form-field class="md:col-span-2">
                 <mat-label>Correo electrónico</mat-label>
-                <input formControlName="correo" matInput type="text" />
+                <input
+                  formControlName="correo"
+                  matInput
+                  type="text"
+                  inputmode="email"
+                />
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Contraseña</mat-label>
-                <input formControlName="contrasenia" matInput type="text" />
+                <input formControlName="contrasenia" matInput type="password" />
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Repetir contraseña</mat-label>
                 <input
-                  formControlName="contraseniaValid"
+                  formControlName="confirmarContrasenia"
+                  matInput
+                  type="password"
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input
+                  appOnlyLetters
+                  formControlName="nombre"
                   matInput
                   type="text"
                 />
               </mat-form-field>
               <mat-form-field>
-                <mat-label>Nombre</mat-label>
-                <input formControlName="nombre" matInput type="text" />
-              </mat-form-field>
-              <mat-form-field>
                 <mat-label>Apellido paterno</mat-label>
-                <input formControlName="apellidoPaterno" matInput type="text" />
+                <input
+                  appOnlyLetters
+                  formControlName="apellidoPaterno"
+                  matInput
+                  type="text"
+                />
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Apellido materno</mat-label>
-                <input formControlName="apellidoMaterno" matInput type="text" />
+                <input
+                  appOnlyLetters
+                  formControlName="apellidoMaterno"
+                  matInput
+                  type="text"
+                />
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Tipo documento</mat-label>
@@ -79,7 +99,13 @@
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Número de documento</mat-label>
-                <input formControlName="numeroDocumento" matInput type="text" />
+                <input
+                  appOnlyNumbers
+                  formControlName="numeroDocumento"
+                  matInput
+                  type="number"
+                  inputmode="numeric"
+                />
               </mat-form-field>
               <div class="flex justify-center md:col-span-2">
                 <button
@@ -132,6 +158,13 @@
                   type="password"
                 />
               </mat-form-field>
+
+              @if (authStore.error()) {
+                <div class="flex mx-2 pb-4">
+                  <p class="text-red-500 text-sm">{{ authStore.error() }}</p>
+                </div>
+              }
+
               <div class="flex">
                 <button
                   type="submit"

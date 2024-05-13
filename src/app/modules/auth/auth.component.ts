@@ -14,15 +14,19 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
-import { ApiReqPostLogin } from '@api/interface/api.auth';
+import { ApiReqPostLogin, ApiReqPostRegister } from '@api/interface/api.auth';
+import { ApiHome } from '@api/service/api-home';
 import { AuthLoginForm, AuthRegisterForm } from '@auth/auth.type';
 import { ErrorFieldComponent } from '@components/error-field/error-field.component';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { LoadingComponent } from '@components/loading/loading.component';
+import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
+import { OnlyNumbersDirective } from '@shared/directives/only-numbers.directive';
 import { Role } from '@shared/enums/role.enum';
 import { JwtService } from '@shared/services/jwt.service';
 import { AuthStore } from '@shared/store/auth.store';
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
+import { AuthRepository } from './repositories/auth-repository';
 
 @Component({
   selector: 'app-auth',
@@ -43,8 +47,10 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
     MatError,
     LoadingComponent,
     MatProgressSpinner,
+    OnlyLettersDirective,
+    OnlyNumbersDirective,
   ],
-  providers: [],
+  providers: [ApiHome, AuthRepository],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './auth.component.html',
 })
@@ -52,6 +58,7 @@ export class AuthComponent {
   private readonly fb = inject(FormBuilder);
   private readonly validator = inject(CustomValidatorService);
   private readonly router = inject(Router);
+  private readonly authRepository = inject(AuthRepository);
   readonly authStore = inject(AuthStore);
   readonly jwtService = inject(JwtService);
 
@@ -75,40 +82,43 @@ export class AuthComponent {
   }
 
   #createRegisterForm() {
-    return this.fb.group<AuthRegisterForm>({
-      correo: this.fb.control('', {
-        nonNullable: true,
-        validators: [Validators.required, this.validator.email],
-      }),
-      contrasenia: this.fb.control('', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      contraseniaValid: this.fb.control('', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      nombre: this.fb.control('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.maxLength(50)],
-      }),
-      apellidoPaterno: this.fb.control('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.maxLength(50)],
-      }),
-      apellidoMaterno: this.fb.control('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.maxLength(50)],
-      }),
-      tipoDocumento: this.fb.control('', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      numeroDocumento: this.fb.control('', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-    });
+    return this.fb.group<AuthRegisterForm>(
+      {
+        correo: this.fb.control('', {
+          nonNullable: true,
+          validators: [Validators.required, this.validator.email],
+        }),
+        contrasenia: this.fb.control('', {
+          nonNullable: true,
+          validators: [Validators.required],
+        }),
+        confirmarContrasenia: this.fb.control('', {
+          nonNullable: true,
+          validators: [Validators.required],
+        }),
+        nombre: this.fb.control('', {
+          nonNullable: true,
+          validators: [Validators.required, Validators.maxLength(50)],
+        }),
+        apellidoPaterno: this.fb.control('', {
+          nonNullable: true,
+          validators: [Validators.required, Validators.maxLength(50)],
+        }),
+        apellidoMaterno: this.fb.control('', {
+          nonNullable: true,
+          validators: [Validators.required, Validators.maxLength(50)],
+        }),
+        tipoDocumento: this.fb.control('', {
+          nonNullable: true,
+          validators: [Validators.required],
+        }),
+        numeroDocumento: this.fb.control('', {
+          nonNullable: true,
+          validators: [Validators.required],
+        }),
+      },
+      { validators: this.validator.passwordMatchAndStrength },
+    );
   }
 
   #createLoginForm() {
@@ -125,7 +135,26 @@ export class AuthComponent {
   }
 
   onSubmitRegister() {
-    console.log('submit');
+    if (this.formRegister.invalid) return;
+    const formValue = this.formRegister.getRawValue();
+    const payload: ApiReqPostRegister = {
+      correo: formValue.correo,
+      password: formValue.contrasenia,
+      nombres: formValue.nombre,
+      apellidoPaterno: formValue.apellidoPaterno,
+      apellidoMaterno: formValue.apellidoMaterno,
+      tipoDocumento: formValue.tipoDocumento,
+      numeroDocumento: formValue.numeroDocumento,
+      estado: true,
+    };
+    this.authRepository.postCliente(payload).subscribe({
+      next: () => {
+        this.isRegisterForm.set(false);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
   onSubmitLogin() {
@@ -143,6 +172,7 @@ export class AuthComponent {
   }
 
   #login(payload: ApiReqPostLogin) {
+    console.log('send login');
     this.authStore.login(payload);
   }
 }

@@ -1,1 +1,6 @@
-export const CATEGORIAS_COLUMNS_DATA_TABLE = ['id', 'detalle', 'acciones'];
+export const CATEGORIAS_COLUMNS_DATA_TABLE = [
+  'id',
+  'nombre',
+  'detalle',
+  'acciones',
+];

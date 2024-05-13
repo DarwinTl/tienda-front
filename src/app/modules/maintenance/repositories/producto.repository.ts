@@ -1,11 +1,16 @@
 import { inject, Injectable } from '@angular/core';
 import { ReqPostMarca, ReqPutMarca } from '@api/interface/api-marca.interface';
+import { ApiHome } from '@api/service/api-home';
+import { ApiMarca } from '@api/service/api-marca';
 import { ApiProducto } from '@api/service/api-producto';
 import { Repository } from '@shared/models/maintenance.model';
 
 @Injectable()
 export class ProductoRepository implements Repository {
-  private api = inject(ApiProducto);
+  private readonly api = inject(ApiProducto);
+  private readonly apiMarca = inject(ApiMarca);
+  private readonly apiHome = inject(ApiHome);
+
   get(page: number) {
     return this.api.getProducto(page);
   }
@@ -17,5 +22,13 @@ export class ProductoRepository implements Repository {
   }
   delete(id: number) {
     return this.api.deleteProducto(id);
+  }
+
+  getCategorias() {
+    return this.apiHome.getAllCategories();
+  }
+
+  getMarcas() {
+    return this.apiMarca.getMarcas();
   }
 }

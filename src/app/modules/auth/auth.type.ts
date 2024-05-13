@@ -3,7 +3,7 @@ import { CustomAbstractControl } from '@shared/types/utilities.type';
 export type AuthRegisterField = {
   correo: string;
   contrasenia: string;
-  contraseniaValid: string;
+  confirmarContrasenia: string;
   nombre: string;
   apellidoPaterno: string;
   apellidoMaterno: string;

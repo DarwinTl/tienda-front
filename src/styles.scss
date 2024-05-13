@@ -1,21 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 @import "variables.scss";
+@import "custom-ngprime.scss";
 @import "custom-material.scss";
 @import "utilities.scss";
 
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
+
+
 html,
 body {
   height: 100%;
 }
 
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: normal;
+  background: var(--surface-ground);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+input {
+  -moz-appearance: textfield;
 }
