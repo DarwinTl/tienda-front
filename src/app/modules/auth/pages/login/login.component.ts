@@ -25,52 +25,57 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
     FormFieldComponent
   ],
   template: `
-    <h4 class="text-gray-700 mb-10 text-center font-bold text-xl">
-      Iniciar sesión
-    </h4>
-    <form
-      [formGroup]="formLogin"
-      class="md:min-w-80 grid grid-cols-1"
-      (submit)="onSubmitLogin()"
-    >
-    <app-form-field>
-      <mat-form-field>
-        <mat-label>Correo electrónico</mat-label>
-        <input class="w-full" formControlName="correo" matInput type="text" />
-      </mat-form-field>
-    </app-form-field>
-
-    <app-form-field>
-      <mat-form-field>
-        <mat-label>Contraseña</mat-label>
-        <input
-          class="w-full"
-          formControlName="contrasenia"
-          matInput
-          type="password"
-        />
-      </mat-form-field>
-    </app-form-field>
-
-      @if (authStore.error()) {
-        <div class="flex mx-2 pb-4">
-          <p class="text-red-500 text-sm">{{ authStore.error() }}</p>
+  <div class="relative min-w-80">
+    <div class="absolute inset-0 bg-white opacity-80 rounded-lg z-10"></div>
+    <div class="relative p-4 z-20">
+      <h4 class="text-gray-700 mb-10 text-center font-bold text-xl">
+        Iniciar sesión
+      </h4>
+      <form
+        [formGroup]="formLogin"
+        class="md:min-w-80 grid grid-cols-1"
+        (submit)="onSubmitLogin()"
+      >
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Correo electrónico</mat-label>
+          <input class="w-full" formControlName="correo" matInput type="text" />
+        </mat-form-field>
+      </app-form-field>
+  
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input
+            class="w-full"
+            formControlName="contrasenia"
+            matInput
+            type="password"
+          />
+        </mat-form-field>
+      </app-form-field>
+  
+        @if (authStore.error()) {
+          <div class="flex mx-2 pb-4">
+            <p class="text-red-500 text-sm">{{ authStore.error() }}</p>
+          </div>
+        }
+  
+        <div class="flex">
+          <button type="submit" class="w-full" mat-raised-button color="primary">
+            Iniciar sesión
+          </button>
         </div>
-      }
-
-      <div class="flex">
-        <button type="submit" class="w-full" mat-raised-button color="accent">
-          Iniciar sesión
+      </form>
+      <span class="my-4 line-divider">o</span>
+  
+      <div class="flex justify-center">
+        <button type="button" class="w-full" routerLink="../register" mat-stroked-button>
+          Crear una cuenta
         </button>
       </div>
-    </form>
-    <span class="my-4 line-divider">o</span>
-
-    <div class="flex justify-center">
-      <button type="button" class="w-full" routerLink="../register" mat-button>
-        Crear una cuenta
-      </button>
     </div>
+  </div>
   `,
   styles: ``,
 })

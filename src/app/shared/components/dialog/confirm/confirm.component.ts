@@ -29,10 +29,10 @@ export type DialogConfirmData = {
           {{ data.message ?? '¿Estás seguro de realizar esta acción?' }}
         </p>
         <div class="flex justify-center gap-x-2 mt-6">
-          <button (click)="onClosed(false)" mat-button color="primary">
+          <button class="grow" (click)="onClosed(false)" mat-stroked-button color="primary">
             {{ data.cancel ?? 'Confirmar' }}
           </button>
-          <button (click)="onClosed(true)" mat-raised-button color="primary">
+          <button class="grow" (click)="onClosed(true)" mat-raised-button color="primary">
             {{ data.accept ?? 'Cancelar' }}
           </button>
         </div>

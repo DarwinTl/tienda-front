@@ -1,106 +1,113 @@
-<h4 class="text-gray-700 mb-10 text-center font-bold text-xl">Crear cuenta</h4>
-<form
-  [formGroup]="formRegister"
-  class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1"
-  (submit)="onSubmitRegister()"
->
-<app-form-field>
-  <mat-form-field class="md:col-span-2">
-      <mat-label>Correo electrónico</mat-label>
-      <input formControlName="correo" matInput type="text" inputmode="email" />
-    </mat-form-field>
-</app-form-field>
-
-<div class="flex gap-2">
-  <app-form-field #contrasenia>
-    <mat-form-field >
-      <mat-label>Contraseña</mat-label>
-      <input formControlName="contrasenia" matInput type="password" />
-    </mat-form-field>
-    @if (formRegister.getError('passwordsDontMatch') && contrasenia.touched()) {
-      <p class="ml-2 text-sm text-red-500">Las contraseñas no coinciden</p>
-    }
-    @if (formRegister.getError('invalidPassword') && contrasenia.touched()) {
-      <p class="ml-2 text-sm text-red-500">No cumple con los requisitos </p>
-    }
-  </app-form-field>
-  <!-- @if (formRegister.getError('invalidPassword') && contrasenia.touched()) {
-    <mat-icon class="mt-4 text-sm" color="primary" matTooltip="Debe ser mínimo 8 caracteres, máximo 20 caracteres, al menos 1 mayuscula, 1 minuscula, 1 número y 1 caracter especial.">info</mat-icon>
-  } -->
-</div>
-  
-  <app-form-field>
-    <mat-form-field>
-      <mat-label>Repetir contraseña</mat-label>
-      <input formControlName="confirmarContrasenia" matInput type="password" />
-    </mat-form-field>
-  </app-form-field>
-  
-  <app-form-field>
-    <mat-form-field>
-      <mat-label>Nombre</mat-label>
-      <input appOnlyLetters formControlName="nombre" matInput type="text" />
-    </mat-form-field>
-  </app-form-field>
-  
-  <app-form-field>
-    <mat-form-field>
-      <mat-label>Apellido paterno</mat-label>
-      <input
-        appOnlyLetters
-        formControlName="apellidoPaterno"
-        matInput
-        type="text"
-      />
-    </mat-form-field>
-  </app-form-field>
-
-  <app-form-field>
-    <mat-form-field>
-      <mat-label>Apellido materno</mat-label>
-      <input
-        appOnlyLetters
-        formControlName="apellidoMaterno"
-        matInput
-        type="text"
-      />
-    </mat-form-field>
-  </app-form-field>
-
-  <app-form-field>
-    <mat-form-field>
-      <mat-label>Tipo documento</mat-label>
-      <mat-select formControlName="tipoDocumento" matInput type="text">
-        <mat-option value="1">DNI</mat-option>
-        <mat-option value="2">PS</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </app-form-field>
-
-  <app-form-field>
-    <mat-form-field>
-      <mat-label>Número de documento</mat-label>
-      <input
-        appOnlyNumbers
-        formControlName="numeroDocumento"
-        matInput
-        type="number"
-        inputmode="numeric"
-      />
-    </mat-form-field>
-  </app-form-field>
-
-  <div class="flex justify-center md:col-span-2">
-    <button type="submit" class="w-full" mat-raised-button color="primary">
-      Crear cuenta
-    </button>
+<div class="relative min-w-96">
+  <div class="absolute inset-0 bg-white opacity-80 rounded-lg z-10"></div>
+  <div class="relative p-4 z-20">
+    <h4 class="text-gray-700 mb-10 text-center font-bold text-xl">Crear cuenta</h4>
+    <form
+      [formGroup]="formRegister"
+      class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1"
+      (submit)="onSubmitRegister()"
+    >
+    <app-form-field>
+      <mat-form-field class="md:col-span-2">
+          <mat-label>Correo electrónico</mat-label>
+          <input formControlName="correo" matInput type="text" inputmode="email" />
+        </mat-form-field>
+    </app-form-field>
+    
+    <div class="flex gap-2">
+      <app-form-field class="grow" #contrasenia>
+        <mat-form-field >
+          <mat-label>Contraseña</mat-label>
+          <input formControlName="contrasenia" matInput type="password" />
+        </mat-form-field>
+        @if (formRegister.getError('passwordsDontMatch') && contrasenia.touched()) {
+          <p class="ml-2 text-sm text-red-500">Las contraseñas no coinciden</p>
+        }
+        @if (formRegister.getError('invalidPassword') && contrasenia.touched()) {
+          <p class="ml-2 text-sm text-red-500">No cumple con los requisitos </p>
+        }
+      </app-form-field>
+      <!-- @if (formRegister.getError('invalidPassword') && contrasenia.touched()) {
+        <mat-icon class="mt-4 text-sm" color="primary" matTooltip="Debe ser mínimo 8 caracteres, máximo 20 caracteres, al menos 1 mayuscula, 1 minuscula, 1 número y 1 caracter especial.">info</mat-icon>
+      } -->
+    </div>
+      
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Repetir contraseña</mat-label>
+          <input formControlName="confirmarContrasenia" matInput type="password" />
+        </mat-form-field>
+      </app-form-field>
+      
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input appOnlyLetters formControlName="nombre" matInput type="text" />
+        </mat-form-field>
+      </app-form-field>
+      
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Apellido paterno</mat-label>
+          <input
+            appOnlyLetters
+            formControlName="apellidoPaterno"
+            matInput
+            type="text"
+          />
+        </mat-form-field>
+      </app-form-field>
+    
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Apellido materno</mat-label>
+          <input
+            appOnlyLetters
+            formControlName="apellidoMaterno"
+            matInput
+            type="text"
+          />
+        </mat-form-field>
+      </app-form-field>
+    
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Tipo documento</mat-label>
+          <mat-select formControlName="tipoDocumento" matInput type="text">
+            <mat-option value="1">DNI</mat-option>
+            <mat-option value="2">PS</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </app-form-field>
+    
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Número de documento</mat-label>
+          <input
+            appOnlyNumbers
+            formControlName="numeroDocumento"
+            matInput
+            type="number"
+            inputmode="numeric"
+          />
+        </mat-form-field>
+      </app-form-field>
+    
+      <div class="flex justify-center md:col-span-2">
+        <button type="submit" class="w-full" mat-raised-button color="primary">
+          Crear cuenta
+        </button>
+      </div>
+    </form>
+    
+    <span class="my-4 line-divider">o</span>
+    
+    <div class="flex justify-center">
+      <button type="button" class="w-full" routerLink="../login" mat-stroked-button>
+        Ya tengo una cuenta
+      </button>
+    </div>
+    
   </div>
-</form>
-
-<span class="my-4 line-divider">o</span>
-
-<div class="flex justify-center">
-  <button type="button" class="w-full" routerLink="../login" mat-button>
-    Ya tengo una cuenta
-  </button>
 </div>
+

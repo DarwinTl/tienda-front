@@ -2,16 +2,17 @@
   <header>
     <mat-toolbar class="shadow-sm">
       <div class="flex">
-        <button class="w-28" routerLink="/" mat-button>
-          <mat-icon>chevron_left</mat-icon> Volver
+        <button routerLink="/" mat-stroked-button>
+          <mat-icon>chevron_left</mat-icon> Volver a inicio
         </button>
       </div>
     </mat-toolbar>
   </header>
   <main class="main-content">
     <app-loading [isLoading]="authStore.isLoading()">
-      <div class="grid grid-cols-[45%_55%] h-full">
-        <div class="h-full">
+      <div class="relative grid grid-cols-1 md:grid-cols-[45%_55%] h-full">
+        <div class="absolute md:relative h-full w-full">
+          <div class="bg-black opacity-20 absolute inset-0 z-10 md:hidden"></div>
           <picture>
             <source
               type="image/webp"

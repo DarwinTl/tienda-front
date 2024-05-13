@@ -75,8 +75,10 @@ export type CategoriaField = {
           </app-form-field>
 
           <div class="flex justify-center gap-4">
-            <button mat-button color="warn" mat-dialog-close>Cerrar</button>
-            <button type="submit" mat-raised-button color="primary">
+            <button mat-stroked-button color="primary" mat-dialog-close>
+              Cerrar
+            </button>
+            <button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">
               Guardar
             </button>
           </div>
