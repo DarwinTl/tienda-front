@@ -141,8 +141,17 @@
       </app-form-field>
 
       <div class="flex justify-center gap-4 md:col-span-2">
-        <button mat-button color="warn" mat-dialog-close>Cerrar</button>
-        <button type="submit" mat-raised-button color="primary">Guardar</button>
+        <button
+          class="grow"
+          mat-stroked-button
+          color="primary"
+          mat-dialog-close
+        >
+          Cerrar
+        </button>
+        <button [disabled]="form.invalid" class="grow" type="submit" mat-raised-button color="primary">
+          Guardar
+        </button>
       </div>
     </form>
   </div>

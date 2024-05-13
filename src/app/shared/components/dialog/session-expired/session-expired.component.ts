@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatDialogClose } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-session-expired',
   standalone: true,
-  imports: [MatIcon],
+  imports: [MatIcon, MatButton, MatDialogClose],
   template: `
   
     <div class="min-w-md md:max-w-3xl">
@@ -19,7 +21,7 @@ import { MatIcon } from '@angular/material/icon';
           Tu sesión ha expirado, por favor inicia sesión nuevamente.
         </p>
         <div class="flex justify-center gap-x-2 mt-6">
-          <button mat-raised-button color="primary" routerLink="/autenticacion/login">
+          <button mat-raised-button color="primary" mat-dialog-close>
             Iniciar sesión
           </button>
         </div>
@@ -27,6 +29,5 @@ import { MatIcon } from '@angular/material/icon';
     </div>
 
   `,
-  styleUrl: './session-expired.component.scss'
 })
 export class SessionExpiredComponent {}

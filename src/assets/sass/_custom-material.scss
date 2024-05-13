@@ -4,6 +4,7 @@
     75 85 99 / var(--tw-text-opacity)
   );
   --mat-toolbar-container-background-color: white;
+  --mat-sidenav-container-width: 240px;
 }
 
 .mdc-notched-outline__notch {
@@ -14,3 +15,4 @@
 .mat-mdc-form-field-bottom-align::before {
   display: none;
 }
+

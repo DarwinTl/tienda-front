@@ -15,7 +15,7 @@ import { ErrorDictionary, ERRORS_DICTIONARY } from '@shared/validators/error.dic
   @if (touched) {
     <div class="ml-2 error-invalid">
       @for (error of errors(); track error) {
-        <p class="text-sm text-red-500">{{ error }}</p>
+        <p class="text-sm text-red-700">{{ error }}</p>
       }
     </div>
   }

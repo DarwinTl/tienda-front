@@ -74,8 +74,21 @@ export type MarcaField = {
           </app-form-field>
 
           <div class="flex justify-center gap-4">
-            <button mat-button color="warn" mat-dialog-close>Cerrar</button>
-            <button type="submit" mat-raised-button color="primary">
+            <button
+              class="grow"
+              mat-stroked-button
+              color="primary"
+              mat-dialog-close
+            >
+              Cerrar
+            </button>
+            <button
+              class="grow"
+              type="submit"
+              mat-raised-button
+              color="primary"
+              [disabled]="form.invalid"
+            >
               Guardar
             </button>
           </div>

@@ -40,7 +40,17 @@ import { ToastModule } from 'primeng/toast';
         <table mat-table [dataSource]="dataSource">
           @for (data of displayedColumns; track data) {
             <ng-container [matColumnDef]="data">
-              <th mat-header-cell *matHeaderCellDef>{{ data | titlecase }}</th>
+              <th mat-header-cell *matHeaderCellDef>
+
+              @if ( data === 'acciones' ) {
+                <div class="text-center">
+                  {{ data | titlecase }}
+                </div>
+              } @else {
+                {{ data | titlecase }}
+              }
+              
+              </th>
               <td mat-cell *matCellDef="let cell">
                 @if (data === 'estado') {
                   <mat-checkbox
@@ -55,20 +65,22 @@ import { ToastModule } from 'primeng/toast';
                     color="primary"
                   ></mat-checkbox>
                 } @else if (data === 'acciones') {
-                  <button
-                    mat-icon-button
-                    color="accent"
-                    (click)="eventEdit.emit(cell)"
-                  >
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button
-                    mat-icon-button
-                    color="warn"
-                    (click)="eventDelete.emit(cell)"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
+                  <div class="flex justify-center">
+                    <button
+                      color="primary"
+                      mat-icon-button
+                      (click)="eventEdit.emit(cell)"
+                    >
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      (click)="eventDelete.emit(cell)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
                 } @else {
                   {{ cell[data] }}
                 }
