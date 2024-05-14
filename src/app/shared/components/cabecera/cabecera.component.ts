@@ -12,11 +12,21 @@ import {
   MatDrawerContent,
 } from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
+
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { categoria_product_list } from '@ecommerce/pages/inicio/Inicio.type';
 import { ActivatedRoute } from '@angular/router';
+
+import { ButtonModule } from 'primeng/button';
+
 @Component({
   selector: 'app-cabecera',
   standalone: true,
@@ -37,13 +47,17 @@ import { ActivatedRoute } from '@angular/router';
     RouterLinkActive,
     RouterOutlet,
 
+    ButtonModule,
+
   ],
   templateUrl: './cabecera.component.html',
   styleUrl: './cabecera.component.scss',
 })
 export class CabeceraComponent {
 
-  categorias: categoria_product_list[] = []
+  categorias: categoria_product_list[] = [];
+
+
 
   badgevisible = false;
   badgevisibility() {
@@ -52,15 +66,21 @@ export class CabeceraComponent {
   }
 
 
-  constructor(private router: Router,private route: ActivatedRoute, private _ecommerceService: ecommerceService) {
-    this.route.params.subscribe(params => {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private _ecommerceService: ecommerceService,
+  ) {
+    this.route.params.subscribe((params) => {
       const parametro = params['parametro'];
-      console.log(parametro)
+      console.log(parametro);
+
     });
   }
 
   ngOnInit(): void {
-    this.fngeCatList()
+    this.fngeCatList();
+
   }
 
   fngeCatList() {
@@ -69,20 +89,17 @@ export class CabeceraComponent {
 
         this.categorias = res;
 
-        console.log(this.categorias)
+        console.log(this.categorias);
       },
       error: (e: HttpErrorResponse) => {
-        console.log('Error :', e)
-        return
-      }
+        console.log('Error :', e);
+        return;
+      },
     });
   }
 
+  goInicio() {
+    this.router.navigate(['/inicio']);
+  }
 
-
-
-
-
-
-  
 }
