@@ -80,7 +80,7 @@ import { MaintenanceRoutes } from './layout.routes';
         <mat-drawer
           [mode]="smallScreen() ? 'over' : 'side'"
           [opened]="sideNav()"
-          (closedStart)="sideNav.set(false)"
+          (closedStart)="smallScreen() && sideNav.set(false)"
         >
           <div class="maintenance-sidebar">
             <mat-list>
@@ -96,7 +96,7 @@ import { MaintenanceRoutes } from './layout.routes';
                 <mat-list-item
                   class="nav-item"
                   [routerLink]="opcion.link"
-                  (isActiveChange)="sideNav.set(false)"
+                  (isActiveChange)="smallScreen() && sideNav.set(false)"
                   routerLinkActive="active"
                 >
                   <div class="flex gap-x-2 text-gray-600">
