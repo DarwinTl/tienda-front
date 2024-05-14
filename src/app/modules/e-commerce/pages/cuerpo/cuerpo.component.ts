@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CabeceraComponent } from '@components/cabecera/cabecera.component';
+<<<<<<< HEAD
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
@@ -10,10 +11,13 @@ import { product_List } from '../inicio/Inicio.type';
 import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectItem } from 'primeng/api';
+=======
+>>>>>>> origin/develop
 
 @Component({
   selector: 'app-cuerpo',
   standalone: true,
+<<<<<<< HEAD
   imports: [
     CabeceraComponent,
     DataViewModule,
@@ -130,4 +134,24 @@ export class CuerpoComponent implements OnInit {
         return (this.catlabel = 'Todos');
     }
   }
+=======
+  imports: [CabeceraComponent],
+  templateUrl: './cuerpo.component.html',
+  styleUrl: './cuerpo.component.scss'
+})
+export class CuerpoComponent implements OnInit {
+parametro : string = ''
+
+constructor(private route: ActivatedRoute) { }
+
+ngOnInit(): void {
+  
+  this.route.params.subscribe(params => {
+    this.parametro = params['parametro'];
+  
+  });
+}
+
+
+>>>>>>> origin/develop
 }

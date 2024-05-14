@@ -3,6 +3,7 @@ import { ApiCategoria } from '@api/service/api-categoria';
 import { ApiHome } from '@api/service/api-home';
 import { ApiMarca } from '@api/service/api-marca';
 import { ApiProducto } from '@api/service/api-producto';
+import { ApiUnidadMedida } from '@api/service/api-unidad-medida';
 import {
   COLUMNS_DATA_TABLE,
   Repository,
@@ -11,9 +12,11 @@ import { MaintenanceRoutes } from './layout.routes';
 import { CATEGORIAS_COLUMNS_DATA_TABLE } from './pages/categories/categories.const';
 import { MARCAS_COLUMNS_DATA_TABLE } from './pages/marcas/marcas.const';
 import { PRODUCTOS_COLUMNS_DATA_TABLE } from './pages/products/products.const';
+import { UNIDAD_MEDIDA_COLUMNS_DATA_TABLE } from './pages/unidades/unidad.const';
 import { CategoriaRespository } from './repositories/categoria.repository';
 import { MarcaRepository } from './repositories/marca.repository';
 import { ProductoRepository } from './repositories/producto.repository';
+import { UnidadMedidaRepository } from './repositories/unidad-medida.repository';
 
 const routes: Routes = [
   {
@@ -51,11 +54,31 @@ const routes: Routes = [
       ApiProducto,
       ApiHome,
       ApiMarca,
+<<<<<<< HEAD
+=======
+      ApiUnidadMedida,
+>>>>>>> origin/develop
     ],
     loadComponent: () =>
       import('@maintenance/pages/products/products.component').then(
         (c) => c.ProductsComponent,
       ),
+  },
+  {
+    path: MaintenanceRoutes.UNIDADES,
+    title: 'Mantenimiento de unidades de medida | Market Don Pepe',
+    loadComponent: () =>
+      import('@maintenance/pages/unidades/unidades.component').then(
+        (c) => c.UnidadesComponent,
+      ),
+    providers: [
+      {
+        provide: COLUMNS_DATA_TABLE,
+        useValue: UNIDAD_MEDIDA_COLUMNS_DATA_TABLE,
+      },
+      { provide: Repository, useClass: UnidadMedidaRepository },
+      ApiUnidadMedida,
+    ],
   },
   {
     path: '',

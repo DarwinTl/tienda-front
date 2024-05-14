@@ -3,29 +3,31 @@ import {
   Component,
   effect,
   inject,
-  signal,
 } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MatOption, MatSelect } from '@angular/material/select';
 import { MatToolbar } from '@angular/material/toolbar';
+<<<<<<< HEAD
 import { Router, RouterLink } from '@angular/router';
 import { ApiReqPostLogin, ApiReqPostRegister } from '@api/interface/api.auth';
 import { ApiHome } from '@api/service/api-home';
 import { AuthLoginForm, AuthRegisterForm } from '@auth/auth.type';
 import { ErrorFieldComponent } from '@components/error-field/error-field.component';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
+=======
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ApiHome } from '@api/service/api-home';
+>>>>>>> origin/develop
 import { LoadingComponent } from '@components/loading/loading.component';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 import { OnlyNumbersDirective } from '@shared/directives/only-numbers.directive';
 import { Role } from '@shared/enums/role.enum';
 import { JwtService } from '@shared/services/jwt.service';
 import { AuthStore } from '@shared/store/auth.store';
+<<<<<<< HEAD
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
+=======
+>>>>>>> origin/develop
 import { AuthRepository } from './repositories/auth-repository';
 
 @Component({
@@ -35,36 +37,25 @@ import { AuthRepository } from './repositories/auth-repository';
     MatToolbar,
     MatButton,
     MatIcon,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    MatSelect,
-    MatOption,
     RouterLink,
-    ReactiveFormsModule,
-    FormFieldComponent,
-    ErrorFieldComponent,
-    MatError,
     LoadingComponent,
+<<<<<<< HEAD
     MatProgressSpinner,
     OnlyLettersDirective,
     OnlyNumbersDirective,
+=======
+    RouterOutlet,
+>>>>>>> origin/develop
   ],
   providers: [ApiHome, AuthRepository],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './auth.component.html',
 })
 export class AuthComponent {
-  private readonly fb = inject(FormBuilder);
-  private readonly validator = inject(CustomValidatorService);
   private readonly router = inject(Router);
   private readonly authRepository = inject(AuthRepository);
   readonly authStore = inject(AuthStore);
   readonly jwtService = inject(JwtService);
-
-  isRegisterForm = signal(true);
-  formRegister = this.#createRegisterForm();
-  formLogin = this.#createLoginForm();
 
   constructor() {
     effect(
@@ -80,6 +71,7 @@ export class AuthComponent {
       { allowSignalWrites: true },
     );
   }
+<<<<<<< HEAD
 
   #createRegisterForm() {
     return this.fb.group<AuthRegisterForm>(
@@ -175,4 +167,6 @@ export class AuthComponent {
     console.log('send login');
     this.authStore.login(payload);
   }
+=======
+>>>>>>> origin/develop
 }

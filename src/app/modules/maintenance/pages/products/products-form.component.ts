@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+<<<<<<< HEAD
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule } from '@angular/material/core';
@@ -15,6 +16,20 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+=======
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatOption } from '@angular/material/core';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MatFormField,
+  MatLabel,
+  MatPrefix,
+} from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+>>>>>>> origin/develop
 import { ProductoRepository } from '@maintenance/repositories/producto.repository';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 
@@ -25,6 +40,11 @@ import { ApiProducto } from '@api/service/api-producto';
 import { CustomAbstractControl } from '@shared/types/utilities.type';
 import { Categoria } from '../categories/categories.type';
 
+<<<<<<< HEAD
+=======
+import { ApiUnidadMedida } from '@api/service/api-unidad-medida';
+import { FormFieldComponent } from '@components/form-field/form-field.component';
+>>>>>>> origin/develop
 import { PrimeNGConfig } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
@@ -33,6 +53,10 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { Marca } from '../marcas/marcas.type';
+<<<<<<< HEAD
+=======
+import { UnidadMedida } from '../unidades/unidad.type';
+>>>>>>> origin/develop
 
 export type ProductoForm = CustomAbstractControl<ProductoField>;
 
@@ -42,11 +66,19 @@ export type ProductoField = {
   descripcion: string;
   ruta: string;
   estado: boolean;
+<<<<<<< HEAD
   stock: number;
   precioVenta: number;
   marca: number;
   categoria: number;
   medida: number;
+=======
+  stock: number | null;
+  precioVenta: number | null;
+  marca: number | null;
+  categoria: number | null;
+  medida: number | null;
+>>>>>>> origin/develop
 };
 
 @Component({
@@ -56,6 +88,7 @@ export type ProductoField = {
     NgFor,
     NgIf,
     OnlyLettersDirective,
+<<<<<<< HEAD
     MatFormFieldModule,
     MatLabel,
     MatInputModule,
@@ -65,6 +98,18 @@ export type ProductoField = {
     MatCheckboxModule,
     MatSelectModule,
     MatOptionModule,
+=======
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatPrefix,
+    MatButton,
+    MatIcon,
+    MatDialogModule,
+    MatCheckbox,
+    MatSelect,
+    MatOption,
+>>>>>>> origin/develop
     ReactiveFormsModule,
     FileUploadModule,
     ButtonModule,
@@ -72,8 +117,20 @@ export type ProductoField = {
     ProgressBarModule,
     InputTextModule,
     FloatLabelModule,
+<<<<<<< HEAD
   ],
   providers: [ProductoRepository, ApiProducto, ApiMarca, ApiHome],
+=======
+    FormFieldComponent,
+  ],
+  providers: [
+    ProductoRepository,
+    ApiProducto,
+    ApiMarca,
+    ApiHome,
+    ApiUnidadMedida,
+  ],
+>>>>>>> origin/develop
   templateUrl: './products-form.component.html',
 })
 export class ProductsFormComponent {
@@ -86,12 +143,20 @@ export class ProductsFormComponent {
 
   categories = signal<Categoria[]>([]);
   marcas = signal<Marca[]>([]);
+<<<<<<< HEAD
+=======
+  unidades = signal<UnidadMedida[]>([]);
+>>>>>>> origin/develop
 
   constructor() {
     this.form = this.#createForm();
     this.#loadData();
     this.onLoadCategories();
     this.onLoadMarcas();
+<<<<<<< HEAD
+=======
+    this.onLoadUnidades();
+>>>>>>> origin/develop
   }
 
   get rutaControl() {
@@ -120,6 +185,20 @@ export class ProductsFormComponent {
     });
   }
 
+<<<<<<< HEAD
+=======
+  onLoadUnidades() {
+    this.repository.getUnidades().subscribe({
+      next: (response) => {
+        this.unidades.set(response);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+>>>>>>> origin/develop
   #createForm() {
     return this.fb.group<ProductoForm>({
       id: this.fb.control<number | undefined>(undefined, { nonNullable: true }),
@@ -127,6 +206,7 @@ export class ProductsFormComponent {
         nonNullable: true,
         validators: Validators.required,
       }),
+<<<<<<< HEAD
       descripcion: this.fb.control('', { nonNullable: true }),
       ruta: this.fb.control('', { nonNullable: true }),
       estado: this.fb.control(true, { nonNullable: true }),
@@ -135,6 +215,29 @@ export class ProductsFormComponent {
       marca: this.fb.control(-1, { nonNullable: true }),
       categoria: this.fb.control(-1, { nonNullable: true }),
       medida: this.fb.control(0, { nonNullable: true }),
+=======
+      descripcion: this.fb.control('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      ruta: this.fb.control('', { nonNullable: true }),
+      estado: this.fb.control(true, { nonNullable: true }),
+      stock: this.fb.control<number | null>(null, {
+        validators: [Validators.required],
+      }),
+      precioVenta: this.fb.control<number | null>(null, {
+        validators: [Validators.required],
+      }),
+      marca: this.fb.control<number | null>(null, {
+        validators: [Validators.required],
+      }),
+      categoria: this.fb.control<number | null>(null, {
+        validators: [Validators.required],
+      }),
+      medida: this.fb.control<number | null>(null, {
+        validators: [Validators.required],
+      }),
+>>>>>>> origin/develop
     });
   }
 

@@ -13,12 +13,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
 
 import { delay, finalize, Observable, tap } from 'rxjs';
 
+import { MatTableDataSource } from '@angular/material/table';
 import { Inbox, Request } from '@shared/types/utilities.type';
 import { DELAY_INBOX_MANINTENANCE } from '@shared/utils/const';
+import { MessageService } from 'primeng/api';
 
 export const COLUMNS_DATA_TABLE = new InjectionToken<string[]>(
   'COLUMNS_DATA_TABLE',
@@ -64,6 +65,11 @@ export class Maintenance<T> implements OnInit, AfterViewInit {
   destroyRef = inject(DestroyRef);
 
   /**
+   * @description Inject the message service
+   */
+  msg = inject(MessageService);
+
+  /**
    * @description Inject the paginator
    */
   @ViewChild(MatPaginator)
@@ -89,8 +95,6 @@ export class Maintenance<T> implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('ngAfterViewInit');
-
     this.dataSource.paginator = this.paginator;
     this.changePage();
   }
@@ -148,14 +152,13 @@ export class Maintenance<T> implements OnInit, AfterViewInit {
     });
   }
 
-  #handledCreateSuccess(data: unknown) {
-    console.log('Data created', data);
-    this.snackbar.open('Registro creado');
+  #handledCreateSuccess() {
+    this.msg.add({severity: 'success', summary: 'Registro creado'});
     this.onLoadData(this.paginator.pageIndex);
   }
 
-  #handledCreateError(error: unknown) {
-    console.error('Error', error);
+  #handledCreateError() {
+    this.msg.add({severity: 'error', summary: 'Error al crear el registro'});
   }
 
   /**
@@ -169,14 +172,13 @@ export class Maintenance<T> implements OnInit, AfterViewInit {
     });
   }
 
-  #handledUpdateSuccess(data: unknown) {
-    console.log('Data updated', data);
-    this.snackbar.open('Registro actualizado');
+  #handledUpdateSuccess() {
+    this.msg.add({severity: 'success', summary: 'Registro actualizado'});
     this.onLoadData(this.paginator.pageIndex);
   }
 
-  #handledUpdateError(error: unknown) {
-    console.error('Error', error);
+  #handledUpdateError() {
+    this.msg.add({severity: 'error', summary: 'Error al actualizar el registro'});
   }
 
   /**
@@ -190,13 +192,12 @@ export class Maintenance<T> implements OnInit, AfterViewInit {
     });
   }
 
-  #handledDeleteSuccess(data: unknown) {
-    console.log('Data deleted', data);
-    this.snackbar.open('Registro eliminado');
+  #handledDeleteSuccess() {
+    this.msg.add({severity: 'success', summary: 'Registro actualizado'});
     this.onLoadData(this.paginator.pageIndex);
   }
-
-  #handledDeleteError(error: unknown) {
-    console.error('Error', error);
+  
+  #handledDeleteError() {
+    this.msg.add({severity: 'error', summary: 'Error al crear el registro'});
   }
 }

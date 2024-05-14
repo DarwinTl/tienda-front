@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+<<<<<<< HEAD
 // @tailwind base;
 // @tailwind components;
 // @tailwind utilities;
@@ -10,9 +11,48 @@
 @import "custom-ngprime.scss";
 @import "custom-material.scss";
 @import "utilities.scss";
+=======
+@use '@angular/material' as mat;
+@use '@angular/material-experimental' as matx;
+
+@tailwind base;
+@tailwind utilities;
+>>>>>>> origin/develop
 
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+@import "primeicons/primeicons.css";
+
+@import "variables.scss";
+@import "custom-ngprime.scss";
+@import "custom-material.scss";
+@import "utilities.scss";
+
+
+
+$m3-dark-theme: matx.define-theme((
+  color: (
+    theme-type: dark,
+    primary: matx.$m3-blue-palette,
+    tertiary: matx.$m3-azure-palette,
+  )
+));
+
+$m3-light-theme: matx.define-theme((
+  color: (
+    primary: matx.$m3-azure-palette,
+    tertiary: matx.$m3-blue-palette,
+    )
+));
+
+.dark-theme {
+  @include mat.all-component-colors($m3-dark-theme);
+}
+
+html {
+  @include mat.all-component-themes($m3-light-theme);
+}
+
 
 
 
@@ -25,11 +65,14 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+<<<<<<< HEAD
   font-weight: normal;
   background: var(--surface-ground);
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+=======
+>>>>>>> origin/develop
 }
 
 input::-webkit-outer-spin-button,
@@ -39,4 +82,8 @@ input::-webkit-inner-spin-button {
 
 input {
   -moz-appearance: textfield;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/develop

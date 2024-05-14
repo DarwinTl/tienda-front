@@ -9,7 +9,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   template: `
     <div class="relative w-full h-full">
       @if (isLoading) {
-        <div class="absolute inset-0 bg-opacity z-20">
+        <div class="absolute inset-0 bg-opacity z-50">
           <div class="flex justify-center items-center h-full">
             <mat-spinner [diameter]="diameter" />
           </div>

@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JsonPipe, TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatIcon } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LoadingComponent } from '@components/loading/loading.component';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-maintenance-table',
@@ -14,12 +15,15 @@ import { LoadingComponent } from '@components/loading/loading.component';
   imports: [
     TitleCasePipe,
     JsonPipe,
-    MatPaginatorModule,
-    MatTableModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
+    MatPaginator,
+    MatTable,
+    MatIconButton,
+    MatButton,
+    MatCheckbox,
+    MatIcon,
     LoadingComponent,
+    ToastModule,
+    MatTableModule,
   ],
   template: `
     <section class="p-4">
@@ -36,7 +40,17 @@ import { LoadingComponent } from '@components/loading/loading.component';
         <table mat-table [dataSource]="dataSource">
           @for (data of displayedColumns; track data) {
             <ng-container [matColumnDef]="data">
-              <th mat-header-cell *matHeaderCellDef>{{ data | titlecase }}</th>
+              <th mat-header-cell *matHeaderCellDef>
+
+              @if ( data === 'acciones' ) {
+                <div class="text-center">
+                  {{ data | titlecase }}
+                </div>
+              } @else {
+                {{ data | titlecase }}
+              }
+              
+              </th>
               <td mat-cell *matCellDef="let cell">
                 @if (data === 'estado') {
                   <mat-checkbox
@@ -51,20 +65,22 @@ import { LoadingComponent } from '@components/loading/loading.component';
                     color="primary"
                   ></mat-checkbox>
                 } @else if (data === 'acciones') {
-                  <button
-                    mat-icon-button
-                    color="accent"
-                    (click)="eventEdit.emit(cell)"
-                  >
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button
-                    mat-icon-button
-                    color="warn"
-                    (click)="eventDelete.emit(cell)"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
+                  <div class="flex justify-center">
+                    <button
+                      color="primary"
+                      mat-icon-button
+                      (click)="eventEdit.emit(cell)"
+                    >
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      (click)="eventDelete.emit(cell)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
                 } @else {
                   {{ cell[data] }}
                 }
@@ -78,6 +94,7 @@ import { LoadingComponent } from '@components/loading/loading.component';
         <ng-content></ng-content>
       </app-loading>
     </section>
+    <p-toast />
   `,
   styles: ``,
 })

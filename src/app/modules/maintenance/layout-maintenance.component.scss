@@ -1,21 +1,24 @@
+@use "variables" as var;
+
 .maintenance-root {
   display: grid;
-  grid-template-columns: 268px auto;
-  grid-template-rows: 80px auto;
-  grid-template-areas: "sidebar siderbar" "sidebar main";
+  grid-template-rows: var.$header-mobile auto;
+  grid-template-areas: "sidebar" "main";
+  @media screen and (min-width: 600px) {
+    grid-template-rows: var.$header auto;
+  }
 }
 
 .maintenance-sidebar {
-  grid-area: sidebar;
   padding: 1rem;
-  min-height: 100vh;
+  min-height: 100%;
   @apply shadow-md;
-}
-
-.maintenance-sidebar {
-  grid-area: sidebar;
 }
 
 .main {
   grid-area: main;
+  min-height: calc(100vh - var.$header-mobile);
+  @media screen and (min-width: 600px) {
+    min-height: calc(100vh - var.$header);
+  }
 }

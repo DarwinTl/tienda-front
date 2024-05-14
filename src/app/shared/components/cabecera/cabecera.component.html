@@ -40,7 +40,7 @@
   >
 
   <mat-menu #lvl1master="matMenu">
-    <button mat-menu-item routerLink="login">
+    <button mat-menu-item routerLink="/autenticacion">
       <mat-icon>login</mat-icon> Iniciar Sesion
     </button>
     <button mat-menu-item><mat-icon>person</mat-icon> Perfil</button>
@@ -50,6 +50,7 @@
 <mat-drawer-container autosize style="margin-top: 64px">
   <mat-drawer #drawer opened="true" mode="side" position="start">
     <mat-nav-list>
+<<<<<<< HEAD
       @for (c of categorias; track c) {
         <mat-list-item>
           <button [routerLink]="['/cuerpo', { parametro: c.id }]" mat-button>
@@ -60,6 +61,17 @@
           </button>
         </mat-list-item>
       }
+=======
+      @for(c of categorias; track c){
+      <mat-list-item  >
+        <button [routerLink]="['/cuerpo', { parametro: c.id }]" mat-button>
+
+          <mat-icon><img [src]="'assets/imagenes/' + c.icono" alt="" /></mat-icon>
+          {{c.nombre}}
+        </button>
+      </mat-list-item>
+    }
+>>>>>>> origin/develop
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>

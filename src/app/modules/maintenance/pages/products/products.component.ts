@@ -1,10 +1,18 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+=======
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatIcon } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable } from '@angular/material/table';
+>>>>>>> origin/develop
 import { ConfirmDialogComponent } from '@components/dialog/confirm/confirm.component';
 import { LoadingComponent } from '@components/loading/loading.component';
 import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
@@ -18,11 +26,11 @@ import { DataTableProducts } from './products.type';
   standalone: true,
   imports: [
     TitleCasePipe,
-    MatPaginatorModule,
-    MatTableModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
+    MatPaginator,
+    MatTable,
+    MatButton,
+    MatCheckbox,
+    MatIcon,
     LoadingComponent,
     MaintenanceTableComponent,
   ],
@@ -47,6 +55,10 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
       .open(ProductsFormComponent)
       .afterClosed()
       .subscribe((result) => {
+<<<<<<< HEAD
+=======
+        if (!result) return;
+>>>>>>> origin/develop
         const data = new FormData();
         data.append('categoria', result.categoria);
         data.append('descripcion', result.descripcion);
@@ -56,7 +68,10 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
         data.append('precioVenta', result.precioVenta);
         data.append('stock', result.stock);
         data.append('foto', result.ruta);
+<<<<<<< HEAD
         console.log({ result, data });
+=======
+>>>>>>> origin/develop
         this.onCreate(data);
       });
   }
@@ -81,7 +96,10 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
         data.append('precioVenta', result.precioVenta);
         data.append('stock', result.stock);
         data.append('foto', result.ruta);
+<<<<<<< HEAD
         console.log({ result, data });
+=======
+>>>>>>> origin/develop
         this.onUpdate(data);
       });
   }

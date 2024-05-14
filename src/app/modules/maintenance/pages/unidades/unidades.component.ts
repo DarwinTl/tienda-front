@@ -1,18 +1,10 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
-=======
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
->>>>>>> origin/develop
 import {
   ConfirmDialogComponent,
   DialogConfirmData,
@@ -20,11 +12,11 @@ import {
 import { LoadingComponent } from '@components/loading/loading.component';
 import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
 import { Maintenance } from '@shared/models/maintenance.model';
-import { MarcasFormComponent } from './marcas-form.component';
-import { DataTableMarcas } from './marcas.type';
+import { DataTableUnidadMedida } from './unidad.type';
+import { UnidadesFormComponent } from './unidades-form.component';
 
 @Component({
-  selector: 'app-marcas',
+  selector: 'app-unidades',
   standalone: true,
   imports: [
     TitleCasePipe,
@@ -38,7 +30,7 @@ import { DataTableMarcas } from './marcas.type';
   ],
   template: `
     <app-maintenance-table
-      title="Marcas"
+      title="Unidad de medida"
       [dataSource]="dataSource"
       [displayedColumns]="displayedColumns"
       [isLoading]="isLoadingDataTable()"
@@ -50,21 +42,21 @@ import { DataTableMarcas } from './marcas.type';
       <mat-paginator aria-label="Páginas de articulos" />
     </app-maintenance-table>
   `,
+  styles: ``,
 })
-export class MarcasComponent extends Maintenance<DataTableMarcas> {
+export class UnidadesComponent extends Maintenance<DataTableUnidadMedida> {
   openDialogCreate() {
-    const dialog = this.dialog.open(MarcasFormComponent);
+    const dialog = this.dialog.open(UnidadesFormComponent);
     dialog.afterClosed().subscribe((result) => {
       result && this.onCreate(result);
     });
   }
 
-  openDialogEdit(data: DataTableMarcas) {
-    const dialog = this.dialog.open(MarcasFormComponent, {
+  openDialogEdit(data: DataTableUnidadMedida) {
+    const dialog = this.dialog.open(UnidadesFormComponent, {
       data: {
         id: data.id,
-        nombre: data.nombre,
-        detalle: data.detalle,
+        detalle: data.descripcion,
       },
     });
     dialog.afterClosed().subscribe((result) => {
@@ -72,27 +64,18 @@ export class MarcasComponent extends Maintenance<DataTableMarcas> {
     });
   }
 
-  openDialogDelete(data: DataTableMarcas) {
+  openDialogDelete(data: DataTableUnidadMedida) {
     const dialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Eliminar marca',
-        message: `¿Estás seguro de eliminar la marca ${data.nombre}?`,
+        title: 'Eliminar unidad de medida',
+        message: `¿Estás seguro de eliminar la unidad de medida ${data.descripcion}?`,
         icon: 'warning',
-<<<<<<< HEAD
-        accept: 'Eliminar',
-        cancel: 'Cancelar',
-      } as DialogConfirmData,
-    });
-    dialog.afterClosed().subscribe((result) => {
-      result && this.onDelete(data.id);
-=======
         accept: 'Cancelar',
         cancel: 'Eliminar',
       } as DialogConfirmData,
     });
     dialog.afterClosed().subscribe((result) => {
       !result && this.onDelete(data.id);
->>>>>>> origin/develop
     });
   }
   onChangeState({

@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
+<<<<<<< HEAD
 import {
   CarouselModule as OwlCarouselModule,
   OwlOptions,
@@ -12,6 +13,9 @@ import {
 import { CarouselModule as PrimeCarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+=======
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+>>>>>>> origin/develop
 import { categoria_product_list, product_List } from './Inicio.type';
 import { Router } from '@angular/router';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
@@ -38,11 +42,17 @@ import { CardModule } from 'primeng/card';
   styleUrl: './inicio.component.scss',
 })
 export class InicioComponent implements OnInit {
+<<<<<<< HEAD
   products: product_List[] = [];
   categorias: categoria_product_list[] = [];
   responsiveOptions: any[] | undefined;
 
   customOptions1: OwlOptions = {
+=======
+  productos: product_List[] = []
+  categorias: categoria_product_list[] = []
+  customOptions: OwlOptions = {
+>>>>>>> origin/develop
     loop: true,
     mouseDrag: true,
     touchDrag: false,
@@ -65,6 +75,7 @@ export class InicioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+<<<<<<< HEAD
     // this.fngetList()
     this.fngeCatList();
     const newProduct: product_List = {
@@ -103,6 +114,10 @@ export class InicioComponent implements OnInit {
         numScroll: 1,
       },
     ];
+=======
+    this.fngetList()
+    this.fngeCatList()
+>>>>>>> origin/develop
   }
 
   fngetList() {
@@ -122,6 +137,7 @@ export class InicioComponent implements OnInit {
   fngeCatList() {
     this._ecommerceService.getCategories().subscribe({
       next: (res) => {
+<<<<<<< HEAD
         this.categorias = res;
 
         console.log(this.categorias);
@@ -145,4 +161,18 @@ export class InicioComponent implements OnInit {
         return 'success';
     }
   }
+=======
+
+        this.categorias = res;
+
+        console.log(this.categorias)
+      },
+      error: (e: HttpErrorResponse) => {
+        console.log('Error :', e)
+        return
+      }
+    });
+  }
+
+>>>>>>> origin/develop
 }
