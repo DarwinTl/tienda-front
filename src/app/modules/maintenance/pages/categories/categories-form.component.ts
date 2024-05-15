@@ -40,14 +40,14 @@ export type CategoriaField = {
     FormFieldComponent,
   ],
   template: `
-    <div class="max-w-xl">
-      <div class="p-8">
-        <h4 class="text-xl mb-6 text-center">
+    <div class="tw-max-w-xl">
+      <div class="tw-p-8">
+        <h4 class="tw-text-xl tw-mb-6 tw-text-center">
           {{ data ? 'Editar' : 'Registro de nueva' }} categoria
         </h4>
         <form
           [formGroup]="form"
-          class="grid grid-cols-1 gap-2 mx-4"
+          class="tw-grid tw-grid-cols-1 tw-gap-2 tw-mx-4"
           (submit)="onSubmit()"
         >
           <app-form-field>

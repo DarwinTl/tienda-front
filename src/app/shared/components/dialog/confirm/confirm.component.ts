@@ -17,22 +17,22 @@ export type DialogConfirmData = {
   standalone: true,
   imports: [MatIcon, MatButton],
   template: `
-    <div class="min-w-xl max-w-3xl">
-      <div class="p-6 text-gray-600">
-        <div class="flex justify-center mb-4">
+    <div class="tw-min-w-xl tw-max-w-3xl">
+      <div class="tw-p-6 tw-text-gray-600">
+        <div class="tw-flex tw-justify-center tw-mb-4">
           <mat-icon color="primary">{{ data.icon ?? 'info' }}</mat-icon>
         </div>
-        <h4 class="text-xl mb-4 text-center">
+        <h4 class="tw-text-xl tw-mb-4 tw-text-center">
           {{ data.title ?? 'Confirmar' }}
         </h4>
-        <p class="text-center">
+        <p class="tw-text-center">
           {{ data.message ?? '¿Estás seguro de realizar esta acción?' }}
         </p>
-        <div class="flex justify-center gap-x-2 mt-6">
-          <button class="grow" (click)="onClosed(false)" mat-stroked-button color="primary">
+        <div class="tw-flex tw-justify-center tw-gap-x-2 tw-mt-6">
+          <button class="tw-grow" (click)="onClosed(false)" mat-stroked-button color="primary">
             {{ data.cancel ?? 'Confirmar' }}
           </button>
-          <button class="grow" (click)="onClosed(true)" mat-raised-button color="primary">
+          <button class="tw-grow" (click)="onClosed(true)" mat-raised-button color="primary">
             {{ data.accept ?? 'Cancelar' }}
           </button>
         </div>

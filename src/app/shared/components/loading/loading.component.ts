@@ -7,16 +7,16 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   standalone: true,
   imports: [MatProgressSpinner, MatIcon],
   template: `
-    <div class="relative w-full h-full">
+    <div class="tw-relative tw-w-full tw-h-full">
       @if (isLoading) {
-        <div class="absolute inset-0 bg-opacity z-50">
-          <div class="flex justify-center items-center h-full">
+        <div class="tw-absolute tw-inset-0 bg-opacity tw-z-50">
+          <div class="tw-flex tw-justify-center tw-items-center tw-h-full">
             <mat-spinner [diameter]="diameter" />
           </div>
         </div>
       }
       @if (failed) {
-        <div class="p-8 text-center text-red-500 min-h-40">
+        <div class="tw-p-8 tw-text-center tw-text-red-500 tw-min-h-40">
           <mat-icon>error</mat-icon>
           <p>{{ failed }}</p>
         </div>
@@ -25,7 +25,6 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
       }
     </div>
   `,
-  styles: ``,
 })
 export class LoadingComponent {
   @Input()

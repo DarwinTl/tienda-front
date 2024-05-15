@@ -1,12 +1,12 @@
 .nav-item {
   border-radius: 0.25rem;
   cursor: pointer !important;
-  @apply text-gray-600;
+  @apply tw-text-gray-600;
   &.active {
-    @apply bg-blue-100;
+    @apply tw-bg-blue-100;
   }
   &:hover:not(.active) {
-    @apply bg-gray-100;
+    @apply tw-bg-gray-100;
   }
 }
 
