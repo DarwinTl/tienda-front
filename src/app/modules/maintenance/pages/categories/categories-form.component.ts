@@ -78,7 +78,12 @@ export type CategoriaField = {
             <button mat-stroked-button color="primary" mat-dialog-close>
               Cerrar
             </button>
-            <button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">
+            <button
+              [disabled]="form.invalid"
+              type="submit"
+              mat-raised-button
+              color="primary"
+            >
               Guardar
             </button>
           </div>

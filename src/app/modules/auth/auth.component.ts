@@ -50,16 +50,18 @@ export class AuthComponent {
       },
       { allowSignalWrites: true },
     );
-    effect(() => {
-      const error = this.authStore.error();
-      if (error) {
-        this.msg.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: error,
-        });
-      }
-    },
-    { allowSignalWrites: true });
+    effect(
+      () => {
+        const error = this.authStore.error();
+        if (error) {
+          this.msg.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error,
+          });
+        }
+      },
+      { allowSignalWrites: true },
+    );
   }
 }

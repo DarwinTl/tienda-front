@@ -1,51 +1,74 @@
 <div class="tw-relative tw-min-w-96">
-  <div class="tw-absolute tw-inset-0 tw-bg-white tw-opacity-80 tw-rounded-lg tw-z-10"></div>
+  <div
+    class="tw-absolute tw-inset-0 tw-bg-white tw-opacity-80 tw-rounded-lg tw-z-10"
+  ></div>
   <div class="tw-relative tw-p-4 tw-z-20">
-    <h4 class="tw-text-gray-700 tw-mb-10 tw-text-center tw-font-bold tw-text-xl">Crear cuenta</h4>
+    <h4
+      class="tw-text-gray-700 tw-mb-10 tw-text-center tw-font-bold tw-text-xl"
+    >
+      Crear cuenta
+    </h4>
     <form
       [formGroup]="formRegister"
       class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-x-4 tw-gap-y-1"
       (submit)="onSubmitRegister()"
     >
-    <app-form-field>
-      <mat-form-field class="md:tw-col-span-2">
+      <app-form-field>
+        <mat-form-field class="md:tw-col-span-2">
           <mat-label>Correo electrónico</mat-label>
-          <input formControlName="correo" matInput type="text" inputmode="email" />
+          <input
+            formControlName="correo"
+            matInput
+            type="text"
+            inputmode="email"
+          />
         </mat-form-field>
-    </app-form-field>
-    
-    <div class="tw-flex tw-gap-2">
-      <app-form-field class="tw-grow" #contrasenia>
-        <mat-form-field >
-          <mat-label>Contraseña</mat-label>
-          <input formControlName="contrasenia" matInput type="password" />
-        </mat-form-field>
-        @if (formRegister.getError('passwordsDontMatch') && contrasenia.touched()) {
-          <p class="tw-ml-2 tw-text-sm tw-text-red-500">Las contraseñas no coinciden</p>
-        }
-        @if (formRegister.getError('invalidPassword') && contrasenia.touched()) {
-          <p class="tw-ml-2 tw-text-sm tw-text-red-500">No cumple con los requisitos </p>
-        }
       </app-form-field>
-      <!-- @if (formRegister.getError('invalidPassword') && contrasenia.touched()) {
+
+      <div class="tw-flex tw-gap-2">
+        <app-form-field class="tw-grow" #contrasenia>
+          <mat-form-field>
+            <mat-label>Contraseña</mat-label>
+            <input formControlName="contrasenia" matInput type="password" />
+          </mat-form-field>
+          @if (
+            formRegister.getError('passwordsDontMatch') && contrasenia.touched()
+          ) {
+            <p class="tw-ml-2 tw-text-sm tw-text-red-500">
+              Las contraseñas no coinciden
+            </p>
+          }
+          @if (
+            formRegister.getError('invalidPassword') && contrasenia.touched()
+          ) {
+            <p class="tw-ml-2 tw-text-sm tw-text-red-500">
+              No cumple con los requisitos
+            </p>
+          }
+        </app-form-field>
+        <!-- @if (formRegister.getError('invalidPassword') && contrasenia.touched()) {
         <mat-icon class="mt-4 text-sm" color="primary" matTooltip="Debe ser mínimo 8 caracteres, máximo 20 caracteres, al menos 1 mayuscula, 1 minuscula, 1 número y 1 caracter especial.">info</mat-icon>
       } -->
-    </div>
-      
+      </div>
+
       <app-form-field>
         <mat-form-field>
           <mat-label>Repetir contraseña</mat-label>
-          <input formControlName="confirmarContrasenia" matInput type="password" />
+          <input
+            formControlName="confirmarContrasenia"
+            matInput
+            type="password"
+          />
         </mat-form-field>
       </app-form-field>
-      
+
       <app-form-field>
         <mat-form-field>
           <mat-label>Nombre</mat-label>
           <input appOnlyLetters formControlName="nombre" matInput type="text" />
         </mat-form-field>
       </app-form-field>
-      
+
       <app-form-field>
         <mat-form-field>
           <mat-label>Apellido paterno</mat-label>
@@ -57,7 +80,7 @@
           />
         </mat-form-field>
       </app-form-field>
-    
+
       <app-form-field>
         <mat-form-field>
           <mat-label>Apellido materno</mat-label>
@@ -69,7 +92,7 @@
           />
         </mat-form-field>
       </app-form-field>
-    
+
       <app-form-field>
         <mat-form-field>
           <mat-label>Tipo documento</mat-label>
@@ -79,7 +102,7 @@
           </mat-select>
         </mat-form-field>
       </app-form-field>
-    
+
       <app-form-field>
         <mat-form-field>
           <mat-label>Número de documento</mat-label>
@@ -92,22 +115,30 @@
           />
         </mat-form-field>
       </app-form-field>
-    
+
       <div class="tw-flex tw-justify-center md:tw-col-span-2">
-        <button type="submit" class="tw-w-full" mat-raised-button color="primary">
+        <button
+          type="submit"
+          class="tw-w-full"
+          mat-raised-button
+          color="primary"
+        >
           Crear cuenta
         </button>
       </div>
     </form>
-    
+
     <span class="tw-my-4 line-divider">o</span>
-    
+
     <div class="tw-flex tw-justify-center">
-      <button type="button" class="tw-w-full" routerLink="../login" mat-stroked-button>
+      <button
+        type="button"
+        class="tw-w-full"
+        routerLink="../login"
+        mat-stroked-button
+      >
         Ya tengo una cuenta
       </button>
     </div>
-    
   </div>
 </div>
-
