@@ -49,7 +49,7 @@ import { MaintenanceRoutes } from './layout.routes';
     <div class="maintenance-root">
       <header class="maintenance-header">
         <mat-toolbar class="shadow-md bg-white">
-          <div class="flex items-center max-w-5xl grow mx-auto">
+          <div class="tw-flex tw-items-center tw-max-w-5xl tw-grow tw-mx-auto">
             @if (smallScreen()) {
               <button
                 (click)="openSidenav()"
@@ -62,9 +62,9 @@ import { MaintenanceRoutes } from './layout.routes';
             <!-- <div class="flex items-center justify-start">
               <h4 class="text-md md:text-2xl">Mantenimiento</h4>
             </div> -->
-            <span class="grow"></span>
+            <span class="tw-grow"></span>
             <button
-              class="justify-end"
+              class="tw-justify-end"
               (click)="logout()"
               type="button"
               mat-stroked-button
@@ -80,26 +80,26 @@ import { MaintenanceRoutes } from './layout.routes';
         <mat-drawer
           [mode]="smallScreen() ? 'over' : 'side'"
           [opened]="sideNav()"
-          (closedStart)="sideNav.set(false)"
+          (closedStart)="smallScreen() && sideNav.set(false)"
         >
           <div class="maintenance-sidebar">
             <mat-list>
-              <div class="flex justify-center">
+              <div class="tw-flex tw-justify-center">
                 <img
-                  class="w-40 h-40"
+                  class="tw-w-40 tw-h-40"
                   src="assets/imagenes/logo.png"
                   alt="logo"
                 />
               </div>
-              <h3 mat-subheader class="text-gray-600">General</h3>
+              <h3 mat-subheader class="tw-text-gray-600">General</h3>
               @for (opcion of opciones; track opcion) {
                 <mat-list-item
                   class="nav-item"
                   [routerLink]="opcion.link"
-                  (isActiveChange)="sideNav.set(false)"
+                  (isActiveChange)="smallScreen() && sideNav.set(false)"
                   routerLinkActive="active"
                 >
-                  <div class="flex gap-x-2 text-gray-600">
+                  <div class="tw-flex tw-gap-x-2 tw-text-gray-600">
                     <mat-icon mat-list-icon>{{ opcion.icon }}</mat-icon>
                     <h4>{{ opcion.title }}</h4>
                   </div>

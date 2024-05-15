@@ -8,13 +8,13 @@ import { ErrorFieldComponent } from '@components/error-field/error-field.compone
   imports: [ErrorFieldComponent],
   template: `
     <ng-content></ng-content>
-    <div class="min-h-4 mb-3">
+    <div class="tw-min-h-4 tw-mb-3">
       <app-error-field [ngControl]="ngControl" [touched]="touched()" />
     </div>
   `,
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
-    class: 'grid'
+    class: 'tw-grid'
   }
 })
 export class FormFieldComponent implements AfterViewInit {

@@ -9,18 +9,18 @@ import { MatIcon } from '@angular/material/icon';
   imports: [MatIcon, MatButton, MatDialogClose],
   template: `
   
-    <div class="min-w-md md:max-w-3xl">
-      <div class="p-6">
-        <div class="flex justify-center mb-4">
+    <div class="tw-min-w-md md:tw-max-w-3xl">
+      <div class="tw-p-6">
+        <div class="tw-flex tw-justify-center tw-mb-4">
           <mat-icon color="primary">info</mat-icon>
         </div>
-        <h4 class="text-xl mb-4 text-center">
+        <h4 class="tw-text-xl tw-mb-4 tw-text-center">
           Sesión expirada
         </h4>
-        <p class="text-center">
+        <p class="tw-text-center">
           Tu sesión ha expirado, por favor inicia sesión nuevamente.
         </p>
-        <div class="flex justify-center gap-x-2 mt-6">
+        <div class="tw-flex tw-justify-center tw-gap-x-2 tw-mt-6">
           <button mat-raised-button color="primary" mat-dialog-close>
             Iniciar sesión
           </button>

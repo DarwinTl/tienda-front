@@ -39,14 +39,14 @@ export type MarcaField = {
     FormFieldComponent,
   ],
   template: `
-    <div class="max-w-xl">
+    <div class="tw-max-w-xl">
       <div class="p-8">
-        <h4 class="text-xl mb-6 text-center">
+        <h4 class="tw-text-xl tw-mb-6 tw-text-center">
           {{ data ? 'Editar' : 'Registro de nueva' }} marca
         </h4>
         <form
           [formGroup]="form"
-          class="grid grid-cols-1 gap-2 mx-4"
+          class="tw-grid tw-grid-cols-1 tw-gap-2 tw-mx-4"
           (submit)="onSubmit()"
         >
           <app-form-field>
@@ -73,7 +73,7 @@ export type MarcaField = {
             </mat-form-field>
           </app-form-field>
 
-          <div class="flex justify-center gap-4">
+          <div class="tw-flex tw-justify-center tw-gap-4">
             <button
               class="grow"
               mat-stroked-button
