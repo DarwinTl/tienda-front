@@ -68,24 +68,6 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {
     this.fngetList()
     this.fngeCatList();
-    // const newProduct: product_List = {
-    //   id: '1000',
-    //   code: 'f230fh0g3',
-    //   name: 'Bamboo Watch',
-    //   description: 'Product Description',
-    //   image: 'bamboo-watch.jpg',
-    //   price: 65,
-    //   category: 'Accessories',
-    //   quantity: 24,
-    //   inventoryStatus: 'INSTOCK',
-    //   rating: 5,
-    // };
-
-    // Agregar el objeto de producto al array products
-    // this.products.push(newProduct);
-    // this.products.push(newProduct);
-    // this.products.push(newProduct);
-    // this.products.push(newProduct);
 
     this.responsiveOptions = [
       {
@@ -136,11 +118,11 @@ export class InicioComponent implements OnInit {
 
   getSeverity(status: string) {
     switch (status) {
-      case 'INSTOCK':
+      case 'En Stock':
         return 'success';
-      case 'LOWSTOCK':
+      case 'Poco Stock':
         return 'warning';
-      case 'OUTOFSTOCK':
+      case 'Sin Stock':
         return 'danger';
       default:
         return 'success';

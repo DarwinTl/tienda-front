@@ -2,7 +2,7 @@ export type product_List = {
   id?: number;
   nombre: string;
   descripcion: string;
-  ruta: 'bamboo-watch.jpg';
+  ruta: string;
   estado: number;
   stock: number;
   precioVenta: number;
