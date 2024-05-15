@@ -26,7 +26,7 @@ import { ToastModule } from 'primeng/toast';
     MatTableModule,
   ],
   template: `
-    <section class="p-4">
+    <section class="p-4 bg-white shadow-md rounded mt-4">
       <h3 class="text-gray-700 text-2xl">{{ title }}</h3>
       <div class="flex justify-end w-full py-4">
         <button mat-raised-button color="primary" (click)="eventCreate.emit()">
@@ -35,9 +35,9 @@ import { ToastModule } from 'primeng/toast';
       </div>
     </section>
 
-    <section class="p-4">
+    <section class="p-4 bg-white shadow-md rounded">
       <app-loading [isLoading]="isLoading" [diameter]="50">
-        <table mat-table [dataSource]="dataSource">
+        <table class="bg-white" mat-table [dataSource]="dataSource">
           @for (data of displayedColumns; track data) {
             <ng-container [matColumnDef]="data">
               <th mat-header-cell *matHeaderCellDef>
@@ -49,7 +49,7 @@ import { ToastModule } from 'primeng/toast';
               } @else {
                 {{ data | titlecase }}
               }
-              
+
               </th>
               <td mat-cell *matCellDef="let cell">
                 @if (data === 'estado') {

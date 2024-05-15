@@ -1,11 +1,11 @@
 <div class="max-w-xl">
-  <div class="p-8">
-    <h4 class="text-xl mb-6 text-center">
+  <div class="p-4">
+    <h4 class="text-xl mb-4 text-center">
       {{ data ? 'Editar' : 'Registro de nuevo' }} producto
     </h4>
     <form
       [formGroup]="form"
-      class="grid grid-cols-1 md:grid-cols-2 gap-2 mx-4"
+      class="grid grid-cols-1 md:grid-cols-2 gap-2 mx-3"
       (submit)="onSubmit()"
     >
       <mat-checkbox class="" formControlName="estado"> Estado </mat-checkbox>
@@ -39,8 +39,8 @@
           <ng-template pTemplate="empty">
             <div class="flex items-center justify-center flex-col">
               <i
-                class="pi pi-cloud-upload flex border-2 rounded-full p-8"
-                style="font-size: 1.5rem"
+                class="pi pi-cloud-upload flex border-2 rounded-full p-4"
+                style="font-size: 1rem"
               ></i>
               <p class="text-md mt-4 mb-0">
                 Arrastre y suelta un archivo aquí para cargarlo.

@@ -37,7 +37,7 @@ import { DataTableProducts } from './products.type';
       (eventEdit)="openDialogEdit($event)"
       (eventDelete)="openDialogDelete($event)"
     >
-      <mat-paginator aria-label="Páginas de productos" />
+      <mat-paginator class="bg-white" aria-label="Páginas de productos" />
     </app-maintenance-table>
   `,
 })

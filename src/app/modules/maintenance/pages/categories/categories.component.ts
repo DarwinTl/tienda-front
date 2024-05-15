@@ -48,7 +48,7 @@ import { DataTableCategories } from './categories.type';
       (eventEdit)="openDialogEdit($event)"
       (eventDelete)="openDialogDelete($event)"
     >
-      <mat-paginator aria-label="Páginas de articulos" />
+      <mat-paginator class="bg-white" aria-label="Páginas de articulos" />
     </app-maintenance-table>
   `,
 })
