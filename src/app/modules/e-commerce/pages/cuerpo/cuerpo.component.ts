@@ -10,6 +10,7 @@ import { product_List } from '../inicio/Inicio.type';
 import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectItem } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -47,39 +48,9 @@ export class CuerpoComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.parametro = params['parametro'];
       this.getCategoriaLabel();
+      this.getProducts(this.parametro)
     });
 
-    // const newProduct: product_List = {
-    //   id: '1000',
-    //   code: 'f230fh0g3',
-    //   name: 'Bamboo Watch',
-    //   description: 'Product Description',
-    //   image: 'bamboo-watch.jpg',
-    //   price: 65,
-    //   category: 'Accessories',
-    //   quantity: 24,
-    //   inventoryStatus: 'INSTOCK',
-    //   rating: 5,
-    // };
-    // const newProduct2: product_List = {
-    //   id: '1000',
-    //   code: 'f230fh0g3',
-    //   name: 'Bamboo Watch',
-    //   description: 'Product Description',
-    //   image: 'bamboo-watch.jpg',
-    //   price: 45,
-    //   category: 'Accessories',
-    //   quantity: 24,
-    //   inventoryStatus: 'INSTOCK',
-    //   rating: 5,
-    // };
-
-    // this.products.push(newProduct);
-    // this.products.push(newProduct);
-    // this.products.push(newProduct);
-    // this.products.push(newProduct2);
-    // this.products.push(newProduct2);
-    // this.products.push(newProduct2);
     this.sortOptions = [
       { label: 'Precio de mayor a menor', value: '!price' },
       { label: 'Precio de menor a mayor', value: 'price' },
@@ -117,20 +88,16 @@ export class CuerpoComponent implements OnInit {
     switch (this.parametro) {
       case '1':
         return (this.catlabel = 'Bebidas');
-
       case '2':
         return (this.catlabel = 'Abarrotes');
-
       case '3':
         return (this.catlabel = 'Golosinas');
       case '4':
         return (this.catlabel = 'Galletas');
-
       case '5':
         return (this.catlabel = 'Congelados');
       case '6':
         return (this.catlabel = 'Lacteos');
-
       case '7':
         return (this.catlabel = 'Fiambres');
       case '8':
@@ -141,9 +108,22 @@ export class CuerpoComponent implements OnInit {
         return (this.catlabel = 'Cuidado Personal');
       case '11':
         return (this.catlabel = 'Limpieza');
-
       default:
         return (this.catlabel = 'Todos');
     }
+  }
+
+  getProducts(id: string) {
+    this._ecommerceService.getProductsXCat(id).subscribe({
+      next: (res) => {
+        this.products = res;
+
+        console.log(this.products);
+      },
+      error: (e: HttpErrorResponse) => {
+        console.log('Error :', e);
+        return;
+      },
+    });
   }
 }
