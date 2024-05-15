@@ -13,6 +13,7 @@ import { LoadingComponent } from '@components/loading/loading.component';
 import { Role } from '@shared/enums/role.enum';
 import { JwtService } from '@shared/services/jwt.service';
 import { AuthStore } from '@shared/store/auth.store';
+import { MessageService } from 'primeng/api';
 import { AuthRepository } from './repositories/auth-repository';
 
 @Component({
@@ -34,6 +35,7 @@ export class AuthComponent {
   private readonly router = inject(Router);
   readonly authStore = inject(AuthStore);
   readonly jwtService = inject(JwtService);
+  private readonly msg = inject(MessageService);
 
   constructor() {
     effect(
@@ -48,5 +50,16 @@ export class AuthComponent {
       },
       { allowSignalWrites: true },
     );
+    effect(() => {
+      const error = this.authStore.error();
+      if (error) {
+        this.msg.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error,
+        });
+      }
+    },
+    { allowSignalWrites: true });
   }
 }

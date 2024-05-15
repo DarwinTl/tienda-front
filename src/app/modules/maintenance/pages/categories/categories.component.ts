@@ -107,7 +107,7 @@ export class CategoriesComponent extends Maintenance<DataTableCategories> {
       .open(ConfirmDialogComponent, {
         data: {
           title: 'Eliminar categoría',
-          message: `¿Estás seguro de eliminar la categoría ${data.detalle ?? '-'}?`,
+          message: `¿Estás seguro de eliminar la categoría ${data.nombre ?? '-'}?`,
           icon: 'warning',
           accept: 'Cancelar',
           cancel: 'Elminar',

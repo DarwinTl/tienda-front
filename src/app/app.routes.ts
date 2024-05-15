@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard, hasLoginGuard } from '@shared/guards/auth.guard';
+import { authRoleGuard, hasLoginGuard } from '@shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -16,7 +16,7 @@ export const routes: Routes = [
   },
   {
     path: 'mantenimiento',
-    canActivate: [authGuard],
+    canActivate: [authRoleGuard],
     loadComponent: () =>
       import('@maintenance/layout-maintenance.component').then(
         (c) => c.LayoutMaintenanceComponent,
