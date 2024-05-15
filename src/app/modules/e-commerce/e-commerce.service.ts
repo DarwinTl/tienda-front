@@ -32,6 +32,6 @@ export class ecommerceService {
   }
 
   getProductsXCat(id: string): Observable<productXCat[]> {
-    return this.http.get<productXCat[]>(`${this.myAppUrl}/api/mantenimiento/productos/categorias/${id}`);
+    return this.http.get<productXCat[]>(`${this.myAppUrl}/api/home/categorias/${id}`);
   }
 }
