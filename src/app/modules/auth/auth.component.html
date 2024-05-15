@@ -1,7 +1,7 @@
 <div class="login-root">
   <header>
-    <mat-toolbar class="shadow-sm">
-      <div class="flex">
+    <mat-toolbar class="tw-shadow-sm">
+      <div class="tw-flex">
         <button routerLink="/" mat-stroked-button>
           <mat-icon>chevron_left</mat-icon> Volver a inicio
         </button>
@@ -10,9 +10,9 @@
   </header>
   <main class="main-content">
     <app-loading [isLoading]="authStore.isLoading()">
-      <div class="relative grid grid-cols-1 md:grid-cols-[45%_55%] h-full">
-        <div class="absolute md:relative h-full w-full">
-          <div class="bg-black opacity-20 absolute inset-0 z-10 md:hidden"></div>
+      <div class="tw-relative tw-grid tw-tw-grid-cols-1 md:tw-grid-cols-[45%_55%] tw-h-full">
+        <div class="tw-absolute md:tw-relative tw-h-full tw-w-full">
+          <div class="tw-bg-black tw-opacity-20 tw-absolute tw-inset-0 tw-z-10 md:tw-hidden"></div>
           <picture>
             <source
               type="image/webp"
@@ -23,13 +23,13 @@
               srcset="assets/imagenes/login-banner.jpg"
             />
             <img
-              class="w-full h-full object-cover"
+              class="tw-w-full tw-h-full tw-object-cover"
               src="assets/imagenes/login-banner.jpg"
               alt="login banner"
             />
           </picture>
         </div>
-        <div class="py-12 px-8 max-w-2xl mx-auto">
+        <div class="tw-py-12 tw-px-8 tw-max-w-2xl tw-mx-auto">
           <router-outlet></router-outlet>
         </div>
       </div>

@@ -1,16 +1,16 @@
-<div class="max-w-xl">
-  <div class="p-8">
-    <h4 class="text-xl mb-6 text-center">
+<div class="tw-max-w-xl">
+  <div class="tw-p-8">
+    <h4 class="tw-text-xl tw-mb-6 tw-text-center">
       {{ data ? 'Editar' : 'Registro de nuevo' }} producto
     </h4>
     <form
       [formGroup]="form"
-      class="grid grid-cols-1 md:grid-cols-2 gap-2 mx-4"
+      class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-2 tw-mx-4"
       (submit)="onSubmit()"
     >
       <mat-checkbox class="" formControlName="estado"> Estado </mat-checkbox>
 
-      <div class="col-span-1 md:col-span-2">
+      <div class="tw-col-span-1 md:tw-col-span-2">
         <p-fileUpload
           (onSelect)="fileUpload($event)"
           accept="image/*"
@@ -24,9 +24,9 @@
             let-files="files"
           >
             <div
-              class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2"
+              class="tw-flex tw-flex-wrap tw-justify-content-between tw-align-items-center tw-flex-1 tw-gap-2"
             >
-              <div class="flex gap-2 justify-end">
+              <div class="tw-flex tw-gap-2 tw-justify-end">
                 <p-button
                   (onClick)="choose($event, chooseCallback)"
                   icon="pi pi-images"
@@ -37,12 +37,12 @@
             </div>
           </ng-template>
           <ng-template pTemplate="empty">
-            <div class="flex items-center justify-center flex-col">
+            <div class="fnx-lex tw-items-center tw-justify-center tw-flex-col">
               <i
-                class="pi pi-cloud-upload flex border-2 rounded-full p-8"
+                class="pi pi-cloud-upload tw-flex tw-border-2 tw-rounded-full tw-p-8"
                 style="font-size: 1.5rem"
               ></i>
-              <p class="text-md mt-4 mb-0">
+              <p class="tw-text-md tw-mt-4 tw-mb-0">
                 Arrastre y suelta un archivo aquí para cargarlo.
               </p>
             </div>
@@ -61,7 +61,7 @@
         <mat-form-field>
           <mat-label>Stock</mat-label>
           <input
-            class="text-end"
+            class="tw-text-end"
             formControlName="stock"
             matInput
             placeholder="0"
@@ -129,7 +129,7 @@
         </mat-form-field>
       </app-form-field>
 
-      <app-form-field class="md:col-span-2">
+      <app-form-field class="md:tw-col-span-2">
         <mat-form-field>
           <mat-label>Description</mat-label>
           <textarea
@@ -140,7 +140,7 @@
         </mat-form-field>
       </app-form-field>
 
-      <div class="flex justify-center gap-4 md:col-span-2">
+      <div class="tw-flex tw-justify-center tw-gap-4 md:tw-col-span-2">
         <button
           class="grow"
           mat-stroked-button
@@ -149,7 +149,7 @@
         >
           Cerrar
         </button>
-        <button [disabled]="form.invalid" class="grow" type="submit" mat-raised-button color="primary">
+        <button [disabled]="form.invalid" class="tw-grow" type="submit" mat-raised-button color="primary">
           Guardar
         </button>
       </div>

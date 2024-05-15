@@ -2,22 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 import {
   CarouselModule as OwlCarouselModule,
   OwlOptions,
 } from 'ngx-owl-carousel-o';
-import { CarouselModule as PrimeCarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
+import { CarouselModule as PrimeCarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 
-import { categoria_product_list, product_List } from './Inicio.type';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { CardModule } from 'primeng/card';
+import { categoria_product_list, product_List } from './Inicio.type';
 
 @Component({
   selector: 'app-inicio',

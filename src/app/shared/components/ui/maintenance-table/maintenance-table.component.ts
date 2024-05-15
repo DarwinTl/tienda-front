@@ -26,16 +26,16 @@ import { ToastModule } from 'primeng/toast';
     MatTableModule,
   ],
   template: `
-    <section class="p-4">
-      <h3 class="text-gray-700 text-2xl">{{ title }}</h3>
-      <div class="flex justify-end w-full py-4">
-        <button mat-raised-button color="primary" (click)="eventCreate.emit()">
+    <section class="tw-p-4">
+      <h3 class="tw-text-gray-700 tw-text-2xl">{{ title }}</h3>
+      <div class="tw-flex tw-justify-end tw-w-full tw-py-4">
+        <button type="button" aria-label="Nuevo registro" mat-raised-button color="primary" (click)="eventCreate.emit()">
           Nuevo
         </button>
       </div>
     </section>
 
-    <section class="p-4">
+    <section class="tw-p-4">
       <app-loading [isLoading]="isLoading" [diameter]="50">
         <table mat-table [dataSource]="dataSource">
           @for (data of displayedColumns; track data) {
@@ -43,7 +43,7 @@ import { ToastModule } from 'primeng/toast';
               <th mat-header-cell *matHeaderCellDef>
 
               @if ( data === 'acciones' ) {
-                <div class="text-center">
+                <div class="tw-text-center">
                   {{ data | titlecase }}
                 </div>
               } @else {
@@ -65,7 +65,7 @@ import { ToastModule } from 'primeng/toast';
                     color="primary"
                   ></mat-checkbox>
                 } @else if (data === 'acciones') {
-                  <div class="flex justify-center">
+                  <div class="tw-flex tw-justify-center">
                     <button
                       color="primary"
                       mat-icon-button
