@@ -94,7 +94,6 @@ import { ToastModule } from 'primeng/toast';
         <ng-content></ng-content>
       </app-loading>
     </section>
-    <p-toast />
   `,
   styles: ``,
 })

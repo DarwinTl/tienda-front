@@ -109,7 +109,6 @@ export class LoginComponent {
   }
 
   #login(payload: ApiReqPostLogin) {
-    console.log('send login');
     this.authStore.login(payload);
   }
 }

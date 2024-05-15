@@ -18,9 +18,15 @@
       matBadgeSize="small">shopping_cart</mat-icon></a>
 
   <mat-menu #lvl1master="matMenu">
-    <button mat-menu-item routerLink="/autenticacion">
-      <mat-icon>login</mat-icon> Iniciar Sesion
-    </button>
+    @if (authStore.isLogged()) {
+      <button mat-menu-item (click)="authStore.logout()">
+        <mat-icon>logout</mat-icon> Cerrar Sesion
+      </button>
+    } @else {
+      <button mat-menu-item routerLink="/autenticacion">
+        <mat-icon>login</mat-icon> Iniciar Sesion
+      </button>
+    }
     <button mat-menu-item><mat-icon>person</mat-icon> Perfil</button>
   </mat-menu>
 </mat-toolbar>
