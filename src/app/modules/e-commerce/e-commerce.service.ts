@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import {
   categoria_product_list,
+  productXCat,
   product_List,
 } from './pages/inicio/Inicio.type';
 import { Observable } from 'rxjs';
@@ -24,9 +25,13 @@ export class ecommerceService {
   }
 
   getCategories(): Observable<categoria_product_list[]> {
-    console.log(`${this.myAppUrl}${this.myApiUrl}`);
+    // console.log(`${this.myAppUrl}${this.myApiUrl}`);
     return this.http.get<categoria_product_list[]>(
       `${this.myAppUrl}${this.myApiUrl}/categorias`,
     );
+  }
+
+  getProductsXCat(id: string): Observable<productXCat[]> {
+    return this.http.get<productXCat[]>(`${this.myAppUrl}/api/mantenimiento/productos/categorias/${id}`);
   }
 }
