@@ -27,7 +27,6 @@ import { categoria_product_list } from '@ecommerce/pages/inicio/Inicio.type';
 
 import { AuthStore } from '@shared/store/auth.store';
 import { ButtonModule } from 'primeng/button';
-import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-cabecera',
@@ -48,7 +47,7 @@ import { DropdownModule } from 'primeng/dropdown';
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
-    DropdownModule,
+
     ButtonModule,
 
   ],
