@@ -22,60 +22,79 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
     MatLabel,
     MatInput,
     RouterLink,
-    FormFieldComponent
+    FormFieldComponent,
   ],
   template: `
-  <div class="tw-relative tw-min-w-80">
-    <div class="tw-absolute tw-inset-0 tw-bg-white tw-opacity-80 tw-rounded-lg tw-z-10"></div>
-    <div class="tw-relative tw-p-4 tw-z-20">
-      <h4 class="tw-text-gray-700 tw-mb-10 tw-text-center tw-font-bold tw-text-xl">
-        Iniciar sesión
-      </h4>
-      <form
-        [formGroup]="formLogin"
-        class="md:tw-min-w-80 tw-grid tw-grid-cols-1"
-        (submit)="onSubmitLogin()"
-      >
-      <app-form-field>
-        <mat-form-field>
-          <mat-label>Correo electrónico</mat-label>
-          <input class="tw-w-full" formControlName="correo" matInput type="text" />
-        </mat-form-field>
-      </app-form-field>
-  
-      <app-form-field>
-        <mat-form-field>
-          <mat-label>Contraseña</mat-label>
-          <input
-            class="tw-w-full"
-            formControlName="contrasenia"
-            matInput
-            type="password"
-          />
-        </mat-form-field>
-      </app-form-field>
-  
-        @if (authStore.error()) {
-          <div class="tw-flex tw-mx-2 tw-pb-4">
-            <p class="tw-text-red-500 tw-text-sm">{{ authStore.error() }}</p>
+    <div class="tw-relative tw-min-w-80">
+      <div
+        class="tw-absolute tw-inset-0 tw-bg-white tw-opacity-80 tw-rounded-lg tw-z-10"
+      ></div>
+      <div class="tw-relative tw-p-4 tw-z-20">
+        <h4
+          class="tw-text-gray-700 tw-mb-10 tw-text-center tw-font-bold tw-text-xl"
+        >
+          Iniciar sesión
+        </h4>
+        <form
+          [formGroup]="formLogin"
+          class="md:tw-min-w-80 tw-grid tw-grid-cols-1"
+          (submit)="onSubmitLogin()"
+        >
+          <app-form-field>
+            <mat-form-field>
+              <mat-label>Correo electrónico</mat-label>
+              <input
+                class="tw-w-full"
+                formControlName="correo"
+                matInput
+                type="text"
+              />
+            </mat-form-field>
+          </app-form-field>
+
+          <app-form-field>
+            <mat-form-field>
+              <mat-label>Contraseña</mat-label>
+              <input
+                class="tw-w-full"
+                formControlName="contrasenia"
+                matInput
+                type="password"
+              />
+            </mat-form-field>
+          </app-form-field>
+
+          @if (authStore.error()) {
+            <div class="tw-flex tw-mx-2 tw-pb-4">
+              <p class="tw-text-red-500 tw-text-sm">{{ authStore.error() }}</p>
+            </div>
+          }
+
+          <div class="tw-flex">
+            <button
+              type="submit"
+              class="tw-w-full"
+              mat-raised-button
+              color="primary"
+            >
+              Iniciar sesión
+            </button>
           </div>
-        }
-  
-        <div class="tw-flex">
-          <button type="submit" class="tw-w-full" mat-raised-button color="primary">
-            Iniciar sesión
+        </form>
+        <span class="tw-my-4 line-divider">o</span>
+
+        <div class="tw-flex tw-justify-center">
+          <button
+            type="button"
+            class="tw-w-full"
+            routerLink="../register"
+            mat-stroked-button
+          >
+            Crear una cuenta
           </button>
         </div>
-      </form>
-      <span class="tw-my-4 line-divider">o</span>
-  
-      <div class="tw-flex tw-justify-center">
-        <button type="button" class="tw-w-full" routerLink="../register" mat-stroked-button>
-          Crear una cuenta
-        </button>
       </div>
     </div>
-  </div>
   `,
   styles: ``,
 })
