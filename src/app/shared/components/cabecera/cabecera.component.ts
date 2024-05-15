@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,11 +20,12 @@ import {
   RouterOutlet,
 } from '@angular/router';
 
+import { ActivatedRoute } from '@angular/router';
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { categoria_product_list } from '@ecommerce/pages/inicio/Inicio.type';
-import { ActivatedRoute } from '@angular/router';
 
+import { AuthStore } from '@shared/store/auth.store';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -54,7 +55,7 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './cabecera.component.scss',
 })
 export class CabeceraComponent {
-
+  authStore = inject(AuthStore);
   categorias: categoria_product_list[] = [];
 
 

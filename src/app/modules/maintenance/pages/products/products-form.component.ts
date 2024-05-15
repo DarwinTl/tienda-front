@@ -31,7 +31,7 @@ import { Categoria } from '../categories/categories.type';
 
 import { ApiUnidadMedida } from '@api/service/api-unidad-medida';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
-import { PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -98,6 +98,7 @@ export class ProductsFormComponent {
   data: ProductoField = inject(DIALOG_DATA);
   config = inject(PrimeNGConfig);
   form: FormGroup<ProductoForm>;
+  readonly msg = inject(MessageService);
 
   categories = signal<Categoria[]>([]);
   marcas = signal<Marca[]>([]);
@@ -121,7 +122,7 @@ export class ProductsFormComponent {
         this.categories.set(response);
       },
       error: (error) => {
-        console.error(error);
+        this.msg.add({ severity: 'error', summary: 'Error', detail: error });
       },
     });
   }
@@ -132,7 +133,7 @@ export class ProductsFormComponent {
         this.marcas.set(response);
       },
       error: (error) => {
-        console.error(error);
+        this.msg.add({ severity: 'error', summary: 'Error', detail: error });
       },
     });
   }
@@ -143,7 +144,7 @@ export class ProductsFormComponent {
         this.unidades.set(response);
       },
       error: (error) => {
-        console.error(error);
+        this.msg.add({ severity: 'error', summary: 'Error', detail: error });
       },
     });
   }

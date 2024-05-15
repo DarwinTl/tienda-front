@@ -7,14 +7,16 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatTooltip } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ApiReqPostRegister } from '@api/interface/api.auth';
 import { AuthRegisterForm } from '@auth/auth.type';
 import { AuthRepository } from '@auth/repositories/auth-repository';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 import { OnlyNumbersDirective } from '@shared/directives/only-numbers.directive';
+import { ApiError } from '@shared/models/error.model';
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
@@ -41,6 +43,8 @@ export class RegisterComponent {
   private readonly fb = inject(FormBuilder);
   private readonly validator = inject(CustomValidatorService);
   private readonly authRepository = inject(AuthRepository);
+  private readonly msg = inject(MessageService);
+  private readonly router = inject(Router);
 
   formRegister = this.#createRegisterForm();
 
@@ -85,6 +89,7 @@ export class RegisterComponent {
   }
 
   onSubmitRegister() {
+
     if (this.formRegister.invalid) return;
     const formValue = this.formRegister.getRawValue();
     const payload: ApiReqPostRegister = {
@@ -99,10 +104,18 @@ export class RegisterComponent {
     };
     this.authRepository.postCliente(payload).subscribe({
       next: () => {
-        // this.isRegisterForm.set(false);
+        this.msg.add({
+          severity: 'success',
+          summary: 'Registro exitoso',
+        });
+        this.router.navigate(['/autenticacion/login']);
       },
-      error: (error) => {
-        console.error(error);
+      error: ({ mensaje }: ApiError) => {
+        this.msg.add({
+          severity: 'error',
+          summary: 'Ocurrió un error',
+          detail: mensaje,
+        });
       },
     });
   }

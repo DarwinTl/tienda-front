@@ -12,6 +12,7 @@ import { debounceTime, pipe, switchMap, tap } from 'rxjs';
 import { ApiReqPostLogin } from '@api/interface/api.auth';
 import { ApiAuth } from '@api/service/api.auth';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { ApiError } from '@shared/models/error.model';
 
 type AuthState = {
   isLoading: boolean;
@@ -47,8 +48,7 @@ export const AuthStore = signalStore(
                 localStorage.setItem('token', token);
                 patchState(store, { token, error: null });
               },
-              error: (error: { mensaje: string }) =>
-                patchState(store, { ...initialState, error: error.mensaje }),
+              error: ({mensaje}: ApiError) => patchState(store, { ...initialState, error: mensaje }),
               finalize: () => patchState(store, { isLoading: false }),
             }),
           ),
