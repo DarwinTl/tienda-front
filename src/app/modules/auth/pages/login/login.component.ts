@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
@@ -18,6 +18,8 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
     ReactiveFormsModule,
     MatButton,
     MatIcon,
+    MatIconButton,
+    MatSuffix,
     MatFormField,
     MatLabel,
     MatInput,
@@ -59,8 +61,11 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
                 class="tw-w-full"
                 formControlName="contrasenia"
                 matInput
-                type="password"
+                [type]="hide ? 'password' : 'text'"	
               />
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
+                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
             </mat-form-field>
           </app-form-field>
 
@@ -103,6 +108,7 @@ export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly validator = inject(CustomValidatorService);
   formLogin = this.#createLoginForm();
+  hide = true;
 
   #createLoginForm() {
     return this.fb.group<AuthLoginForm>({

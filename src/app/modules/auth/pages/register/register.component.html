@@ -29,7 +29,20 @@
         <app-form-field class="tw-grow" #contrasenia>
           <mat-form-field>
             <mat-label>Contraseña</mat-label>
-            <input formControlName="contrasenia" matInput type="password" />
+            <input [mat-menu-trigger-for]="panel" #matMenuTriggerFor="matMenuTrigger" (focus)="matMenuTriggerFor.openMenu()" (blur)="matMenuTriggerFor.closeMenu()" autocomplete="off" #input formControlName="contrasenia" matInput [type]="hidePassword ? 'password' : 'text'" />
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-menu #panel>
+              <div class="tw-flex tw-text-sm p-2">
+                <ul class="tw-grid">
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon>{{ (input.value | hasUpper) ? 'check' : 'error' }}</mat-icon> <p>1 mayúscula</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon>{{ (input.value | hasLower) ? 'check' : 'error' }}</mat-icon> <p>1 minuscula</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon>{{ (input.value | hasDigit) ? 'check' : 'error' }}</mat-icon> <p>1 número</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon>{{ (input.value | hasEspecial) ? 'check' : 'error' }}</mat-icon> <p>1 caracter especial</p></li>
+                </ul>
+              </div>
+            </mat-menu>
           </mat-form-field>
           @if (
             formRegister.getError('passwordsDontMatch') && contrasenia.touched()
@@ -46,6 +59,7 @@
             </p>
           }
         </app-form-field>
+        
         <!-- @if (formRegister.getError('invalidPassword') && contrasenia.touched()) {
         <mat-icon class="mt-4 text-sm" color="primary" matTooltip="Debe ser mínimo 8 caracteres, máximo 20 caracteres, al menos 1 mayuscula, 1 minuscula, 1 número y 1 caracter especial.">info</mat-icon>
       } -->
@@ -57,8 +71,11 @@
           <input
             formControlName="confirmarContrasenia"
             matInput
-            type="password"
+            [type]="hideConfirmPassword ? 'password' : 'text'"
           />
+          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hideConfirmPassword">
+            <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
         </mat-form-field>
       </app-form-field>
 
