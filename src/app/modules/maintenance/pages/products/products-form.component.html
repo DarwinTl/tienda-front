@@ -1,4 +1,4 @@
-<div class="tw-max-w-xl">
+<div class="tw-max-w-xl tw-overflow-y-auto">
   <div class="tw-p-8">
     <h4 class="tw-text-xl tw-mb-6 tw-text-center">
       {{ data ? 'Editar' : 'Registro de nuevo' }} producto
@@ -90,7 +90,7 @@
           <input
             formControlName="precioVenta"
             matInput
-            class="text-end"
+            class="tw-text-end"
             placeholder="0.00"
             type="number"
           />
@@ -142,14 +142,20 @@
 
       <div class="tw-flex tw-justify-center tw-gap-4 md:tw-col-span-2">
         <button
-          class="grow"
+          class="tw-grow"
           mat-stroked-button
           color="primary"
           mat-dialog-close
         >
           Cerrar
         </button>
-        <button [disabled]="form.invalid" class="tw-grow" type="submit" mat-raised-button color="primary">
+        <button
+          [disabled]="form.invalid"
+          class="tw-grow"
+          type="submit"
+          mat-raised-button
+          color="primary"
+        >
           Guardar
         </button>
       </div>

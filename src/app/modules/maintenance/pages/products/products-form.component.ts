@@ -162,9 +162,12 @@ export class ProductsFormComponent {
       }),
       ruta: this.fb.control('', { nonNullable: true }),
       estado: this.fb.control(true, { nonNullable: true }),
-      stock: this.fb.control<number | null>(null, {
-        validators: [Validators.required],
-      }),
+      stock: this.fb.control<number | null>(
+        { value: null, disabled: !!this.data?.id },
+        {
+          validators: [Validators.required],
+        },
+      ),
       precioVenta: this.fb.control<number | null>(null, {
         validators: [Validators.required],
       }),
@@ -227,6 +230,5 @@ export class ProductsFormComponent {
   fileUpload(event: any) {
     const file = event.currentFiles[0];
     this.rutaControl?.setValue(file);
-    console.log({ event, file });
   }
 }

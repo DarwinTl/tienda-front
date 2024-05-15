@@ -89,7 +89,6 @@ export class RegisterComponent {
   }
 
   onSubmitRegister() {
-
     if (this.formRegister.invalid) return;
     const formValue = this.formRegister.getRawValue();
     const payload: ApiReqPostRegister = {
