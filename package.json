@@ -26,6 +26,7 @@
     "@ngrx/operators": "^17.2.0",
     "@ngrx/signals": "17.2.0",
     "@ngrx/store": "^17.2.0",
+    "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "ngx-owl-carousel-o": "^17.0.0",
     "primeicons": "^7.0.0",
