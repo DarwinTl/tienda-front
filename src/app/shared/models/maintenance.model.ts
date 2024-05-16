@@ -196,7 +196,7 @@ export class Maintenance<T> implements OnInit, AfterViewInit {
     this.msg.add({severity: 'success', summary: 'Registro actualizado'});
     this.onLoadData(this.paginator.pageIndex);
   }
-  
+
   #handledDeleteError() {
     this.msg.add({severity: 'error', summary: 'Error al crear el registro'});
   }
