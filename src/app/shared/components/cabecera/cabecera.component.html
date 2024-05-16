@@ -11,21 +11,28 @@
   </div>
 
   <a mat-button> <mat-icon>inventory</mat-icon> Mis Pedidos</a>
+  @if(authStore.isLogged()){
   <a mat-button [matMenuTriggerFor]="lvl1master">
-    <mat-icon>person</mat-icon> Mi Cuenta</a>
+      <mat-icon>person</mat-icon> {{dtoken.username}}
+    </a>
+  }
+  @else{<a mat-button [matMenuTriggerFor]="lvl1master">
+    <mat-icon>person</mat-icon> Mi Cuenta
+  </a>}
+
   <a mat-button>
     <mat-icon matBadgeColor="accent" matBadge="0" [matBadgeHidden]="badgevisible"
       matBadgeSize="small">shopping_cart</mat-icon></a>
 
   <mat-menu #lvl1master="matMenu">
     @if (authStore.isLogged()) {
-      <button mat-menu-item (click)="authStore.logout()">
-        <mat-icon>logout</mat-icon> Cerrar Sesion
-      </button>
+    <button mat-menu-item (click)="authStore.logout()">
+      <mat-icon>logout</mat-icon> Cerrar Sesion
+    </button>
     } @else {
-      <button mat-menu-item routerLink="/autenticacion">
-        <mat-icon>login</mat-icon> Iniciar Sesion
-      </button>
+    <button mat-menu-item routerLink="/autenticacion">
+      <mat-icon>login</mat-icon> Iniciar Sesion
+    </button>
     }
     <button mat-menu-item><mat-icon>person</mat-icon> Perfil</button>
   </mat-menu>

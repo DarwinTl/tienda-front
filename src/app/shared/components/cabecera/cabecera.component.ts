@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+
 import {
   MatDrawer,
   MatDrawerContainer,
@@ -24,8 +25,10 @@ import { ActivatedRoute } from '@angular/router';
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { categoria_product_list } from '@ecommerce/pages/inicio/Inicio.type';
+import { JwtService } from '@shared/services/jwt.service';
 
 import { AuthStore } from '@shared/store/auth.store';
+import { jwtDecode } from 'jwt-decode';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -57,8 +60,8 @@ import { ButtonModule } from 'primeng/button';
 export class CabeceraComponent {
   authStore = inject(AuthStore);
   categorias: categoria_product_list[] = [];
-
-
+dtoken: any;
+  loged: boolean = false;
 
   badgevisible = false;
   badgevisibility() {
@@ -81,7 +84,12 @@ export class CabeceraComponent {
 
   ngOnInit(): void {
     this.fngeCatList();
-
+    var token = localStorage.getItem('token');
+    console.log("token:",token)
+    if(token){
+      this.dtoken = jwtDecode(token);
+      console.log(this.dtoken.username)
+    }
   }
 
   fngeCatList() {
@@ -103,4 +111,8 @@ export class CabeceraComponent {
     this.router.navigate(['/inicio']);
   }
 
+
+
 }
+
+
