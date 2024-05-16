@@ -48,4 +48,11 @@ export class ApiProducto extends HttpBase {
     const endpoint = `${API.apiProducto}/${id}`;
     return this.http.delete(endpoint);
   }
+
+  getImagen(path: string) {
+    const endpoint = `${API.apiProducto}/img/${path}`;
+    return this.http.get(endpoint, { observe: 'response', responseType: 'blob'}).pipe(map(resp => {
+      return new File([resp.body as Blob], path, { type: 'image/jpeg'});
+    }));
+  }
 }

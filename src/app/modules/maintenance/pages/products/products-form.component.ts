@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DIALOG_DATA } from '@angular/cdk/dialog';
-import { Component, inject, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -34,10 +40,11 @@ import { FormFieldComponent } from '@components/form-field/form-field.component'
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
-import { FileUploadModule } from 'primeng/fileupload';
+import { FileUpload, FileUploadModule } from 'primeng/fileupload';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { delay } from 'rxjs';
 import { Marca } from '../marcas/marcas.type';
 import { UnidadMedida } from '../unidades/unidad.type';
 
@@ -54,6 +61,19 @@ export type ProductoField = {
   marca: number | null;
   categoria: number | null;
   medida: number | null;
+};
+
+export type ProductData = {
+  id?: number;
+  nombre: string;
+  descripcion: string;
+  ruta: string;
+  estado: boolean;
+  stock: number | null;
+  precioVenta: number | null;
+  marca: Marca | null;
+  categoria: Categoria | null;
+  medida: UnidadMedida | null;
 };
 
 @Component({
@@ -91,11 +111,11 @@ export type ProductoField = {
   ],
   templateUrl: './products-form.component.html',
 })
-export class ProductsFormComponent {
+export class ProductsFormComponent implements AfterViewInit {
   private readonly fb = inject(FormBuilder);
   private readonly dialogRef = inject(MatDialogRef);
   private readonly repository = inject(ProductoRepository);
-  data: ProductoField = inject(DIALOG_DATA);
+  data: ProductData = inject(DIALOG_DATA);
   config = inject(PrimeNGConfig);
   form: FormGroup<ProductoForm>;
   readonly msg = inject(MessageService);
@@ -103,13 +123,21 @@ export class ProductsFormComponent {
   categories = signal<Categoria[]>([]);
   marcas = signal<Marca[]>([]);
   unidades = signal<UnidadMedida[]>([]);
+  invalid = false;
+
+  @ViewChild('fileUpload')
+  fileUpload!: FileUpload;
 
   constructor() {
     this.form = this.#createForm();
-    this.#loadData();
     this.onLoadCategories();
     this.onLoadMarcas();
     this.onLoadUnidades();
+    this.#loadData();
+  }
+
+  ngAfterViewInit(): void {
+    this.#patchImagen();
   }
 
   get rutaControl() {
@@ -160,7 +188,10 @@ export class ProductsFormComponent {
         nonNullable: true,
         validators: [Validators.required],
       }),
-      ruta: this.fb.control('', { nonNullable: true }),
+      ruta: this.fb.control('', {
+        nonNullable: true,
+        validators: Validators.required,
+      }),
       estado: this.fb.control(true, { nonNullable: true }),
       stock: this.fb.control<number | null>(
         { value: null, disabled: !!this.data?.id },
@@ -183,9 +214,45 @@ export class ProductsFormComponent {
     });
   }
 
+  loadImagen(path: string) {
+    this.repository
+      .getImagen(path)
+      .pipe(delay(1000))
+      .subscribe({
+        next: (value) => {
+          console.log({ value, com: this.fileUpload });
+          this.fileUpload.files = [value];
+          this.fileUpload.onSelect.emit({
+            files: [value],
+            currentFiles: [value],
+            originalEvent: new Event(''),
+          });
+        },
+        error: (error) => {
+          console.log({ error });
+        },
+      });
+  }
+
+  fileRemove() {
+    this.rutaControl?.markAsTouched();
+    this.rutaControl?.setValue('');
+  }
+
+  #patchImagen() {
+    if (this.data) {
+      this.data.ruta && this.loadImagen(this.data.ruta);
+    }
+  }
+
   #loadData() {
     if (this.data) {
-      this.form.patchValue(this.data);
+      this.form.patchValue({
+        ...this.data,
+        marca: this.data.marca?.id,
+        categoria: this.data.categoria?.id,
+        medida: this.data.medida?.id,
+      });
     }
   }
 
@@ -227,8 +294,9 @@ export class ProductsFormComponent {
     return `${formattedSize} ${sizes[i]}`;
   }
 
-  fileUpload(event: any) {
+  fileUploadEvent(event: any) {
     const file = event.currentFiles[0];
+    this.rutaControl?.markAsTouched();
     this.rutaControl?.setValue(file);
   }
 }

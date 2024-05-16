@@ -72,6 +72,7 @@ export class MarcasComponent extends Maintenance<DataTableMarcas> {
         icon: 'warning',
         accept: 'Cancelar',
         cancel: 'Eliminar',
+        iconColor: 'tw-text-red-500',
       } as DialogConfirmData,
     });
     dialog.afterClosed().subscribe((result) => {

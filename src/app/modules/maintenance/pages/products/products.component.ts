@@ -5,7 +5,10 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
-import { ConfirmDialogComponent } from '@components/dialog/confirm/confirm.component';
+import {
+  ConfirmDialogComponent,
+  DialogConfirmData,
+} from '@components/dialog/confirm/confirm.component';
 import { LoadingComponent } from '@components/loading/loading.component';
 import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
 import { Maintenance } from '@shared/models/maintenance.model';
@@ -57,6 +60,7 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
         data.append('precioVenta', result.precioVenta);
         data.append('stock', result.stock);
         data.append('foto', result.ruta);
+        data.append('medida', result.medida);
         this.onCreate(data);
       });
   }
@@ -81,6 +85,7 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
         data.append('precioVenta', result.precioVenta);
         data.append('stock', result.stock);
         data.append('foto', result.ruta);
+        data.append('medida', result.medida);
         this.onUpdate(data);
       });
   }
@@ -89,8 +94,13 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
     this.dialog
       .open(ConfirmDialogComponent, {
         data: {
-          id: data.id,
-        },
+          title: 'Eliminar producto',
+          message: `¿Estás seguro de eliminar el producto ${data.nombre}?`,
+          icon: 'warning',
+          accept: 'Cancelar',
+          cancel: 'Eliminar',
+          iconColor: 'tw-text-red-500',
+        } as DialogConfirmData,
       })
       .afterClosed()
       .subscribe((result) => {

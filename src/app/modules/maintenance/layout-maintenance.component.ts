@@ -63,6 +63,9 @@ import { MaintenanceRoutes } from './layout.routes';
               <h4 class="text-md md:text-2xl">Mantenimiento</h4>
             </div> -->
             <span class="tw-grow"></span>
+            <div class="tw-text-sm mr-4 tw-text-sky-900">
+              <p>{{ authStore.email() }}</p>
+            </div>
             <button
               class="tw-justify-end"
               (click)="logout()"

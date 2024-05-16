@@ -1,10 +1,12 @@
+import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { MatSelect } from '@angular/material/select';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
@@ -12,9 +14,14 @@ import { ApiReqPostRegister } from '@api/interface/api.auth';
 import { AuthRegisterForm } from '@auth/auth.type';
 import { AuthRepository } from '@auth/repositories/auth-repository';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
+import { MaxLengthDirective } from '@shared/directives/max-length.directive';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 import { OnlyNumbersDirective } from '@shared/directives/only-numbers.directive';
 import { ApiError } from '@shared/models/error.model';
+import { HasDigitPipe } from '@shared/pipes/has-digit.pipe';
+import { HasEspecialPipe } from '@shared/pipes/has-especial.pipe';
+import { HasLowerPipe } from '@shared/pipes/has-lower.pipe';
+import { HasUpperPipe } from '@shared/pipes/has-upper.pipe';
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
 import { MessageService } from 'primeng/api';
 
@@ -24,10 +31,19 @@ import { MessageService } from 'primeng/api';
   imports: [
     ReactiveFormsModule,
     MatFormField,
+    NgClass,
+    HasDigitPipe,
+    HasLowerPipe,
+    HasUpperPipe,
+    HasEspecialPipe,
     MatLabel,
     MatOption,
     MatSelect,
     MatButton,
+    MatMenu,
+    MatMenuModule,
+    MatIconButton,
+    MatSuffix,
     MatInput,
     FormFieldComponent,
     MatIcon,
@@ -35,6 +51,7 @@ import { MessageService } from 'primeng/api';
     OnlyLettersDirective,
     OnlyNumbersDirective,
     RouterLink,
+    MaxLengthDirective,
   ],
   templateUrl: './register.component.html',
   styles: ``,
@@ -45,6 +62,9 @@ export class RegisterComponent {
   private readonly authRepository = inject(AuthRepository);
   private readonly msg = inject(MessageService);
   private readonly router = inject(Router);
+
+  hidePassword = true;
+  hideConfirmPassword = true;
 
   formRegister = this.#createRegisterForm();
 

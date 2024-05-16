@@ -13,9 +13,9 @@ import { ErrorDictionary, ERRORS_DICTIONARY } from '@shared/validators/error.dic
   imports: [MatError, AsyncPipe, JsonPipe],
   template: `
   @if (touched) {
-    <div class="tw-ml-2 error-invalid">
+    <div class="tw-ml-1 error-invalid">
       @for (error of errors(); track error) {
-        <p class="tw-text-sm tw-text-red-700">{{ error }}</p>
+        <p class="tw-text-xs tw-text-red-700">{{ error }}</p>
       }
     </div>
   }

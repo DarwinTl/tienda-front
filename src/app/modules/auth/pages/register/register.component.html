@@ -19,6 +19,7 @@
           <input
             formControlName="correo"
             matInput
+            autocomplete="off"
             type="text"
             inputmode="email"
           />
@@ -29,36 +30,38 @@
         <app-form-field class="tw-grow" #contrasenia>
           <mat-form-field>
             <mat-label>Contraseña</mat-label>
-            <input formControlName="contrasenia" matInput type="password" />
+            <input autocomplete="new-password" [appMaxLength]="20" [mat-menu-trigger-for]="panel" #matMenuTriggerFor="matMenuTrigger" (focus)="matMenuTriggerFor.openMenu()" (blur)="matMenuTriggerFor.closeMenu()" #input formControlName="contrasenia" matInput [type]="hidePassword ? 'password' : 'text'" />
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-menu #panel>
+              <div class="tw-flex p-2">
+                <ul class="tw-grid tw-text-sm tw-font-normal">
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value | hasUpper) ? 'check' : 'error' }}</mat-icon> <p>1 caracter mayúscula</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value | hasLower) ? 'check' : 'error' }}</mat-icon> <p>1 caracter minúscula</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value | hasDigit) ? 'check' : 'error' }}</mat-icon> <p>1 caracter numérico</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value | hasEspecial) ? 'check' : 'error' }}</mat-icon> <p>1 caracter especial</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value.length >= 8) ? 'check' : 'error' }}</mat-icon> <p>8 caracteres mínimo</p></li>
+                </ul>
+              </div>
+            </mat-menu>
           </mat-form-field>
-          @if (
-            formRegister.getError('passwordsDontMatch') && contrasenia.touched()
-          ) {
-            <p class="tw-ml-2 tw-text-sm tw-text-red-500">
-              Las contraseñas no coinciden
-            </p>
-          }
-          @if (
-            formRegister.getError('invalidPassword') && contrasenia.touched()
-          ) {
-            <p class="tw-ml-2 tw-text-sm tw-text-red-500">
-              No cumple con los requisitos
-            </p>
-          }
         </app-form-field>
-        <!-- @if (formRegister.getError('invalidPassword') && contrasenia.touched()) {
-        <mat-icon class="mt-4 text-sm" color="primary" matTooltip="Debe ser mínimo 8 caracteres, máximo 20 caracteres, al menos 1 mayuscula, 1 minuscula, 1 número y 1 caracter especial.">info</mat-icon>
-      } -->
       </div>
 
       <app-form-field>
         <mat-form-field>
           <mat-label>Repetir contraseña</mat-label>
           <input
+            autocomplete="new-password"
             formControlName="confirmarContrasenia"
             matInput
-            type="password"
+            [maxlength]="20"
+            [type]="hideConfirmPassword ? 'password' : 'text'"
           />
+          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hideConfirmPassword">
+            <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
         </mat-form-field>
       </app-form-field>
 
@@ -110,6 +113,7 @@
             appOnlyNumbers
             formControlName="numeroDocumento"
             matInput
+            [appMaxLength]="8"
             type="number"
             inputmode="numeric"
           />
