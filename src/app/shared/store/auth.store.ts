@@ -13,6 +13,7 @@ import { ApiReqPostLogin } from '@api/interface/api.auth';
 import { ApiAuth } from '@api/service/api.auth';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { ApiError } from '@shared/models/error.model';
+import { jwtDecode } from 'jwt-decode';
 
 type AuthState = {
   isLoading: boolean;
@@ -35,6 +36,11 @@ export const AuthStore = signalStore(
   withState(initialState),
   withComputed(({ token }) => ({
     isLogged: computed(() => token() !== null),
+    email: computed(() => {
+      const tokenValue = token();
+      if (tokenValue === null) return null;
+      return jwtDecode(tokenValue).sub as string;
+    }),
   })),
   withMethods((store, apiAuth = inject(ApiAuth)) => ({
     login: rxMethod<ApiReqPostLogin>(
