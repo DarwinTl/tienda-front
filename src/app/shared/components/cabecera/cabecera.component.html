@@ -1,43 +1,21 @@
 <mat-toolbar class="custome-toolbar">
-  <p-button
-    icon="pi pi-bars"
-    [rounded]="true"
-    [text]="true"
-    severity="contrast"
-    (click)="drawer.toggle()"
-  />
+  <p-button icon="pi pi-bars" [rounded]="true" [text]="true" severity="contrast" (click)="drawer.toggle()" />
   <!-- <button class="btn-menu-navbar" (click)="drawer.toggle()">
     <mat-icon style="font-size: 30px">menu</mat-icon>
   </button> -->
-  <img
-    src="assets/imagenes/logo-banner.png"
-    alt="logo_banner"
-    class="img-banner"
-    style="cursor: pointer"
-    (click)="goInicio()"
-  />
+  <img src="assets/imagenes/logo-banner.png" alt="logo_banner" class="img-banner" style="cursor: pointer"
+    (click)="goInicio()" />
 
   <div class="spacer">
-    <input
-      class="search-bar"
-      type="text"
-      placeholder="Hola, ¿qué estás buscando?"
-    />
+    <input class="search-bar" type="text" placeholder="Hola, ¿qué estás buscando?" />
   </div>
 
   <a mat-button> <mat-icon>inventory</mat-icon> Mis Pedidos</a>
   <a mat-button [matMenuTriggerFor]="lvl1master">
-    <mat-icon>person</mat-icon> Mi Cuenta</a
-  >
+    <mat-icon>person</mat-icon> Mi Cuenta</a>
   <a mat-button>
-    <mat-icon
-      matBadgeColor="accent"
-      matBadge="0"
-      [matBadgeHidden]="badgevisible"
-      matBadgeSize="small"
-      >shopping_cart</mat-icon
-    ></a
-  >
+    <mat-icon matBadgeColor="accent" matBadge="0" [matBadgeHidden]="badgevisible"
+      matBadgeSize="small">shopping_cart</mat-icon></a>
 
   <mat-menu #lvl1master="matMenu">
     @if (authStore.isLogged()) {
@@ -53,18 +31,16 @@
   </mat-menu>
 </mat-toolbar>
 
-<mat-drawer-container autosize style="margin-top: 64px">
+<mat-drawer-container autosize style="margin-top: 64px;">
   <mat-drawer #drawer opened="true" mode="side" position="start">
     <mat-nav-list>
       @for (c of categorias; track c) {
-        <mat-list-item>
-          <button [routerLink]="['/cuerpo', { parametro: c.id }]" mat-button>
-            <mat-icon
-              ><img [src]="'assets/imagenes/' + c.icono" alt=""
-            /></mat-icon>
-            {{ c.nombre }}
-          </button>
-        </mat-list-item>
+      <mat-list-item>
+        <button [routerLink]="['/cuerpo', { parametro: c.id }]" mat-button style="align-content: center;">
+          <img [src]="'assets/imagenes/' + c.icono" alt="Icono" width="20" height="20">
+          {{ c.nombre }}
+        </button>
+      </mat-list-item>
       }
 
     </mat-nav-list>

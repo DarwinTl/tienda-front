@@ -52,8 +52,8 @@ export class CuerpoComponent implements OnInit {
     });
 
     this.sortOptions = [
-      { label: 'Precio de mayor a menor', value: '!price' },
-      { label: 'Precio de menor a mayor', value: 'price' },
+      { label: 'Precio de mayor a menor', value: '!precioVenta' },
+      { label: 'Precio de menor a mayor', value: 'precioVenta' },
     ];
   }
   onSortChange(event: any) {
