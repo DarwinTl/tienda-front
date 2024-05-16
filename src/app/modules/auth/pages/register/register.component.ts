@@ -1,4 +1,4 @@
-import { JsonPipe } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -14,6 +14,7 @@ import { ApiReqPostRegister } from '@api/interface/api.auth';
 import { AuthRegisterForm } from '@auth/auth.type';
 import { AuthRepository } from '@auth/repositories/auth-repository';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
+import { MaxLengthDirective } from '@shared/directives/max-length.directive';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 import { OnlyNumbersDirective } from '@shared/directives/only-numbers.directive';
 import { ApiError } from '@shared/models/error.model';
@@ -30,7 +31,7 @@ import { MessageService } from 'primeng/api';
   imports: [
     ReactiveFormsModule,
     MatFormField,
-    JsonPipe,
+    NgClass,
     HasDigitPipe,
     HasLowerPipe,
     HasUpperPipe,
@@ -50,6 +51,7 @@ import { MessageService } from 'primeng/api';
     OnlyLettersDirective,
     OnlyNumbersDirective,
     RouterLink,
+    MaxLengthDirective,
   ],
   templateUrl: './register.component.html',
   styles: ``,

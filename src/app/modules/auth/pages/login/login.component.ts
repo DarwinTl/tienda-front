@@ -4,7 +4,7 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ApiReqPostLogin } from '@api/interface/api.auth';
 import { AuthLoginForm } from '@auth/auth.type';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
@@ -92,7 +92,7 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
           <button
             type="button"
             class="tw-w-full"
-            routerLink="../register"
+            (click)="navigateToRegister()"
             mat-stroked-button
           >
             Crear una cuenta
@@ -107,6 +107,7 @@ export class LoginComponent {
   readonly authStore = inject(AuthStore);
   private readonly fb = inject(FormBuilder);
   private readonly validator = inject(CustomValidatorService);
+  private router = inject(Router);
   formLogin = this.#createLoginForm();
   hide = true;
 
@@ -131,6 +132,10 @@ export class LoginComponent {
       password: formValue.contrasenia,
     };
     this.#login(payload);
+  }
+  navigateToRegister() {
+    this.authStore.restoreError();
+    this.router.navigate(['/autenticacion/register']);
   }
 
   #login(payload: ApiReqPostLogin) {

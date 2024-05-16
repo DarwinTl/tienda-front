@@ -72,7 +72,7 @@ export class UnidadesComponent extends Maintenance<DataTableUnidadMedida> {
         icon: 'warning',
         accept: 'Cancelar',
         cancel: 'Eliminar',
-        iconColor: 'tw-text-red-500'
+        iconColor: 'tw-text-red-500',
       } as DialogConfirmData,
     });
     dialog.afterClosed().subscribe((result) => {
