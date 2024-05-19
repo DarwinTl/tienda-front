@@ -15,7 +15,7 @@ export const unAuthorizedInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 403) {
+      if (error.status === 401) {
         dialog.open(SessionExpiredComponent).afterClosed().subscribe(() => {
           authStore.logout();
           router.navigate(['/autenticacion/login']);
