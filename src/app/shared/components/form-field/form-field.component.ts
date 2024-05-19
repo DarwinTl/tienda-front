@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ContentChild, ElementRef, inject, NgZone, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ContentChild,
+  ElementRef,
+  inject,
+  NgZone,
+  signal,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { ErrorFieldComponent } from '@components/error-field/error-field.component';
 
@@ -14,8 +22,8 @@ import { ErrorFieldComponent } from '@components/error-field/error-field.compone
   `,
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
-    class: 'tw-grid'
-  }
+    class: 'tw-grid',
+  },
 })
 export class FormFieldComponent implements AfterViewInit {
   @ContentChild(NgControl)
@@ -40,7 +48,7 @@ export class FormFieldComponent implements AfterViewInit {
         attributes: true,
         attributeFilter: ['class'],
         childList: true,
-        subtree: true
+        subtree: true,
       });
     });
   }

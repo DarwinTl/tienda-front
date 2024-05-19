@@ -48,7 +48,7 @@ import { MaintenanceRoutes } from './layout.routes';
   template: `
     <div class="maintenance-root">
       <header class="maintenance-header">
-        <mat-toolbar class="shadow-md bg-white">
+        <mat-toolbar class="tw-shadow-md tw-bg-white">
           <div class="tw-flex tw-items-center tw-max-w-5xl tw-grow tw-mx-auto">
             @if (smallScreen()) {
               <button

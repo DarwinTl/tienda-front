@@ -8,15 +8,12 @@ import { MatIcon } from '@angular/material/icon';
   standalone: true,
   imports: [MatIcon, MatButton, MatDialogClose],
   template: `
-  
     <div class="tw-min-w-md md:tw-max-w-3xl">
       <div class="tw-p-6">
         <div class="tw-flex tw-justify-center tw-mb-4">
           <mat-icon color="primary">info</mat-icon>
         </div>
-        <h4 class="tw-text-xl tw-mb-4 tw-text-center">
-          Sesión expirada
-        </h4>
+        <h4 class="tw-text-xl tw-mb-4 tw-text-center">Sesión expirada</h4>
         <p class="tw-text-center">
           Tu sesión ha expirado, por favor inicia sesión nuevamente.
         </p>
@@ -27,7 +24,6 @@ import { MatIcon } from '@angular/material/icon';
         </div>
       </div>
     </div>
-
   `,
 })
 export class SessionExpiredComponent {}

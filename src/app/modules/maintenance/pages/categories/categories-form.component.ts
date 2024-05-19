@@ -110,7 +110,10 @@ export class CategoriesFormComponent {
         nonNullable: true,
         validators: Validators.required,
       }),
-      detalle: this.fb.control('', { nonNullable: true }),
+      detalle: this.fb.control('', {
+        nonNullable: true,
+        validators: Validators.required,
+      }),
     });
   }
 

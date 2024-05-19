@@ -45,7 +45,9 @@ export const AuthStore = signalStore(
   withMethods((store, apiAuth = inject(ApiAuth)) => ({
     login: rxMethod<ApiReqPostLogin>(
       pipe(
-        tap((payload) => patchState(store, { ...payload, isLoading: true, error: null })),
+        tap((payload) =>
+          patchState(store, { ...payload, isLoading: true, error: null }),
+        ),
         debounceTime(500),
         switchMap((payload) =>
           apiAuth.postLogin({ ...payload }).pipe(
@@ -54,7 +56,8 @@ export const AuthStore = signalStore(
                 localStorage.setItem('token', token);
                 patchState(store, { token, error: null });
               },
-              error: ({mensaje}: ApiError) => patchState(store, { ...initialState, error: mensaje }),
+              error: ({ mensaje }: ApiError) =>
+                patchState(store, { ...initialState, error: mensaje }),
               finalize: () => patchState(store, { isLoading: false }),
             }),
           ),
