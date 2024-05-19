@@ -1,4 +1,4 @@
-import { UnidadMedida } from "@maintenance/pages/unidades/unidad.type";
+import { UnidadMedida } from '@maintenance/pages/unidades/unidad.type';
 
 export interface Request {}
 

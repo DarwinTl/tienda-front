@@ -14,7 +14,7 @@ import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class ApiCategoria extends HttpBase {
-  getCategories({page, size}: InboxParam): Observable<Inbox<Categoria>> {
+  getCategories({ page, size }: InboxParam): Observable<Inbox<Categoria>> {
     const params = new HttpParams({ fromObject: { page, num: size } });
     const endpoint = `${API.apiCategoria}/pagina`;
     return this.http.get<ResponseInbox<Categoria>>(endpoint, { params }).pipe(

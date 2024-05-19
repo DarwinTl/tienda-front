@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,9 +25,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { categoria_product_list } from '@ecommerce/pages/inicio/Inicio.type';
-import { JwtService } from '@shared/services/jwt.service';
 
 import { AuthStore } from '@shared/store/auth.store';
+import { JwtPayload } from '@shared/types/jwt.type';
 import { jwtDecode } from 'jwt-decode';
 import { ButtonModule } from 'primeng/button';
 
@@ -50,25 +50,21 @@ import { ButtonModule } from 'primeng/button';
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
-
     ButtonModule,
-
   ],
   templateUrl: './cabecera.component.html',
   styleUrl: './cabecera.component.scss',
 })
-export class CabeceraComponent {
+export class CabeceraComponent implements OnInit {
   authStore = inject(AuthStore);
   categorias: categoria_product_list[] = [];
-dtoken: any;
+  dtoken?: JwtPayload;
   loged: boolean = false;
 
   badgevisible = false;
   badgevisibility() {
     this.badgevisible = true;
-    
   }
-
 
   constructor(
     private router: Router,
@@ -78,24 +74,21 @@ dtoken: any;
     this.route.params.subscribe((params) => {
       const parametro = params['parametro'];
       console.log(parametro);
-
     });
   }
 
   ngOnInit(): void {
     this.fngeCatList();
-    var token = localStorage.getItem('token');
-    console.log("token:",token)
-    if(token){
+    const token = localStorage.getItem('token');
+    console.log('token:', token);
+    if (token) {
       this.dtoken = jwtDecode(token);
-      console.log(this.dtoken.username)
     }
   }
 
   fngeCatList() {
     this._ecommerceService.getCategories().subscribe({
       next: (res) => {
-
         this.categorias = res;
 
         console.log(this.categorias);
@@ -110,9 +103,4 @@ dtoken: any;
   goInicio() {
     this.router.navigate(['/inicio']);
   }
-
-
-
 }
-
-

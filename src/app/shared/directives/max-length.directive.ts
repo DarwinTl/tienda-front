@@ -1,13 +1,19 @@
-import { Directive, ElementRef, HostListener, inject, Input } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  inject,
+  Input,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[appMaxLength]',
-  standalone: true
+  standalone: true,
 })
 export class MaxLengthDirective {
   el = inject(ElementRef);
-  ngControl = inject(NgControl,  {optional: true });
+  ngControl = inject(NgControl, { optional: true });
 
   @Input({ required: true })
   appMaxLength?: number;

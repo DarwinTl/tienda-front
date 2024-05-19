@@ -13,7 +13,10 @@ import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class ApiMarca extends HttpBase {
-  getMarca({ page, size}: InboxParam): Observable<Inbox<{ id: number; detalle: string }>> {
+  getMarca({
+    page,
+    size,
+  }: InboxParam): Observable<Inbox<{ id: number; detalle: string }>> {
     const params = new HttpParams({ fromObject: { page, num: size } });
     const endpoint = `${API.apiMarca}/pagina`;
     return this.http
