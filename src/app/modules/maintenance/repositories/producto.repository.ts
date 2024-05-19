@@ -5,6 +5,7 @@ import { ApiMarca } from '@api/service/api-marca';
 import { ApiProducto } from '@api/service/api-producto';
 import { ApiUnidadMedida } from '@api/service/api-unidad-medida';
 import { Repository } from '@shared/models/maintenance.model';
+import { InboxParam } from '@shared/types/utilities.type';
 
 @Injectable()
 export class ProductoRepository implements Repository {
@@ -13,8 +14,8 @@ export class ProductoRepository implements Repository {
   private readonly apiHome = inject(ApiHome);
   private readonly apiUnidad = inject(ApiUnidadMedida);
 
-  get(page: number) {
-    return this.api.getProducto(page);
+  get(params: InboxParam) {
+    return this.api.getProducto(params);
   }
   create(data: ReqPostMarca) {
     return this.api.createProducto(data);

@@ -7,15 +7,15 @@ import {
   RespPostMarca,
 } from '@api/interface/api-marca.interface';
 import { HttpBase } from '@shared/models/http';
-import { Inbox, ResponseInbox } from '@shared/types/utilities.type';
+import { Inbox, InboxParam, ResponseInbox } from '@shared/types/utilities.type';
 import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class ApiProducto extends HttpBase {
   getProducto(
-    page: number,
+    {page, size}: InboxParam,
   ): Observable<Inbox<{ id: number; detalle: string }>> {
-    const params = new HttpParams({ fromObject: { page, num: 5 } });
+    const params = new HttpParams({ fromObject: { page, num: size } });
     const endpoint = `${API.apiProducto}/pagina`;
     return this.http
       .get<
