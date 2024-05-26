@@ -6,9 +6,6 @@
     severity="contrast"
     (click)="drawer.toggle()"
   />
-  <!-- <button class="btn-menu-navbar" (click)="drawer.toggle()">
-    <mat-icon style="font-size: 30px">menu</mat-icon>
-  </button> -->
   <img
     routerLink="/inicio"
     src="assets/imagenes/logo-banner.png"
@@ -36,15 +33,15 @@
     </a>
   }
 
-  <a mat-button>
-    <mat-icon
-      matBadgeColor="accent"
-      matBadge="0"
-      [matBadgeHidden]="badgevisible"
-      matBadgeSize="small"
-      >shopping_cart</mat-icon
-    ></a
+  <mat-icon
+    class="tw-ml-1 tw-text-gray-900 hover:tw-cursor-pointer"
+    matBadgeColor="accent"
+    [matBadge]="shopStore.entities().length"
+    [matBadgeHidden]="shopStore.entities().length < 1"
+    matBadgeSize="medium"
   >
+    shopping_cart
+  </mat-icon>
 
   <mat-menu #lvl1master="matMenu">
     @if (authStore.isLogged()) {
@@ -63,21 +60,22 @@
 <mat-drawer-container autosize style="margin-top: 64px">
   <mat-drawer #drawer opened="true" mode="side" position="start">
     <mat-nav-list>
-      @for (c of categorias; track c) {
-        <mat-list-item>
-          <button
-            [routerLink]="['/cuerpo', { parametro: c.id }]"
-            mat-button
-            style="align-content: center"
-          >
+      @for (categoria of categorias; track categoria) {
+        <mat-list-item
+          routerLinkActive="active"
+          [routerLink]="['/cuerpo', { parametro: categoria.id }]"
+        >
+          <div class="tw-flex tw-items-center tw-gap-2">
             <img
-              [src]="'assets/imagenes/' + c.icono"
+              [src]="'assets/imagenes/' + categoria.icono"
               alt="Icono"
               width="20"
               height="20"
             />
-            {{ c.nombre }}
-          </button>
+            <span>
+              {{ categoria.nombre }}
+            </span>
+          </div>
         </mat-list-item>
       }
     </mat-nav-list>
