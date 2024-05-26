@@ -1,7 +1,13 @@
 import { computed } from '@angular/core';
 import { Producto } from '@maintenance/pages/products/products.type';
-import { signalStore, withComputed, withState } from '@ngrx/signals';
-import { withEntities } from '@ngrx/signals/entities';
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
+import { removeEntity, setEntity, withEntities } from '@ngrx/signals/entities';
 
 export type ProductoCart = Producto & {
   cantidad: number;
@@ -18,4 +24,14 @@ export const ShopStore = signalStore(
       return entities().reduce((acc, { total }) => acc + total, 0);
     }),
   })),
+  withMethods((store) => {
+    return {
+      add(producto: ProductoCart) {
+        patchState(store, setEntity(producto));
+      },
+      remove(producto: ProductoCart) {
+        patchState(store, removeEntity(producto.id));
+      },
+    };
+  }),
 );

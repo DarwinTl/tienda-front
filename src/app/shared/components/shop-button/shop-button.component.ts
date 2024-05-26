@@ -10,8 +10,6 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { patchState } from '@ngrx/signals';
-import { addEntities, removeEntity, setEntities } from '@ngrx/signals/entities';
 import { OnlyNumbersDirective } from '@shared/directives/only-numbers.directive';
 import { ProductoCart, ShopStore } from '@shared/store/shop.store';
 import { ButtonModule } from 'primeng/button';
@@ -132,18 +130,13 @@ export class ShopButtonComponent implements OnInit {
     const value = (event.target as HTMLInputElement).value;
     this.valueQuantity.set(Number(value));
     if (this.valueQuantity() > 0) {
-      patchState(
-        this.shopStore,
-        setEntities([
-          {
-            ...this.entity,
-            cantidad: this.valueQuantity(),
-            total: this.total(),
-          },
-        ]),
-      );
+      this.shopStore.add({
+        ...this.entity,
+        cantidad: this.valueQuantity(),
+        total: this.total(),
+      });
     } else {
-      patchState(this.shopStore, removeEntity(this.entity.id));
+      this.shopStore.remove(this.entity);
       this.isAddedShoppingCart.set(false);
     }
   }
@@ -154,44 +147,33 @@ export class ShopButtonComponent implements OnInit {
       this.isLoading.set(false);
       this.isAddedShoppingCart.set(true);
       this.valueQuantity.set(1);
-      patchState(
-        this.shopStore,
-        addEntities([
-          {
-            ...this.entity,
-            cantidad: this.valueQuantity(),
-            total: this.total(),
-          },
-        ]),
-      );
+      this.shopStore.add({
+        ...this.entity,
+        cantidad: this.valueQuantity(),
+        total: this.total(),
+      });
     }, 2500);
   }
 
   add() {
     this.valueQuantity.update((value) => ++value);
-    patchState(
-      this.shopStore,
-      setEntities([
-        { ...this.entity, cantidad: this.valueQuantity(), total: this.total() },
-      ]),
-    );
+    this.shopStore.add({
+      ...this.entity,
+      cantidad: this.valueQuantity(),
+      total: this.total(),
+    });
   }
 
   subtract() {
     if (this.valueQuantity() > 1) {
       this.valueQuantity.update((value) => --value);
-      patchState(
-        this.shopStore,
-        setEntities([
-          {
-            ...this.entity,
-            cantidad: this.valueQuantity(),
-            total: this.total(),
-          },
-        ]),
-      );
+      this.shopStore.add({
+        ...this.entity,
+        cantidad: this.valueQuantity(),
+        total: this.total(),
+      });
     } else {
-      patchState(this.shopStore, removeEntity(this.entity.id));
+      this.shopStore.remove(this.entity);
       this.isAddedShoppingCart.set(false);
     }
   }
