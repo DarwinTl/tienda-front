@@ -6,14 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [hasLoginGuard],
-    loadComponent: () =>
-      import('@ecommerce/layout.component').then((c) => c.LayoutComponent),
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('@ecommerce/layout.routing'),
-      },
-    ],
+    loadChildren: () => import('@ecommerce/layout.routing'),
   },
   {
     path: ModulesRoutes.MAINTENANCE,
