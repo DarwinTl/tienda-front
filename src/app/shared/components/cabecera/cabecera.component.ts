@@ -1,32 +1,17 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
-import { MatBadgeModule } from '@angular/material/badge';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { MatBadge } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
-import {
-  MatDrawer,
-  MatDrawerContainer,
-  MatDrawerContent,
-} from '@angular/material/sidenav';
 import { MatToolbar } from '@angular/material/toolbar';
 
-import {
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
-import { ActivatedRoute } from '@angular/router';
 import { MainContainerComponent } from '@components/main-container/main-container.component';
-import { ecommerceService } from '@ecommerce/e-commerce.service';
-import { categoria_product_list } from '@ecommerce/pages/inicio/Inicio.type';
 
 import { AuthStore } from '@shared/store/auth.store';
+import { ShopStore } from '@shared/store/shop.store';
 import { JwtPayload } from '@shared/types/jwt.type';
 import { jwtDecode } from 'jwt-decode';
 import { ButtonModule } from 'primeng/button';
@@ -35,21 +20,16 @@ import { ButtonModule } from 'primeng/button';
   selector: 'app-cabecera',
   standalone: true,
   imports: [
-    MatMenuModule,
-    MatListModule,
-    MatDrawer,
-    MatDrawerContainer,
-    MatBadgeModule,
-    MatIconModule,
-    MatDrawerContent,
-    RouterOutlet,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger,
+    MatBadge,
+    MatIcon,
     MatToolbar,
     MatButtonModule,
-    MatFormFieldModule,
     MainContainerComponent,
-    RouterLink,
-    RouterLinkActive,
     RouterOutlet,
+    RouterLink,
     ButtonModule,
   ],
   templateUrl: './cabecera.component.html',
@@ -57,49 +37,23 @@ import { ButtonModule } from 'primeng/button';
 })
 export class CabeceraComponent implements OnInit {
   authStore = inject(AuthStore);
-  categorias: categoria_product_list[] = [];
+  shopStore = inject(ShopStore);
+  router = inject(Router);
   dtoken?: JwtPayload;
   loged: boolean = false;
 
-  badgevisible = false;
-  badgevisibility() {
-    this.badgevisible = true;
-  }
+  @Output()
+  menuEvent = new EventEmitter<void>();
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private _ecommerceService: ecommerceService,
-  ) {
-    this.route.params.subscribe((params) => {
-      const parametro = params['parametro'];
-      console.log(parametro);
-    });
-  }
+  @Output()
+  shopCartEvent = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.fngeCatList();
     const token = localStorage.getItem('token');
-    console.log('token:', token);
     if (token) {
       this.dtoken = jwtDecode(token);
     }
   }
-
-  fngeCatList() {
-    this._ecommerceService.getCategories().subscribe({
-      next: (res) => {
-        this.categorias = res;
-
-        console.log(this.categorias);
-      },
-      error: (e: HttpErrorResponse) => {
-        console.log('Error :', e);
-        return;
-      },
-    });
-  }
-
   goInicio() {
     this.router.navigate(['/inicio']);
   }

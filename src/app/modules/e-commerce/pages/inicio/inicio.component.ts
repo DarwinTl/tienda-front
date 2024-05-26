@@ -10,11 +10,15 @@ import {
   OwlOptions,
 } from 'ngx-owl-carousel-o';
 import { ButtonModule } from 'primeng/button';
-import { CarouselModule as PrimeCarouselModule } from 'primeng/carousel';
+import {
+  CarouselResponsiveOptions,
+  CarouselModule as PrimeCarouselModule,
+} from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 
+import { CurrencyPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ShopButtonComponent } from '@components/shop-button/shop-button.component';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { CardModule } from 'primeng/card';
 import { categoria_product_list, product_List } from './Inicio.type';
@@ -34,6 +38,8 @@ import { categoria_product_list, product_List } from './Inicio.type';
     TagModule,
     PrimeCarouselModule,
     CardModule,
+    ShopButtonComponent,
+    CurrencyPipe,
   ],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss',
@@ -41,7 +47,7 @@ import { categoria_product_list, product_List } from './Inicio.type';
 export class InicioComponent implements OnInit {
   products: product_List[] = [];
   categorias: categoria_product_list[] = [];
-  responsiveOptions: any[] | undefined;
+  responsiveOptions: CarouselResponsiveOptions[] | undefined;
 
   customOptions1: OwlOptions = {
     loop: true,
@@ -60,13 +66,10 @@ export class InicioComponent implements OnInit {
     nav: true,
   };
 
-  constructor(
-    private router: Router,
-    private _ecommerceService: ecommerceService,
-  ) { }
+  constructor(private _ecommerceService: ecommerceService) {}
 
   ngOnInit(): void {
-    this.fngetList()
+    this.fngetList();
     this.fngeCatList();
 
     this.responsiveOptions = [
@@ -97,7 +100,6 @@ export class InicioComponent implements OnInit {
       },
       error: (e: HttpErrorResponse) => {
         console.log('Error :', e);
-        return;
       },
     });
   }
@@ -111,7 +113,6 @@ export class InicioComponent implements OnInit {
       },
       error: (e: HttpErrorResponse) => {
         console.log('Error :', e);
-        return;
       },
     });
   }
@@ -128,5 +129,4 @@ export class InicioComponent implements OnInit {
         return 'success';
     }
   }
-
 }

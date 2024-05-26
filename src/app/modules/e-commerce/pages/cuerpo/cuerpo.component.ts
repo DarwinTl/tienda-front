@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CabeceraComponent } from '@components/cabecera/cabecera.component';
-import { DataViewModule } from 'primeng/dataview';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
-import { CommonModule } from '@angular/common';
+import { ShopButtonComponent } from '@components/shop-button/shop-button.component';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
-import { product_List } from '../inicio/Inicio.type';
-import { RatingModule } from 'primeng/rating';
-import { DropdownModule } from 'primeng/dropdown';
+import { ShopStore } from '@shared/store/shop.store';
 import { SelectItem } from 'primeng/api';
-import { HttpErrorResponse } from '@angular/common/http';
-
+import { ButtonModule } from 'primeng/button';
+import { DataViewModule } from 'primeng/dataview';
+import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
+import { RatingModule } from 'primeng/rating';
+import { TagModule } from 'primeng/tag';
+import { product_List } from '../inicio/Inicio.type';
 
 @Component({
   selector: 'app-cuerpo',
@@ -25,11 +26,13 @@ import { HttpErrorResponse } from '@angular/common/http';
     CommonModule,
     RatingModule,
     DropdownModule,
+    ShopButtonComponent,
   ],
   templateUrl: './cuerpo.component.html',
   styleUrl: './cuerpo.component.scss',
 })
 export class CuerpoComponent implements OnInit {
+  shopStore = inject(ShopStore);
   layout: string = 'list';
   parametro: string = '';
   products: product_List[] = [];
@@ -37,18 +40,18 @@ export class CuerpoComponent implements OnInit {
   sortOptions!: SelectItem[];
 
   sortOrder!: number;
-
   sortField!: string;
+
   constructor(
     private route: ActivatedRoute,
     private _ecommerceService: ecommerceService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.parametro = params['parametro'];
       this.getCategoriaLabel();
-      this.getProducts(this.parametro)
+      this.getProducts(this.parametro);
     });
 
     this.sortOptions = [
@@ -56,8 +59,8 @@ export class CuerpoComponent implements OnInit {
       { label: 'Precio de menor a mayor', value: 'precioVenta' },
     ];
   }
-  onSortChange(event: any) {
-    let value = event.value;
+  onSortChange(event: DropdownChangeEvent) {
+    const value = event.value;
 
     if (value.indexOf('!') === 0) {
       this.sortOrder = -1;
@@ -117,12 +120,9 @@ export class CuerpoComponent implements OnInit {
     this._ecommerceService.getProductsXCat(id).subscribe({
       next: (res) => {
         this.products = res;
-
-        console.log(this.products);
       },
       error: (e: HttpErrorResponse) => {
         console.log('Error :', e);
-        return;
       },
     });
   }

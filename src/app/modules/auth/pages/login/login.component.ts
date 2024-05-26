@@ -1,15 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import {
+  MatFormField,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 import { ApiReqPostLogin } from '@api/interface/api.auth';
+import { AuthRoutes } from '@auth/auth.routes';
 import { AuthLoginForm } from '@auth/auth.type';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { AuthStore } from '@shared/store/auth.store';
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
+import { ModulesRoutes } from 'src/app/modules.routes';
 
 @Component({
   selector: 'app-login',
@@ -61,10 +67,18 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
                 class="tw-w-full"
                 formControlName="contrasenia"
                 matInput
-                [type]="hide ? 'password' : 'text'"	
+                [type]="hide ? 'password' : 'text'"
               />
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
-                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Ocultar contraseña'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
               </button>
             </mat-form-field>
           </app-form-field>
@@ -135,7 +149,7 @@ export class LoginComponent {
   }
   navigateToRegister() {
     this.authStore.restoreError();
-    this.router.navigate(['/autenticacion/register']);
+    this.router.navigate([ModulesRoutes.AUTEHNTICATION, AuthRoutes.REGISTER]);
   }
 
   #login(payload: ApiReqPostLogin) {

@@ -3,7 +3,11 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
-import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import {
+  MatFormField,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
@@ -11,6 +15,7 @@ import { MatSelect } from '@angular/material/select';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Router, RouterLink } from '@angular/router';
 import { ApiReqPostRegister } from '@api/interface/api.auth';
+import { AuthRoutes } from '@auth/auth.routes';
 import { AuthRegisterForm } from '@auth/auth.type';
 import { AuthRepository } from '@auth/repositories/auth-repository';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
@@ -24,6 +29,7 @@ import { HasLowerPipe } from '@shared/pipes/has-lower.pipe';
 import { HasUpperPipe } from '@shared/pipes/has-upper.pipe';
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
 import { MessageService } from 'primeng/api';
+import { ModulesRoutes } from 'src/app/modules.routes';
 
 @Component({
   selector: 'app-register',
@@ -127,7 +133,7 @@ export class RegisterComponent {
           severity: 'success',
           summary: 'Registro exitoso',
         });
-        this.router.navigate(['/autenticacion/login']);
+        this.router.navigate([ModulesRoutes.AUTEHNTICATION, AuthRoutes.LOGIN]);
       },
       error: ({ mensaje }: ApiError) => {
         this.msg.add({

@@ -1,8 +1,14 @@
-<div style="margin: auto">
+<div>
   <owl-carousel-o [options]="customOptions1">
-    <ng-template carouselSlide><img src="assets/imagenes/banner_1.png" alt="..." /></ng-template>
-    <ng-template carouselSlide><img src="assets/imagenes/banner_2.png" alt="..." /></ng-template>
-    <ng-template carouselSlide><img src="assets/imagenes/banner_3.png" alt="..." /></ng-template>
+    <ng-template carouselSlide
+      ><img class="tw-h-80" src="assets/imagenes/banner_1.png" alt="..."
+    /></ng-template>
+    <ng-template carouselSlide
+      ><img class="tw-h-80" src="assets/imagenes/banner_2.png" alt="..."
+    /></ng-template>
+    <ng-template carouselSlide
+      ><img class="tw-h-80" src="assets/imagenes/banner_3.png" alt="..."
+    /></ng-template>
   </owl-carousel-o>
 </div>
 
@@ -11,28 +17,44 @@
 </div>
 
 <div class="card">
-  <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [autoplayInterval]="2000"
-    [responsiveOptions]="responsiveOptions">
+  <p-carousel
+    [value]="products"
+    [numVisible]="3"
+    [numScroll]="3"
+    [circular]="true"
+    [autoplayInterval]="2000"
+    [responsiveOptions]="responsiveOptions"
+  >
     <ng-template let-product pTemplate="item">
       <div class="border-1 surface-border border-round m-2 p-3">
         <div class="mb-3">
           <div class="relative mx-auto">
-            <img [src]="'http://localhost:8080/api/mantenimiento/productos/img/'+ product.ruta" [alt]="product.nombre"
-              class="w-full border-round" />
-            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute"
-              [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+            <img
+              [src]="
+                'http://localhost:8080/api/mantenimiento/productos/img/' +
+                product.ruta
+              "
+              [alt]="product.nombre"
+              class="w-full border-round"
+            />
+            <p-tag
+              [value]="product.inventoryStatus"
+              [severity]="getSeverity(product.inventoryStatus)"
+              class="absolute"
+              [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
+            />
           </div>
         </div>
         <div class="mb-3 font-medium">
           {{ product.nombre }}
         </div>
-        <div class="mb-3">{{product.descripcion}}</div>
+        <div class="mb-3">{{ product.descripcion }}</div>
         <div class="flex justify-content-between align-items-center">
           <div class="mt-0 font-semibold text-xl">
-            {{ 'S/.' + product.precioVenta }}
+            {{ product.precioVenta | currency: 'S/' : 'symbol' : '1.2-2' }}
           </div>
           <span>
-            <p-button icon="pi pi-shopping-cart" label="Agregar al Carrito " styleClass="ml-2" />
+            <app-shop-button [entity]="product" />
           </span>
         </div>
       </div>
@@ -51,34 +73,3 @@
     <div class="text-center p-3 border-round-sm bg-primary font-bold">3</div>
   </div>
 </div>
-
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-section">
-      <h2 class="footer-title">Don Pepe SuperMarket S.A.C.</h2>
-      <ul class="footer-list">
-        <li><a href="#">Nosotros</a></li>
-        <li><a href="#">Políticas y condiciones</a></li>
-        <li><a href="#">Conócenos</a></li>
-        <li><a href="#">Responsabilidad</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h2 class="footer-title">Ayuda</h2>
-      <ul class="footer-list">
-        <li><a href="#">Tutorial de compra</a></li>
-        <li><a href="#">Horarios atención telefónica y social</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h2 class="footer-title">Información</h2>
-      <ul class="footer-list">
-        <li><a href="#">Preguntas frecuentes</a></li>
-        <li><a href="#">Cambios y devoluciones</a></li>
-      </ul>
-    </div>
-    <div class="footer-copyright">
-      <p>&copy; 2024 Don Pepe SuperMarket S.A.C.</p>
-    </div>
-  </div>
-</footer>
