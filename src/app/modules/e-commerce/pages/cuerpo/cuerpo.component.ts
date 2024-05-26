@@ -32,16 +32,16 @@ import { product_List } from '../inicio/Inicio.type';
   styleUrl: './cuerpo.component.scss',
 })
 export class CuerpoComponent implements OnInit {
+  shopStore = inject(ShopStore);
   layout: string = 'list';
   parametro: string = '';
   products: product_List[] = [];
   catlabel: string = '';
   sortOptions!: SelectItem[];
-  shopStore = inject(ShopStore);
 
   sortOrder!: number;
-
   sortField!: string;
+
   constructor(
     private route: ActivatedRoute,
     private _ecommerceService: ecommerceService,
@@ -120,12 +120,9 @@ export class CuerpoComponent implements OnInit {
     this._ecommerceService.getProductsXCat(id).subscribe({
       next: (res) => {
         this.products = res;
-
-        console.log(this.products);
       },
       error: (e: HttpErrorResponse) => {
         console.log('Error :', e);
-        return;
       },
     });
   }

@@ -42,6 +42,7 @@
       [matBadge]="shopStore.entities().length"
       [matBadgeHidden]="shopStore.entities().length < 1"
       matBadgeSize="medium"
+      (click)="shopCartEvent.emit()"
     >
       shopping_cart
     </mat-icon>

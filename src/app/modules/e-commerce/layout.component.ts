@@ -13,13 +13,13 @@ import {
 import { MatToolbar } from '@angular/material/toolbar';
 import {
   ActivatedRoute,
-  Router,
   RouterLink,
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { FooterComponent } from '@components/ui/footer/footer.component';
+import { SidebarShopItemsComponent } from '@components/ui/sidebar-shop-items/sidebar-shop-items.component';
 import { ApiError } from '@shared/models/error.model';
 import { CabeceraComponent } from '../../shared/components/cabecera/cabecera.component';
 import { ecommerceService } from './e-commerce.service';
@@ -48,13 +48,15 @@ import { categoria_product_list } from './pages/inicio/Inicio.type';
     RouterLinkActive,
     CabeceraComponent,
     FooterComponent,
+    SidebarShopItemsComponent,
   ],
   template: `
     <div class="root-ecommerce">
       <app-cabecera
         class="header-ecommerce"
         (menuEvent)="drawer.toggle()"
-      ></app-cabecera>
+        (shopCartEvent)="sidebar.toggleSidebar()"
+      />
 
       <mat-drawer-container autosize class="content-ecommerce">
         <mat-drawer #drawer opened="true" mode="side" position="start">
@@ -85,20 +87,15 @@ import { categoria_product_list } from './pages/inicio/Inicio.type';
           </div>
         </mat-drawer-content>
       </mat-drawer-container>
-      <app-footer class="footer-ecommerce"></app-footer>
+      <app-footer class="footer-ecommerce" />
+      <app-sidebar-shop-items #sidebar />
     </div>
   `,
 })
 export class LayoutComponent implements OnInit {
-  badgevisible = false;
   categorias: categoria_product_list[] = [];
 
-  badgevisibility() {
-    this.badgevisible = true;
-  }
-
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private _ecommerceService: ecommerceService,
   ) {
@@ -110,16 +107,12 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.fngeCatList();
-    const token = localStorage.getItem('token');
-    console.log('token:', token);
   }
 
   fngeCatList() {
     this._ecommerceService.getCategories().subscribe({
       next: (res) => {
         this.categorias = res;
-
-        console.log(this.categorias);
       },
       error: (e: ApiError) => {
         console.log('Error :', e);

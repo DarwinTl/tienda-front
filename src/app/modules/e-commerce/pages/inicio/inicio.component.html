@@ -51,14 +51,10 @@
         <div class="mb-3">{{ product.descripcion }}</div>
         <div class="flex justify-content-between align-items-center">
           <div class="mt-0 font-semibold text-xl">
-            {{ 'S/.' + product.precioVenta }}
+            {{ product.precioVenta | currency: 'S/' : 'symbol' : '1.2-2' }}
           </div>
           <span>
-            <p-button
-              icon="pi pi-shopping-cart"
-              label="Agregar al Carrito "
-              styleClass="ml-2"
-            />
+            <app-shop-button [entity]="product" />
           </span>
         </div>
       </div>

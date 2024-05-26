@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
+  ElementRef,
   EventEmitter,
   inject,
   Input,
@@ -60,7 +62,11 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
               [value]="valueQuantity()"
             />
             <p-inputGroupAddon class="p-custom-inputgroup">
-              <p-button (click)="add()" icon="pi pi-plus"></p-button>
+              <p-button
+                [disabled]="entity.stock === valueQuantity()"
+                (click)="add()"
+                icon="pi pi-plus"
+              ></p-button>
             </p-inputGroupAddon>
           </p-inputGroup>
         }
@@ -71,6 +77,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 })
 export class ShopButtonComponent implements OnInit {
   shopStore = inject(ShopStore);
+  el = inject(ElementRef);
+
   isAddedShoppingCart = signal(false);
   valueQuantity = signal(1);
   isLoading = signal(false);
@@ -86,14 +94,35 @@ export class ShopButtonComponent implements OnInit {
   @Input({ required: true })
   entity!: ProductoCart;
 
+  constructor() {
+    effect(
+      () => {
+        const exist = this.shopStore
+          .entities()
+          .find(({ id }) => id === this.entity.id);
+        if (exist) {
+          this.valueQuantity.set(Number(exist.cantidad));
+          if (exist.cantidad === 0) {
+            this.isAddedShoppingCart.set(false);
+          }
+        } else {
+          this.isAddedShoppingCart.set(false);
+        }
+      },
+      { allowSignalWrites: true },
+    );
+  }
+
   ngOnInit(): void {
     const exist = this.shopStore
       .entities()
-      .find((product) => product.id === this.entity.id);
+      .find(({ id }) => id === this.entity.id);
+
     if (exist) {
       this.isAddedShoppingCart.set(true);
       this.valueQuantity.set(exist.cantidad);
     }
+
     this.changeValue$
       .pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe((event: Event) => this.changeValue(event));

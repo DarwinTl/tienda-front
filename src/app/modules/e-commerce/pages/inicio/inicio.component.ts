@@ -16,7 +16,9 @@ import {
 } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 
+import { CurrencyPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ShopButtonComponent } from '@components/shop-button/shop-button.component';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { CardModule } from 'primeng/card';
 import { categoria_product_list, product_List } from './Inicio.type';
@@ -36,6 +38,8 @@ import { categoria_product_list, product_List } from './Inicio.type';
     TagModule,
     PrimeCarouselModule,
     CardModule,
+    ShopButtonComponent,
+    CurrencyPipe,
   ],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss',

@@ -6,15 +6,9 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 
 import { MatToolbar } from '@angular/material/toolbar';
 
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-  RouterOutlet,
-} from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 import { MainContainerComponent } from '@components/main-container/main-container.component';
-import { ecommerceService } from '@ecommerce/e-commerce.service';
 
 import { AuthStore } from '@shared/store/auth.store';
 import { ShopStore } from '@shared/store/shop.store';
@@ -44,27 +38,15 @@ import { ButtonModule } from 'primeng/button';
 export class CabeceraComponent implements OnInit {
   authStore = inject(AuthStore);
   shopStore = inject(ShopStore);
+  router = inject(Router);
   dtoken?: JwtPayload;
   loged: boolean = false;
 
   @Output()
   menuEvent = new EventEmitter<void>();
 
-  badgevisible = false;
-  badgevisibility() {
-    this.badgevisible = true;
-  }
-
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private _ecommerceService: ecommerceService,
-  ) {
-    this.route.params.subscribe((params) => {
-      const parametro = params['parametro'];
-      console.log(parametro);
-    });
-  }
+  @Output()
+  shopCartEvent = new EventEmitter<void>();
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
