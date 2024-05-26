@@ -1,18 +1,20 @@
 <mat-toolbar class="custome-toolbar">
-  <p-button
-    icon="pi pi-bars"
-    [rounded]="true"
-    [text]="true"
-    severity="contrast"
-    (click)="drawer.toggle()"
-  />
-  <img
-    routerLink="/inicio"
-    src="assets/imagenes/logo-banner.png"
-    alt="logo_banner"
-    class="img-banner"
-    style="cursor: pointer"
-  />
+  <div class="tw-flex tw-gap-4">
+    <p-button
+      icon="pi pi-bars"
+      [rounded]="true"
+      [text]="true"
+      severity="contrast"
+      (click)="menuEvent.emit()"
+    />
+    <img
+      routerLink="/inicio"
+      src="assets/imagenes/logo-banner.png"
+      alt="logo_banner"
+      class="img-banner sm:tw-hidden md:tw-block"
+      style="cursor: pointer"
+    />
+  </div>
 
   <div class="spacer">
     <input
@@ -22,67 +24,39 @@
     />
   </div>
 
-  <a mat-button> <mat-icon>inventory</mat-icon> Mis Pedidos</a>
-  @if (authStore.isLogged()) {
-    <a mat-button [matMenuTriggerFor]="lvl1master">
-      <mat-icon>person</mat-icon> {{ dtoken?.username }}
-    </a>
-  } @else {
-    <a mat-button [matMenuTriggerFor]="lvl1master">
-      <mat-icon>person</mat-icon> Mi Cuenta
-    </a>
-  }
-
-  <mat-icon
-    class="tw-ml-1 tw-text-gray-900 hover:tw-cursor-pointer"
-    matBadgeColor="accent"
-    [matBadge]="shopStore.entities().length"
-    [matBadgeHidden]="shopStore.entities().length < 1"
-    matBadgeSize="medium"
-  >
-    shopping_cart
-  </mat-icon>
-
-  <mat-menu #lvl1master="matMenu">
+  <div class="tw-flex tw-gap-2 tw-items-center">
+    <a mat-button> <mat-icon>inventory</mat-icon> Mis Pedidos</a>
     @if (authStore.isLogged()) {
-      <button mat-menu-item (click)="authStore.logout()">
-        <mat-icon>logout</mat-icon> Cerrar Sesion
-      </button>
+      <a mat-button [matMenuTriggerFor]="menuUser">
+        <mat-icon>person</mat-icon> {{ dtoken?.username }}
+      </a>
     } @else {
-      <button mat-menu-item routerLink="/autenticacion">
-        <mat-icon>login</mat-icon> Iniciar Sesion
-      </button>
+      <a mat-button [matMenuTriggerFor]="menuUser">
+        <mat-icon>person</mat-icon> Mi Cuenta
+      </a>
     }
-    <button mat-menu-item><mat-icon>person</mat-icon> Perfil</button>
-  </mat-menu>
+
+    <mat-icon
+      class="tw-ml-1 tw-text-gray-900 hover:tw-cursor-pointer"
+      matBadgeColor="accent"
+      [matBadge]="shopStore.entities().length"
+      [matBadgeHidden]="shopStore.entities().length < 1"
+      matBadgeSize="medium"
+    >
+      shopping_cart
+    </mat-icon>
+  </div>
 </mat-toolbar>
 
-<mat-drawer-container autosize style="margin-top: 64px">
-  <mat-drawer #drawer opened="true" mode="side" position="start">
-    <mat-nav-list>
-      @for (categoria of categorias; track categoria) {
-        <mat-list-item
-          routerLinkActive="active"
-          [routerLink]="['/cuerpo', { parametro: categoria.id }]"
-        >
-          <div class="tw-flex tw-items-center tw-gap-2">
-            <img
-              [src]="'assets/imagenes/' + categoria.icono"
-              alt="Icono"
-              width="20"
-              height="20"
-            />
-            <span>
-              {{ categoria.nombre }}
-            </span>
-          </div>
-        </mat-list-item>
-      }
-    </mat-nav-list>
-  </mat-drawer>
-  <mat-drawer-content>
-    <div style="text-align: center; min-height: 600px">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-drawer-content>
-</mat-drawer-container>
+<mat-menu #menuUser="matMenu">
+  @if (authStore.isLogged()) {
+    <button mat-menu-item (click)="authStore.logout()">
+      <mat-icon>logout</mat-icon> Cerrar Sesion
+    </button>
+  } @else {
+    <button mat-menu-item routerLink="/autenticacion">
+      <mat-icon>login</mat-icon> Iniciar Sesion
+    </button>
+  }
+  <button mat-menu-item><mat-icon>person</mat-icon> Perfil</button>
+</mat-menu>
