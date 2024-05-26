@@ -1,21 +1,32 @@
 import { inject } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
+import { Role } from '@shared/enums/role.enum';
+import { JwtService } from '@shared/services/jwt.service';
 import { AuthStore } from '@shared/store/auth.store';
 
-export const existTokenGuard: CanActivateFn = () => {
+export const authRoleGuard: CanActivateFn = () => {
   const authStore = inject(AuthStore);
-  // const jwt = inject(JwtService);
-  // const router = inject(Router);
-  authStore.findCookie();
-  console.log({ authStore, token: authStore.token() });
-  console.log('existTokenGuard');
+  const router = inject(Router);
+  const jwt = inject(JwtService);
+
+  if (authStore.isLogged() && jwt.authorities().includes(Role.ADMIN)) {
+    return true;
+  }
+  return router.createUrlTree(['autenticacion/login']);
+};
+
+export const hasLoginGuard: CanActivateFn = () => {
+  const authStore = inject(AuthStore);
+  const router = inject(Router);
+  const jwt = inject(JwtService);
+
+  if (authStore.isLogged() && jwt.authorities().includes(Role.ADMIN)) {
+    return router.createUrlTree(['mantenimiento']);
+  }
+
+  if (!authStore.isLogged()) {
+    return true;
+  }
 
   return true;
-  // if (!authStore.isLogged()) {
-  //   return true;
-  // }
-  // if (jwt.authorities().includes(Role.ADMIN)) {
-  //   return router.createUrlTree(['mantenimiento']);
-  // }
-  // return router.createUrlTree(['/']);
 };

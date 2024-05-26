@@ -1,11 +1,14 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
-import { ConfirmDialogComponent } from '@components/dialog/confirm/confirm.component';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatIcon } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable } from '@angular/material/table';
+import {
+  ConfirmDialogComponent,
+  DialogConfirmData,
+} from '@components/dialog/confirm/confirm.component';
 import { LoadingComponent } from '@components/loading/loading.component';
 import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
 import { Maintenance } from '@shared/models/maintenance.model';
@@ -18,11 +21,11 @@ import { DataTableProducts } from './products.type';
   standalone: true,
   imports: [
     TitleCasePipe,
-    MatPaginatorModule,
-    MatTableModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
+    MatPaginator,
+    MatTable,
+    MatButton,
+    MatCheckbox,
+    MatIcon,
     LoadingComponent,
     MaintenanceTableComponent,
   ],
@@ -47,6 +50,7 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
       .open(ProductsFormComponent)
       .afterClosed()
       .subscribe((result) => {
+        if (!result) return;
         const data = new FormData();
         data.append('categoria', result.categoria);
         data.append('descripcion', result.descripcion);
@@ -56,7 +60,7 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
         data.append('precioVenta', result.precioVenta);
         data.append('stock', result.stock);
         data.append('foto', result.ruta);
-        console.log({ result, data });
+        data.append('medida', result.medida);
         this.onCreate(data);
       });
   }
@@ -81,7 +85,7 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
         data.append('precioVenta', result.precioVenta);
         data.append('stock', result.stock);
         data.append('foto', result.ruta);
-        console.log({ result, data });
+        data.append('medida', result.medida);
         this.onUpdate(data);
       });
   }
@@ -90,8 +94,13 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
     this.dialog
       .open(ConfirmDialogComponent, {
         data: {
-          id: data.id,
-        },
+          title: 'Eliminar producto',
+          message: `¿Estás seguro de eliminar el producto ${data.nombre}?`,
+          icon: 'warning',
+          accept: 'Cancelar',
+          cancel: 'Eliminar',
+          iconColor: 'tw-text-red-500',
+        } as DialogConfirmData,
       })
       .afterClosed()
       .subscribe((result) => {

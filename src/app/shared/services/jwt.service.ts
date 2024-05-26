@@ -20,4 +20,8 @@ export class JwtService {
       JSON.parse(this.decodedToken().authorities) as JwtAuthorities[]
     ).map((auth) => auth.authority);
   }
+
+  username() {
+    return JSON.parse(this.decodedToken().sub) as string;
+  }
 }

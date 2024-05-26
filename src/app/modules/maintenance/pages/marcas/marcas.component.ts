@@ -1,10 +1,10 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatIcon } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable } from '@angular/material/table';
 import {
   ConfirmDialogComponent,
   DialogConfirmData,
@@ -20,11 +20,11 @@ import { DataTableMarcas } from './marcas.type';
   standalone: true,
   imports: [
     TitleCasePipe,
-    MatPaginatorModule,
-    MatTableModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
+    MatPaginator,
+    MatTable,
+    MatButton,
+    MatCheckbox,
+    MatIcon,
     LoadingComponent,
     MaintenanceTableComponent,
   ],
@@ -70,12 +70,13 @@ export class MarcasComponent extends Maintenance<DataTableMarcas> {
         title: 'Eliminar marca',
         message: `¿Estás seguro de eliminar la marca ${data.nombre}?`,
         icon: 'warning',
-        accept: 'Eliminar',
-        cancel: 'Cancelar',
+        accept: 'Cancelar',
+        cancel: 'Eliminar',
+        iconColor: 'tw-text-red-500',
       } as DialogConfirmData,
     });
     dialog.afterClosed().subscribe((result) => {
-      result && this.onDelete(data.id);
+      !result && this.onDelete(data.id);
     });
   }
   onChangeState({

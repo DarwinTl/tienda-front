@@ -9,13 +9,13 @@ import {
 } from '@api/interface/api-categoria.interface';
 import { Categoria } from '@maintenance/pages/categories/categories.type';
 import { HttpBase } from '@shared/models/http';
-import { Inbox, ResponseInbox } from '@shared/types/utilities.type';
+import { Inbox, InboxParam, ResponseInbox } from '@shared/types/utilities.type';
 import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class ApiCategoria extends HttpBase {
-  getCategories(page: number): Observable<Inbox<Categoria>> {
-    const params = new HttpParams({ fromObject: { page, num: 5 } });
+  getCategories({ page, size }: InboxParam): Observable<Inbox<Categoria>> {
+    const params = new HttpParams({ fromObject: { page, num: size } });
     const endpoint = `${API.apiCategoria}/pagina`;
     return this.http.get<ResponseInbox<Categoria>>(endpoint, { params }).pipe(
       map((resp) => ({

@@ -12,6 +12,8 @@ import { debounceTime, pipe, switchMap, tap } from 'rxjs';
 import { ApiReqPostLogin } from '@api/interface/api.auth';
 import { ApiAuth } from '@api/service/api.auth';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { ApiError } from '@shared/models/error.model';
+import { jwtDecode } from 'jwt-decode';
 
 type AuthState = {
   isLoading: boolean;
@@ -34,11 +36,18 @@ export const AuthStore = signalStore(
   withState(initialState),
   withComputed(({ token }) => ({
     isLogged: computed(() => token() !== null),
+    email: computed(() => {
+      const tokenValue = token();
+      if (tokenValue === null) return null;
+      return jwtDecode(tokenValue).sub as string;
+    }),
   })),
   withMethods((store, apiAuth = inject(ApiAuth)) => ({
     login: rxMethod<ApiReqPostLogin>(
       pipe(
-        tap((payload) => patchState(store, { ...payload, isLoading: true })),
+        tap((payload) =>
+          patchState(store, { ...payload, isLoading: true, error: null }),
+        ),
         debounceTime(500),
         switchMap((payload) =>
           apiAuth.postLogin({ ...payload }).pipe(
@@ -47,8 +56,8 @@ export const AuthStore = signalStore(
                 localStorage.setItem('token', token);
                 patchState(store, { token, error: null });
               },
-              error: (error: { mensaje: string }) =>
-                patchState(store, { ...initialState, error: error.mensaje }),
+              error: ({ mensaje }: ApiError) =>
+                patchState(store, { ...initialState, error: mensaje }),
               finalize: () => patchState(store, { isLoading: false }),
             }),
           ),
@@ -63,5 +72,6 @@ export const AuthStore = signalStore(
       const token = localStorage.getItem('token');
       if (token !== null) patchState(store, { token });
     },
+    restoreError: () => patchState(store, { error: null }),
   })),
 );

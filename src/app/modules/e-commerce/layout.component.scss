@@ -1,0 +1,24 @@
+.root-ecommerce {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 64px 1fr auto;
+  grid-template-areas: "header" "content" " footer";
+}
+
+.header-ecommerce {
+  grid-area: header;
+}
+
+.content-ecommerce {
+  grid-area: content;
+}
+
+.main-ecommerce {
+  max-width: 100%;
+}
+
+.footer-ecommerce {
+  grid-area: footer;
+}

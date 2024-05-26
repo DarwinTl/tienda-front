@@ -1,102 +1,62 @@
 <mat-toolbar class="custome-toolbar">
-  <button class="btn-menu-navbar" (click)="drawer.toggle()">
-    <mat-icon style="font-size: 30px">menu</mat-icon>
-  </button>
-  <img src="assets/imagenes/logo-banner.png" alt="logo_banner" class="img-banner" />
-  <div class="spacer">
-    <input class="search-bar" type="text" placeholder="Hola, ¿qué estás buscando?" />
+  <div class="tw-flex tw-gap-4">
+    <p-button
+      icon="pi pi-bars"
+      [rounded]="true"
+      [text]="true"
+      severity="contrast"
+      (click)="menuEvent.emit()"
+    />
+    <img
+      routerLink="/inicio"
+      src="assets/imagenes/logo-banner.png"
+      alt="logo_banner"
+      class="img-banner sm:tw-hidden md:tw-block"
+      style="cursor: pointer"
+    />
   </div>
 
-  <a mat-button> <mat-icon>inventory</mat-icon> Mis Pedidos</a>
-  <a mat-button [matMenuTriggerFor]="lvl1master">
-    <mat-icon>person</mat-icon> Mi Cuenta</a>
-  <a mat-button>
-    <mat-icon matBadgeColor="accent" matBadge="0" [matBadgeHidden]="badgevisible"
-      matBadgeSize="small">shopping_cart</mat-icon></a>
+  <div class="spacer">
+    <input
+      class="search-bar"
+      type="text"
+      placeholder="Hola, ¿qué estás buscando?"
+    />
+  </div>
 
-  <mat-menu #lvl1master="matMenu">
-    <button mat-menu-item routerLink="login">
-      <mat-icon>login</mat-icon> Iniciar Sesion
-    </button>
-    <button mat-menu-item><mat-icon>person</mat-icon> Perfil</button>
-  </mat-menu>
+  <div class="tw-flex tw-gap-2 tw-items-center">
+    <a mat-button> <mat-icon>inventory</mat-icon> Mis Pedidos</a>
+    @if (authStore.isLogged()) {
+      <a mat-button [matMenuTriggerFor]="menuUser">
+        <mat-icon>person</mat-icon> {{ dtoken?.username }}
+      </a>
+    } @else {
+      <a mat-button [matMenuTriggerFor]="menuUser">
+        <mat-icon>person</mat-icon> Mi Cuenta
+      </a>
+    }
+
+    <mat-icon
+      class="tw-ml-1 tw-text-gray-900 hover:tw-cursor-pointer"
+      matBadgeColor="accent"
+      [matBadge]="shopStore.entities().length"
+      [matBadgeHidden]="shopStore.entities().length < 1"
+      matBadgeSize="medium"
+    >
+      shopping_cart
+    </mat-icon>
+  </div>
 </mat-toolbar>
 
-
-<mat-drawer-container autosize style="margin-top: 64px;">
-  <mat-drawer #drawer opened="true" mode="side" position="start">
-    <mat-nav-list>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-
-          <mat-icon><img src="assets/imagenes/carne.png" alt="" /></mat-icon>
-          Carnes, Aves y Pescados
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/frutas_verduras.png" alt="" /></mat-icon>
-          Frutas y Verduras
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/congelador.png" alt="" /></mat-icon>Congelados
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/productos-lacteos.png" alt="" /></mat-icon>Lacteos y Huevos
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-
-          <mat-icon><img src="assets/imagenes/embutido.png" alt="" /></mat-icon>Fiambres
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <i class="fa-solid fa-basket-shopping"></i> Abarrotes
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-
-          <mat-icon><img src="assets/imagenes/desayuno.png" alt="" /></mat-icon>Desayuno
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/panaderia.png" alt="" /></mat-icon>Panaderia y Pasteleria
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-
-          <mat-icon><img src="assets/imagenes/bebidas.png" alt="" /></mat-icon>Bebidas
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/mascotas.png" alt="" /></mat-icon>Mascotas
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/cuidado-dental.png" alt="" /></mat-icon>Cuidado Personal
-        </button>
-      </mat-list-item>
-      <mat-list-item>
-        <button routerLink="" mat-button>
-          <mat-icon><img src="assets/imagenes/productos-de-limpieza.png" alt="" /></mat-icon>Limpieza
-        </button>
-      </mat-list-item>
-    </mat-nav-list>
-  </mat-drawer>
-  <mat-drawer-content>
-    <div style="text-align: center; min-height: 600px">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-drawer-content>
-</mat-drawer-container>
+<mat-menu #menuUser="matMenu">
+  @if (authStore.isLogged()) {
+    <button mat-menu-item (click)="authStore.logout()">
+      <mat-icon>logout</mat-icon> Cerrar Sesion
+    </button>
+  } @else {
+    <button mat-menu-item routerLink="/autenticacion">
+      <mat-icon>login</mat-icon> Iniciar Sesion
+    </button>
+  }
+  <button mat-menu-item><mat-icon>person</mat-icon> Perfil</button>
+</mat-menu>

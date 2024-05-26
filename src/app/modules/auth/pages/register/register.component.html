@@ -1,0 +1,148 @@
+<div class="tw-relative tw-min-w-96">
+  <div
+    class="tw-absolute tw-inset-0 tw-bg-white tw-opacity-80 tw-rounded-lg tw-z-10"
+  ></div>
+  <div class="tw-relative tw-p-4 tw-z-20">
+    <h4
+      class="tw-text-gray-700 tw-mb-10 tw-text-center tw-font-bold tw-text-xl"
+    >
+      Crear cuenta
+    </h4>
+    <form
+      [formGroup]="formRegister"
+      class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-x-4 tw-gap-y-1"
+      (submit)="onSubmitRegister()"
+    >
+      <app-form-field>
+        <mat-form-field class="md:tw-col-span-2">
+          <mat-label>Correo electrónico</mat-label>
+          <input
+            formControlName="correo"
+            matInput
+            autocomplete="off"
+            type="text"
+            inputmode="email"
+          />
+        </mat-form-field>
+      </app-form-field>
+
+      <div class="tw-flex tw-gap-2">
+        <app-form-field class="tw-grow" #contrasenia>
+          <mat-form-field>
+            <mat-label>Contraseña</mat-label>
+            <input autocomplete="new-password" [appMaxLength]="20" [mat-menu-trigger-for]="panel" #matMenuTriggerFor="matMenuTrigger" (focus)="matMenuTriggerFor.openMenu()" (blur)="matMenuTriggerFor.closeMenu()" #input formControlName="contrasenia" matInput [type]="hidePassword ? 'password' : 'text'" />
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-menu #panel>
+              <div class="tw-flex p-2">
+                <ul class="tw-grid tw-text-sm tw-font-normal">
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value | hasUpper) ? 'check' : 'error' }}</mat-icon> <p>1 caracter mayúscula</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value | hasLower) ? 'check' : 'error' }}</mat-icon> <p>1 caracter minúscula</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value | hasDigit) ? 'check' : 'error' }}</mat-icon> <p>1 caracter numérico</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value | hasEspecial) ? 'check' : 'error' }}</mat-icon> <p>1 caracter especial</p></li>
+                  <li class="tw-flex tw-items-center tw-gap-1"><mat-icon class="tw-text-sm" >{{ (input.value.length >= 8) ? 'check' : 'error' }}</mat-icon> <p>8 caracteres mínimo</p></li>
+                </ul>
+              </div>
+            </mat-menu>
+          </mat-form-field>
+        </app-form-field>
+      </div>
+
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Repetir contraseña</mat-label>
+          <input
+            autocomplete="new-password"
+            formControlName="confirmarContrasenia"
+            matInput
+            [maxlength]="20"
+            [type]="hideConfirmPassword ? 'password' : 'text'"
+          />
+          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hideConfirmPassword">
+            <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </app-form-field>
+
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input appOnlyLetters formControlName="nombre" matInput type="text" />
+        </mat-form-field>
+      </app-form-field>
+
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Apellido paterno</mat-label>
+          <input
+            appOnlyLetters
+            formControlName="apellidoPaterno"
+            matInput
+            type="text"
+          />
+        </mat-form-field>
+      </app-form-field>
+
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Apellido materno</mat-label>
+          <input
+            appOnlyLetters
+            formControlName="apellidoMaterno"
+            matInput
+            type="text"
+          />
+        </mat-form-field>
+      </app-form-field>
+
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Tipo documento</mat-label>
+          <mat-select formControlName="tipoDocumento" matInput type="text">
+            <mat-option value="1">DNI</mat-option>
+            <mat-option value="2">PS</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </app-form-field>
+
+      <app-form-field>
+        <mat-form-field>
+          <mat-label>Número de documento</mat-label>
+          <input
+            appOnlyNumbers
+            formControlName="numeroDocumento"
+            matInput
+            [appMaxLength]="8"
+            type="number"
+            inputmode="numeric"
+          />
+        </mat-form-field>
+      </app-form-field>
+
+      <div class="tw-flex tw-justify-center md:tw-col-span-2">
+        <button
+          type="submit"
+          class="tw-w-full"
+          mat-raised-button
+          color="primary"
+        >
+          Crear cuenta
+        </button>
+      </div>
+    </form>
+
+    <span class="tw-my-4 line-divider">o</span>
+
+    <div class="tw-flex tw-justify-center">
+      <button
+        type="button"
+        class="tw-w-full"
+        routerLink="../login"
+        mat-stroked-button
+      >
+        Ya tengo una cuenta
+      </button>
+    </div>
+  </div>
+</div>

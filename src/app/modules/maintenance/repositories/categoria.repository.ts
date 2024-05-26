@@ -7,15 +7,15 @@ import {
 } from '@api/interface/api-categoria.interface';
 import { ApiCategoria } from '@api/service/api-categoria';
 import { Repository } from '@shared/models/maintenance.model';
-import { Inbox } from '@shared/types/utilities.type';
+import { Inbox, InboxParam } from '@shared/types/utilities.type';
 import { DataTableCategories } from '../pages/categories/categories.type';
 
 @Injectable()
 export class CategoriaRespository implements Repository {
   private readonly api = inject(ApiCategoria);
 
-  get(page: number): Observable<Inbox<DataTableCategories>> {
-    return this.api.getCategories(page);
+  get(params: InboxParam): Observable<Inbox<DataTableCategories>> {
+    return this.api.getCategories(params);
   }
   create(data: ReqPostCategoria) {
     return this.api.createCategory(data);
