@@ -51,7 +51,7 @@ import { CabeceraComponent } from '../../shared/components/cabecera/cabecera.com
         (shopCartEvent)="sidebar.toggleSidebar()"
       />
 
-      <mat-drawer-container autosize class="content-ecommerce">
+      <mat-drawer-container autosize class="container-ecommerce">
         <mat-drawer #drawer opened="true" mode="side" position="start">
           <mat-nav-list>
             @for (categoria of menuStore.categorias(); track categoria) {
@@ -79,7 +79,7 @@ import { CabeceraComponent } from '../../shared/components/cabecera/cabecera.com
             }
           </mat-nav-list>
         </mat-drawer>
-        <mat-drawer-content>
+        <mat-drawer-content class="content-ecommerce">
           <div class="main-ecommerce">
             <router-outlet></router-outlet>
           </div>
