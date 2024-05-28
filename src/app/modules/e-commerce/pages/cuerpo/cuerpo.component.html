@@ -86,9 +86,6 @@
                   }}</span>
                   <div class="flex flex-row-reverse md:flex-row gap-2">
                     <p-button icon="pi pi-eye" [rounded]="true"  severity="secondary" [routerLink]="['/producto-detalle', { id: item.id }]"/>
-                    <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap"
-                      label="Comprar Ahora" [disabled]="item.inventoryStatus === 'Sin Stock'" />
-
                     <app-shop-button [entity]="item" />
 
                   </div>
