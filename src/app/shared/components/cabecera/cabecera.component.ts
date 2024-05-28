@@ -25,7 +25,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { categoria_product_list } from '@ecommerce/pages/inicio/Inicio.type';
-import { JwtService } from '@shared/services/jwt.service';
 
 import { AuthStore } from '@shared/store/auth.store';
 import { jwtDecode } from 'jwt-decode';
@@ -60,13 +59,13 @@ import { ButtonModule } from 'primeng/button';
 export class CabeceraComponent {
   authStore = inject(AuthStore);
   categorias: categoria_product_list[] = [];
-dtoken: any;
+  dtoken: any;
   loged: boolean = false;
 
   badgevisible = false;
   badgevisibility() {
     this.badgevisible = true;
-    
+
   }
 
 
@@ -85,8 +84,8 @@ dtoken: any;
   ngOnInit(): void {
     this.fngeCatList();
     var token = localStorage.getItem('token');
-    console.log("token:",token)
-    if(token){
+    console.log("token:", token)
+    if (token) {
       this.dtoken = jwtDecode(token);
       console.log(this.dtoken.username)
     }

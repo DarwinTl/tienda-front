@@ -1,5 +1,5 @@
 export type product_List = {
-  id?: number;
+  id: number;
   nombre: string;
   descripcion: string;
   ruta: string;
@@ -9,7 +9,8 @@ export type product_List = {
   marca: marca_product_list;
   categoria: categoria_product_list;
   medida: medida_product_list;
-  inventoryStatus?: string;
+  inventoryStatus: string;
+
 };
 
 export type marca_product_list = {

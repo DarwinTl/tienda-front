@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute, Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { CabeceraComponent } from '@components/cabecera/cabecera.component';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
-import { product_List } from '../inicio/Inicio.type';
+import { productXCat, product_List } from '../inicio/Inicio.type';
 import { RatingModule } from 'primeng/rating';
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectItem } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
-
-
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-cuerpo',
   standalone: true,
@@ -25,6 +30,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     CommonModule,
     RatingModule,
     DropdownModule,
+    BreadcrumbModule
   ],
   templateUrl: './cuerpo.component.html',
   styleUrl: './cuerpo.component.scss',
@@ -32,9 +38,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CuerpoComponent implements OnInit {
   layout: string = 'list';
   parametro: string = '';
-  products: product_List[] = [];
+  products: productXCat[] = [];
   catlabel: string = '';
   sortOptions!: SelectItem[];
+
+  items: MenuItem[] | undefined;
+
+  home: MenuItem | undefined;
 
   sortOrder!: number;
 
@@ -42,7 +52,13 @@ export class CuerpoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private _ecommerceService: ecommerceService,
-  ) { }
+  ) {
+    this.route.params.subscribe((params) => {
+      const id = params['id'];
+      console.log(id);
+
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

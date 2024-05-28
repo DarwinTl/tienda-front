@@ -9,12 +9,20 @@ const routes: Routes = [
         (c) => c.InicioComponent,
       ),
   },
-  {
+  {   
     path: 'cuerpo',
     title: 'Pagina Busqueda | Don Pepe SuperMarket',
     loadComponent: () =>
       import('@ecommerce/pages/cuerpo/cuerpo.component').then(
         (c) => c.CuerpoComponent,
+      ),
+  },
+  {
+    path: 'producto-detalle',
+    title: 'Producto | Don Pepe SuperMarket',
+    loadComponent: () =>
+      import('@ecommerce/pages/producto-detalle/producto-detalle.component').then(
+        (c) => c.ProductoDetalleComponent,
       ),
   },
   {
