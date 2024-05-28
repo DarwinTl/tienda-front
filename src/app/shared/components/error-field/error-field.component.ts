@@ -1,24 +1,37 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, Input, OnInit, signal, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  Input,
+  OnInit,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl, ValidationErrors } from '@angular/forms';
 import { MatError } from '@angular/material/form-field';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 
-import { ErrorDictionary, ERRORS_DICTIONARY } from '@shared/validators/error.dictionary';
+import {
+  ErrorDictionary,
+  ERRORS_DICTIONARY,
+} from '@shared/validators/error.dictionary';
 
 @Component({
   selector: 'app-error-field',
   standalone: true,
   imports: [MatError, AsyncPipe, JsonPipe],
   template: `
-  @if (touched) {
-    <div class="tw-ml-2 error-invalid">
-      @for (error of errors(); track error) {
-        <p class="tw-text-sm tw-text-red-700">{{ error }}</p>
-      }
-    </div>
-  }
+    @if (touched) {
+      <div class="tw-ml-1 error-invalid">
+        @for (error of errors(); track error) {
+          <p class="tw-text-xs tw-text-red-700">{{ error }}</p>
+        }
+      </div>
+    }
   `,
   styles: `
     .error-invalid {
@@ -39,7 +52,7 @@ export class ErrorFieldComponent implements OnInit {
   @Input()
   touched: boolean = false;
 
-  error = signal<ValidationErrors | null | undefined >(null);
+  error = signal<ValidationErrors | null | undefined>(null);
   errors = computed(() => {
     const errorsObj = this.error();
     if (!errorsObj) {
@@ -53,9 +66,14 @@ export class ErrorFieldComponent implements OnInit {
 
   ngOnInit(): void {
     this.error.set(this.ngControl?.control?.errors);
-    this.ngControl?.control?.valueChanges.pipe(debounceTime(250), distinctUntilChanged(), takeUntilDestroyed(this.destroy)).subscribe(() => {
-      this.error.set(this.ngControl?.control?.errors);
-    });
-    
+    this.ngControl?.control?.valueChanges
+      .pipe(
+        debounceTime(250),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroy),
+      )
+      .subscribe(() => {
+        this.error.set(this.ngControl?.control?.errors);
+      });
   }
 }

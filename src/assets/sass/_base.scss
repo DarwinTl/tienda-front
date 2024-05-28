@@ -1,7 +1,7 @@
 blockquote,
-dl, 
-dd, 
-h1, 
+dl,
+dd,
+h1,
 h2,
 h3,
 h4,
@@ -11,7 +11,7 @@ hr,
 figure,
 p,
 pre {
-    margin: 0;
+  margin: 0;
 }
 
 h1,
@@ -20,15 +20,14 @@ h3,
 h4,
 h5,
 h6 {
-    font-size: inherit;
-    font-weight: inherit;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 html,
 body {
   height: 100%;
 }
-
 
 body {
   margin: 0;
@@ -44,3 +43,28 @@ input {
   -moz-appearance: textfield;
 }
 
+/* Chrome, Edge, Safari */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-clear-button,
+input[type="password"]::-webkit-reveal-button {
+  display: none;
+}
+
+/* Firefox */
+input[type="password"] {
+  -moz-appearance: textfield;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

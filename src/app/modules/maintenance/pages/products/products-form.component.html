@@ -10,9 +10,15 @@
     >
       <mat-checkbox class="" formControlName="estado"> Estado </mat-checkbox>
 
-      <div class="tw-col-span-1 md:tw-col-span-2">
+      <div class="tw-col-span-1 md:tw-col-span-2 tw-pb-4">
+        <h3 class="tw-text-base tw-pb-1" style="color: #44474e">
+          Carga de imagen*
+        </h3>
         <p-fileUpload
-          (onSelect)="fileUpload($event)"
+          #fileUpload
+          (onSelect)="fileUploadEvent($event)"
+          (onRemove)="fileRemove()"
+          fileLimit="1"
           accept="image/*"
           maxFileSize="1000000"
         >
@@ -48,6 +54,12 @@
             </div>
           </ng-template>
         </p-fileUpload>
+
+        @if (rutaControl?.errors && rutaControl?.touched) {
+          <p class="tw-text-xs ml-1" style="color: #b91c1c">
+            La imagen es requerido
+          </p>
+        }
       </div>
 
       <app-form-field>

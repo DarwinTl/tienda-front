@@ -111,6 +111,7 @@ export class CategoriesComponent extends Maintenance<DataTableCategories> {
           icon: 'warning',
           accept: 'Cancelar',
           cancel: 'Elminar',
+          iconColor: 'tw-text-red-500',
         } as DialogConfirmData,
       })
       .afterClosed()

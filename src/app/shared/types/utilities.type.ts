@@ -46,3 +46,8 @@ export type Inbox<T> = {
 export interface Request<T> {
   [key: string]: T;
 }
+
+export type InboxParam = {
+  page: number;
+  size: number;
+};

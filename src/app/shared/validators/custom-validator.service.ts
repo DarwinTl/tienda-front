@@ -24,19 +24,42 @@ export class CustomValidatorService {
   passwordMatchAndStrength: ValidatorFn = (
     group: AbstractControl,
   ): ValidationErrors | null => {
-    const password = group.get('contrasenia')!.value;
-    const confirmPassword = group.get('confirmarContrasenia')!.value;
-
-    if (password == '' || confirmPassword == '') return null;
-
-    if (password !== confirmPassword) {
-      return { passwordsDontMatch: true };
-    }
-
+    const passwordControl = group.get('contrasenia')!;
+    const password = passwordControl!.value;
+    const confirmPasswordControl = group.get('confirmarContrasenia')!;
+    const confirmPassword = confirmPasswordControl!.value;
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
 
-    return passwordRegex.test(password) ? null : { invalidPassword: true };
+    const passwordStrength = passwordRegex.test(password);
+
+    if (password == '' && confirmPassword == '') return null;
+
+    if (password && !passwordStrength) {
+      passwordControl.setErrors({ invalidPassword: true });
+      return { invalidPassword: true };
+    }
+
+    if (password && confirmPassword == '') {
+      return null;
+    }
+
+    if (confirmPassword && password == '') {
+      passwordControl.setErrors({ passwordsDontMatch: true });
+      return { passwordsDontMatch: true };
+    }
+
+    if (password !== confirmPassword) {
+      confirmPasswordControl.setErrors({ passwordsDontMatch: true });
+      return { passwordsDontMatch: true };
+    }
+
+    if (!passwordStrength) {
+      passwordControl.setErrors({ invalidPassword: true });
+      return { invalidPassword: true };
+    }
+
+    return null;
   };
 
   regex(regex: RegExp, error: string) {

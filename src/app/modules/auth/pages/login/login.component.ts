@@ -1,15 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import {
+  MatFormField,
+  MatLabel,
+  MatSuffix,
+} from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ApiReqPostLogin } from '@api/interface/api.auth';
+import { AuthRoutes } from '@auth/auth.routes';
 import { AuthLoginForm } from '@auth/auth.type';
 import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { AuthStore } from '@shared/store/auth.store';
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
+import { ModulesRoutes } from 'src/app/modules.routes';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +24,8 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
     ReactiveFormsModule,
     MatButton,
     MatIcon,
+    MatIconButton,
+    MatSuffix,
     MatFormField,
     MatLabel,
     MatInput,
@@ -59,8 +67,19 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
                 class="tw-w-full"
                 formControlName="contrasenia"
                 matInput
-                type="password"
+                [type]="hide ? 'password' : 'text'"
               />
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Ocultar contraseña'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
+              </button>
             </mat-form-field>
           </app-form-field>
 
@@ -87,7 +106,7 @@ import { CustomValidatorService } from '@shared/validators/custom-validator.serv
           <button
             type="button"
             class="tw-w-full"
-            routerLink="../register"
+            (click)="navigateToRegister()"
             mat-stroked-button
           >
             Crear una cuenta
@@ -102,7 +121,9 @@ export class LoginComponent {
   readonly authStore = inject(AuthStore);
   private readonly fb = inject(FormBuilder);
   private readonly validator = inject(CustomValidatorService);
+  private router = inject(Router);
   formLogin = this.#createLoginForm();
+  hide = true;
 
   #createLoginForm() {
     return this.fb.group<AuthLoginForm>({
@@ -125,6 +146,10 @@ export class LoginComponent {
       password: formValue.contrasenia,
     };
     this.#login(payload);
+  }
+  navigateToRegister() {
+    this.authStore.restoreError();
+    this.router.navigate([ModulesRoutes.AUTEHNTICATION, AuthRoutes.REGISTER]);
   }
 
   #login(payload: ApiReqPostLogin) {

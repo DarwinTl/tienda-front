@@ -5,11 +5,12 @@ import {
 } from '@api/interface/api-unidad-medida.interface';
 import { ApiUnidadMedida } from '@api/service/api-unidad-medida';
 import { Repository } from '@shared/models/maintenance.model';
+import { InboxParam } from '@shared/types/utilities.type';
 
 @Injectable()
 export class UnidadMedidaRepository implements Repository {
   private api = inject(ApiUnidadMedida);
-  get(page: number) {
+  get(page: InboxParam) {
     return this.api.getUnidades(page);
   }
   create(data: ReqPostUnidadMedida) {

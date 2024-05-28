@@ -24,6 +24,7 @@ import {
 } from '@angular/material/sidenav';
 import { MainContainerComponent } from '@components/main-container/main-container.component';
 import { AuthStore } from '@shared/store/auth.store';
+import { ModulesRoutes } from 'src/app/modules.routes';
 import { MaintenanceRoutes } from './layout.routes';
 
 @Component({
@@ -48,7 +49,7 @@ import { MaintenanceRoutes } from './layout.routes';
   template: `
     <div class="maintenance-root">
       <header class="maintenance-header">
-        <mat-toolbar class="shadow-md bg-white">
+        <mat-toolbar class="tw-shadow-md tw-bg-white">
           <div class="tw-flex tw-items-center tw-max-w-5xl tw-grow tw-mx-auto">
             @if (smallScreen()) {
               <button
@@ -59,10 +60,10 @@ import { MaintenanceRoutes } from './layout.routes';
                 <mat-icon>menu</mat-icon>
               </button>
             }
-            <!-- <div class="flex items-center justify-start">
-              <h4 class="text-md md:text-2xl">Mantenimiento</h4>
-            </div> -->
             <span class="tw-grow"></span>
+            <div class="tw-text-sm mr-4 tw-text-sky-900">
+              <p>{{ authStore.email() }}</p>
+            </div>
             <button
               class="tw-justify-end"
               (click)="logout()"
@@ -172,6 +173,6 @@ export class LayoutMaintenanceComponent {
 
   logout() {
     this.authStore.logout();
-    this.router.navigate(['/']);
+    this.router.navigate([ModulesRoutes.ROOT]);
   }
 }
