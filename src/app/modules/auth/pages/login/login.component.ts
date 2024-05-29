@@ -46,7 +46,7 @@ import { ModulesRoutes } from 'src/app/modules.routes';
         <form
           [formGroup]="formLogin"
           class="md:tw-min-w-80 tw-grid tw-grid-cols-1"
-          (submit)="onSubmitLogin()"
+          (ngSubmit)="onSubmitLogin()"
         >
           <app-form-field>
             <mat-form-field>
@@ -70,6 +70,7 @@ import { ModulesRoutes } from 'src/app/modules.routes';
                 [type]="hide ? 'password' : 'text'"
               />
               <button
+                type="button"
                 mat-icon-button
                 matSuffix
                 (click)="hide = !hide"
