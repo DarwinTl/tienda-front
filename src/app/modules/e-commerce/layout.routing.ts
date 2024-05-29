@@ -3,6 +3,15 @@ import { menuResolve } from '@shared/guards/menu.resolve';
 
 const routes: Routes = [
   {
+    path: 'inicio',
+    title: 'Pagina Inicio | Don Pepe SuperMarket',
+    loadComponent: () =>
+      import('@ecommerce/pages/inicio/inicio.component').then(
+        (c) => c.InicioComponent,
+      ),
+  },
+  {
+
     path: '',
     resolve: { menu: menuResolve },
     loadComponent: () =>
@@ -14,6 +23,14 @@ const routes: Routes = [
         loadComponent: () =>
           import('@ecommerce/pages/cuerpo/cuerpo.component').then(
             (c) => c.CuerpoComponent,
+          ),
+      },
+      {
+        path: 'producto-detalle',
+        title: 'Producto | Don Pepe SuperMarket',
+        loadComponent: () =>
+          import('@ecommerce/pages/producto-detalle/producto-detalle.component').then(
+            (c) => c.ProductoDetalleComponent,
           ),
       },
       {

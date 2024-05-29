@@ -9,6 +9,9 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 import { MainContainerComponent } from '@components/main-container/main-container.component';
+import { ecommerceService } from '@ecommerce/e-commerce.service';
+import { categoria_product_list } from '@ecommerce/pages/inicio/Inicio.type';
+
 
 import { AuthStore } from '@shared/store/auth.store';
 import { ShopStore } from '@shared/store/shop.store';
@@ -37,6 +40,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class CabeceraComponent implements OnInit {
   authStore = inject(AuthStore);
+
   shopStore = inject(ShopStore);
   router = inject(Router);
   dtoken?: JwtPayload;
@@ -45,10 +49,12 @@ export class CabeceraComponent implements OnInit {
   @Output()
   menuEvent = new EventEmitter<void>();
 
+
   @Output()
   shopCartEvent = new EventEmitter<void>();
 
   ngOnInit(): void {
+
     const token = localStorage.getItem('token');
     if (token) {
       this.dtoken = jwtDecode(token);
