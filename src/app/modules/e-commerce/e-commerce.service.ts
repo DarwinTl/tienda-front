@@ -3,10 +3,13 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import {
   categoria_product_list,
+  commentSend,
+  productComment,
   productXCat,
   product_List,
 } from './pages/inicio/Inicio.type';
 import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -41,5 +44,16 @@ export class ecommerceService {
 
   getProductxMarca(id: number): Observable<productXCat[]> {
     return this.http.get<productXCat[]>(`${this.myAppUrl}/api/home/marcas/${id}`);
+  }
+
+  getProductComments(id: number): Observable<productComment[]> {
+    return this.http.get<productComment[]>(`${this.myAppUrl}/api/home/comentarios/${id}`);
+  }
+
+  sendProductComments(comentario: commentSend): Observable<productComment> {
+    return this.http.post<productComment>(
+      `${this.myAppUrl}/api/usuario/${comentario.idproducto}/comentario/${comentario.correo}`,
+      { comentario: comentario.comentario }
+    );
   }
 }

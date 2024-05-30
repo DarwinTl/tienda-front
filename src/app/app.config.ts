@@ -9,6 +9,7 @@ import { routes } from './app.routes';
 import { CoreModule } from './core/core.module';
 import { unAuthorizedInterceptor } from './core/interceptors/error.interceptor';
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
+import { DatePipe } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,5 +22,6 @@ export const appConfig: ApplicationConfig = {
     ApiAuth,
     AuthStore,
     MessageService,
+    DatePipe
   ],
 };
