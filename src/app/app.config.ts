@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -23,5 +24,6 @@ export const appConfig: ApplicationConfig = {
     AuthStore,
     MessageService,
     ApiHome,
+    DatePipe,
   ],
 };

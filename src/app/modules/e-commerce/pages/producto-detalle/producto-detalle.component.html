@@ -95,3 +95,92 @@
     </ng-template>
   </p-carousel>
 </div>
+<p-divider />
+
+<div class="comment-container">
+  <h2>Reseñas sobre el producto</h2>
+  <div class="card justify-content-center">
+    <ng-container
+      *ngIf="commentList && commentList.length > 0; else noComments"
+    >
+      <p-fieldset
+        *ngFor="let item of commentList"
+        [style]="{ 'margin-bottom': '20px', 'max-width': '100%' }"
+      >
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2 px-2">
+            <span class="font-bold"
+              >{{ item.usuario.nombres }} {{ item.usuario.apellidoPaterno }}
+              {{ item.usuario.apellidoMaterno }} - Publicado:
+              {{ item.fecha }}</span
+            >
+          </div>
+        </ng-template>
+        <textarea
+          rows="5"
+          cols="30"
+          pInputTextarea
+          [autoResize]="true"
+          [value]="item.comentario"
+          [style]="{ width: '700px' }"
+          [disabled]="true"
+        >
+        </textarea>
+      </p-fieldset>
+    </ng-container>
+    <ng-template #noComments>
+      <p>Aún no tenemos comentarios de este producto. Sé el primero :)</p>
+    </ng-template>
+  </div>
+</div>
+
+<div class="card justify-content-center">
+  <p-button
+    (click)="showDialog()"
+    label="Agregar Comentario"
+    severity="danger"
+  />
+  <p-dialog
+    header="Header"
+    [(visible)]="visible"
+    [modal]="true"
+    [style]="{ width: '25rem' }"
+  >
+    <ng-template pTemplate="header">
+      <div class="inline-flex align-items-center justify-content-center gap-2">
+        <span class="font-bold white-space-nowrap"> Agregar Comentario </span>
+      </div>
+    </ng-template>
+    <div class="flex align-items-center">
+      <form [formGroup]="comentario">
+        <textarea
+          rows="5"
+          cols="30"
+          pInputTextarea
+          formControlName="comentarioI"
+          placeholder="Escribir comentario ..."
+          style="margin-left: 18px"
+        >
+        </textarea>
+      </form>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <p-button
+        label="Cancel"
+        [text]="false"
+        severity="danger"
+        (click)="visible = false"
+      />
+      <p-button
+        label="Save"
+        [outlined]="false"
+        severity="secondary"
+        (click)="visible = false"
+        (click)="enviarComentario()"
+      />
+    </ng-template>
+  </p-dialog>
+</div>
+
+<p-messages (value)="(mensajeLogeo)" [enableService]="false" />

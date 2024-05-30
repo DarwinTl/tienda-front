@@ -5,7 +5,9 @@ import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {
   categoria_product_list,
+  commentSend,
   product_List,
+  productComment,
   productXCat,
 } from './pages/inicio/Inicio.type';
 
@@ -75,5 +77,18 @@ export class ecommerceService {
           })),
         ),
       );
+  }
+
+  getProductComments(id: number): Observable<productComment[]> {
+    return this.http.get<productComment[]>(
+      `${this.myAppUrl}/api/home/comentarios/${id}`,
+    );
+  }
+
+  sendProductComments(comentario: commentSend): Observable<productComment> {
+    return this.http.post<productComment>(
+      `${this.myAppUrl}/api/usuario/${comentario.idproducto}/comentario/${comentario.correo}`,
+      { comentario: comentario.comentario },
+    );
   }
 }

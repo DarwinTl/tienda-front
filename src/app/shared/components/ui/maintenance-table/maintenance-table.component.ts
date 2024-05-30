@@ -88,6 +88,18 @@ import { ToastModule } from 'primeng/toast';
                     >
                       <mat-icon>delete</mat-icon>
                     </button>
+                    <ng-content select="[actions]" />
+                  </div>
+                } @else if (data === 'actualizar stock') {
+                  <div class="tw-flex tw-justify-center">
+                    <button
+                      aria-label="Inventario"
+                      color="primary"
+                      mat-icon-button
+                      (click)="eventStock.emit(cell)"
+                    >
+                      <mat-icon>inventory</mat-icon>
+                    </button>
                   </div>
                 } @else {
                   {{ cell[data] }}
@@ -132,4 +144,7 @@ export class MaintenanceTableComponent {
     state: boolean;
     checkboxRef: MatCheckbox;
   }>();
+
+  @Output()
+  eventStock = new EventEmitter<any>();
 }
