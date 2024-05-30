@@ -1,10 +1,11 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
+import { ApiProducto } from '@api/service/api-producto';
 import {
   ConfirmDialogComponent,
   DialogConfirmData,
@@ -14,6 +15,7 @@ import { MaintenanceTableComponent } from '@components/ui/maintenance-table/main
 import { Maintenance } from '@shared/models/maintenance.model';
 import { DataTableMarcas } from '../marcas/marcas.type';
 import { ProductsFormComponent } from './products-form.component';
+import { ProductsStockFormComponent } from './products-stock-form.component';
 import { DataTableProducts } from './products.type';
 
 @Component({
@@ -39,12 +41,15 @@ import { DataTableProducts } from './products.type';
       (eventChangeState)="onChangeState($event)"
       (eventEdit)="openDialogEdit($event)"
       (eventDelete)="openDialogDelete($event)"
+      (eventStock)="openDialogStock($event)"
     >
       <mat-paginator aria-label="Páginas de productos" />
     </app-maintenance-table>
   `,
 })
 export class ProductsComponent extends Maintenance<DataTableProducts> {
+  apiProducto = inject(ApiProducto);
+
   openDialogCreate() {
     this.dialog
       .open(ProductsFormComponent)
@@ -107,6 +112,35 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
         !result && this.onDelete(data.id);
       });
   }
+
+  openDialogStock(data: DataTableMarcas) {
+    console.log(data);
+    this.dialog
+      .open(ProductsStockFormComponent, {
+        data,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        console.log({ result });
+        if (!result) return;
+        this.apiProducto.updateStock({ id: data.id, stock: result }).subscribe({
+          next: () => {
+            this.msg.add({ severity: 'success', summary: 'Stock actualizado' });
+            this.onLoadData({
+              page: this.paginator.pageIndex,
+              size: this.paginator.pageSize,
+            });
+          },
+          error: () => {
+            this.msg.add({
+              severity: 'error',
+              summary: 'Error al actualizar el stock',
+            });
+          },
+        });
+      });
+  }
+
   onChangeState({
     state,
     checkboxRef,

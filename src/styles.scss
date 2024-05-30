@@ -1,13 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat;
-@use '@angular/material-experimental' as matx;
+@use "@angular/material" as mat;
+@use "@angular/material-experimental" as matx;
 
 @tailwind utilities;
 
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "node_modules/primeng/resources/primeng.min.css";
-@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
-@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
 @import "primeicons/primeicons.css";
 
 @import "variables";
@@ -15,18 +15,27 @@
 
 @import "custom-ngprime";
 @import "custom-material";
+@import "components";
 @import "utilities";
 
+$m3-dark-theme: matx.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: matx.$m3-blue-palette,
+      tertiary: matx.$m3-azure-palette,
+    ),
+  )
+);
 
-
-$m3-dark-theme: matx.define-theme((color: (theme-type: dark,
-        primary: matx.$m3-blue-palette,
-        tertiary: matx.$m3-azure-palette,
-      )));
-
-$m3-light-theme: matx.define-theme((color: (primary: matx.$m3-azure-palette,
-        tertiary: matx.$m3-blue-palette,
-      )));
+$m3-light-theme: matx.define-theme(
+  (
+    color: (
+      primary: matx.$m3-azure-palette,
+      tertiary: matx.$m3-blue-palette,
+    ),
+  )
+);
 
 .dark-theme {
   @include mat.all-component-colors($m3-dark-theme);
