@@ -60,4 +60,12 @@ export class ApiProducto extends HttpBase {
         }),
       );
   }
+
+  updateStock({ id, stock }: { id: number; stock: number }) {
+    const endpoint = `${API.apiProducto}/add-stock/${id}`;
+    const params = new HttpParams({
+      fromObject: { cantidad: stock.toString() },
+    });
+    return this.http.put(endpoint, {}, { params });
+  }
 }
