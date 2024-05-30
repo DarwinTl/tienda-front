@@ -33,6 +33,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
       <div class="tw-flex tw-flex-auto">
         @if (!isAddedShoppingCart()) {
           <p-button
+            severity="danger"
             (click)="addShoppingCart()"
             type="button"
             [icon]="
@@ -98,14 +99,19 @@ export class ShopButtonComponent implements OnInit {
         const exist = this.shopStore
           .entities()
           .find(({ id }) => id === this.entity.id);
+        console.log({ exist, entity: this.entity });
+
         if (exist) {
           this.valueQuantity.set(Number(exist.cantidad));
           if (exist.cantidad === 0) {
             this.isAddedShoppingCart.set(false);
+          } else {
+            this.isAddedShoppingCart.set(true);
           }
         } else {
           this.isAddedShoppingCart.set(false);
         }
+        console.log(this.valueQuantity(), this.isAddedShoppingCart());
       },
       { allowSignalWrites: true },
     );
@@ -167,7 +173,7 @@ export class ShopButtonComponent implements OnInit {
   subtract() {
     if (this.valueQuantity() > 1) {
       this.valueQuantity.update((value) => --value);
-      this.shopStore.add({
+      this.shopStore.subtract({
         ...this.entity,
         cantidad: this.valueQuantity(),
         total: this.total(),

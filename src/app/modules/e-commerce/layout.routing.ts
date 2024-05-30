@@ -1,19 +1,12 @@
 import { Routes } from '@angular/router';
+import { ApiHome } from '@api/service/api-home';
 import { menuResolve } from '@shared/guards/menu.resolve';
 
 const routes: Routes = [
   {
-    path: 'inicio',
-    title: 'Pagina Inicio | Don Pepe SuperMarket',
-    loadComponent: () =>
-      import('@ecommerce/pages/inicio/inicio.component').then(
-        (c) => c.InicioComponent,
-      ),
-  },
-  {
-
     path: '',
     resolve: { menu: menuResolve },
+    providers: [ApiHome],
     loadComponent: () =>
       import('@ecommerce/layout.component').then((c) => c.LayoutComponent),
     children: [
@@ -29,9 +22,9 @@ const routes: Routes = [
         path: 'producto-detalle',
         title: 'Producto | Don Pepe SuperMarket',
         loadComponent: () =>
-          import('@ecommerce/pages/producto-detalle/producto-detalle.component').then(
-            (c) => c.ProductoDetalleComponent,
-          ),
+          import(
+            '@ecommerce/pages/producto-detalle/producto-detalle.component'
+          ).then((c) => c.ProductoDetalleComponent),
       },
       {
         path: '',

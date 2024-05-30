@@ -1,68 +1,97 @@
 <div class="product-container">
-    <div class="product-image">
-        <p-galleria [value]="images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions"
-            [circular]="true" [numVisible]="3" [autoPlay]="true" [containerStyle]="{ 'max-width': '640px' }">
-            <ng-template pTemplate="item" let-item>
-                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-            </ng-template>
-            <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-nogutter justify-content-center">
-                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                </div>
-            </ng-template>
-        </p-galleria>
-        <!-- <img [src]="'http://localhost:8080/api/mantenimiento/productos/img/' + products.ruta" alt="{{products.nombre}}"> -->
-    </div>
-    <div class="product-details mt-8">
-        <h2>{{products.nombre}}</h2>
-        <p><span>ID: </span>{{products.id}}</p>
-        <p><span>Categoria: </span>{{products.categoria.nombre}} - {{products.categoria.detalle}}</p>
-        <p><span>Descripción: </span>: {{products.descripcion}}</p>
-        <p><span>Precio: </span> S/.{{products.precioVenta}}</p>
-        <p><span>Stock Status: </span> {{products.inventoryStatus}}</p>
-
-        <p-inputNumber [(ngModel)]="value1" [style]="{'width': '4rem'}" [showButtons]="true" buttonLayout="horizontal"
+  <div class="product-image">
+    <p-galleria
+      [value]="images"
+      [showItemNavigators]="true"
+      [responsiveOptions]="responsiveOptions"
+      [circular]="true"
+      [numVisible]="3"
+      [autoPlay]="true"
+      [containerStyle]="{ 'max-width': '640px' }"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img
+          [src]="item.itemImageSrc"
+          style="width: 100%; display: block"
+          alt=""
+        />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+          <img [src]="item.thumbnailImageSrc" style="display: block" alt="" />
+        </div>
+      </ng-template>
+    </p-galleria>
+    <!-- <img [src]="'http://localhost:8080/api/mantenimiento/productos/img/' + products.ruta" alt="{{products.nombre}}"> -->
+  </div>
+  <div class="product-details mt-8">
+    <h2>{{ products.nombre }}</h2>
+    <p><span>ID: </span>{{ products.id }}</p>
+    <p>
+      <span>Categoria: </span>{{ products.categoria.nombre }} -
+      {{ products.categoria.detalle }}
+    </p>
+    <p><span>Descripción: </span>: {{ products.descripcion }}</p>
+    <p><span>Precio: </span> S/.{{ products.precioVenta }}</p>
+    <p><span>Stock Status: </span> {{ products.inventoryStatus }}</p>
+    <br />
+    <app-shop-button [entity]="products | castProductCart"></app-shop-button>
+    <!-- <p-inputNumber [(ngModel)]="value1" [style]="{'width': '4rem'}" [showButtons]="true" buttonLayout="horizontal"
             spinnerMode="horizontal" inputId="horizontal" decrementButtonClass="p-button-secondary"
             incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
             decrementButtonIcon="pi pi-minus" />
         <div class="button-container">
             <button pButton label="Agregar al Carrito" icon="pi pi-shopping-cart"
-                styleClass="ui-button-danger" severity="danger"></button>
-        </div>
-    </div>
-
+                styleClass="ui-button-danger" severity="danger"></button> -->
+  </div>
 </div>
 <p-divider />
 
 <div class="recomended-container">
-    <h2>Productos similares que prodrian interesarte</h2>
-    <p-carousel [value]="productsM" [numVisible]="2" [numScroll]="1" [circular]="true" [autoplayInterval]="2000"
-      [responsiveOptions]="responsiveOptions" [style]="{'max-width': '80%', 'margin': '0 auto', 'height' : '10%'}">
-      <ng-template let-productM pTemplate="item">
-        <div class="carousel-item border-1 surface-border border-round m-2 p-3">
-          <div class="mb-3">
-            <div class="relative mx-auto">
-              <img [src]="'http://localhost:8080/api/mantenimiento/productos/img/'+ productM.ruta" [alt]="productM.nombre"
-                class="carousel-image w-full border-round" />
-              <p-tag [value]="productM.inventoryStatus" [severity]="getSeverity(productM.inventoryStatus)" class="absolute"
-                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
-            </div>
-          </div>
-          <div class="mb-3 font-medium">
-            {{ productM.nombre }}
-          </div>
-          <div class="mb-3">{{productM.descripcion}}</div>
-          <div class="flex justify-content-between align-items-center">
-            <div class="mt-0 font-semibold text-xl">
-              {{ 'S/.' + productM.precioVenta }}
-            </div>
-            <span>
-              <p-button icon="pi pi-shopping-cart" label="Agregar al Carrito " styleClass="ml-2" />
-            </span>
+  <h2>Productos similares que prodrian interesarte</h2>
+  <p-carousel
+    [value]="productsM"
+    [numVisible]="2"
+    [numScroll]="1"
+    [circular]="true"
+    [autoplayInterval]="2000"
+    [responsiveOptions]="responsiveOptions"
+    [style]="{ 'max-width': '80%', margin: '0 auto', height: '10%' }"
+  >
+    <ng-template let-productM pTemplate="item">
+      <div class="carousel-item border-1 surface-border border-round m-2 p-3">
+        <div class="mb-3">
+          <div class="relative mx-auto">
+            <img
+              [src]="productM.ruta"
+              [alt]="productM.nombre"
+              class="carousel-image w-full border-round tw-w-40 tw-h-40 tw-object-cover"
+            />
+            <p-tag
+              [value]="productM.inventoryStatus"
+              [severity]="getSeverity(productM.inventoryStatus)"
+              class="absolute"
+              [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
+            />
           </div>
         </div>
-      </ng-template>
-    </p-carousel>
+        <div class="mb-3 font-medium">
+          {{ productM.nombre }}
+        </div>
+        <div class="mb-3">{{ productM.descripcion }}</div>
+        <div class="flex justify-content-between align-items-center">
+          <div class="mt-0 font-semibold text-xl">
+            {{ 'S/.' + productM.precioVenta }}
+          </div>
+          <span>
+            <p-button
+              icon="pi pi-shopping-cart"
+              label="Agregar al Carrito "
+              styleClass="ml-2"
+            />
+          </span>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
 </div>
-
-

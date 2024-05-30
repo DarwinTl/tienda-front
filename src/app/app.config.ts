@@ -2,6 +2,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
+import { ApiHome } from '@api/service/api-home';
 import { ApiAuth } from '@api/service/api.auth';
 import { AuthStore } from '@shared/store/auth.store';
 import { MessageService } from 'primeng/api';
@@ -21,5 +22,6 @@ export const appConfig: ApplicationConfig = {
     ApiAuth,
     AuthStore,
     MessageService,
+    ApiHome,
   ],
 };
