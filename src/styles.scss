@@ -19,20 +19,14 @@
 
 
 
-$m3-dark-theme: matx.define-theme((
-  color: (
-    theme-type: dark,
-    primary: matx.$m3-blue-palette,
-    tertiary: matx.$m3-azure-palette,
-  )
-));
+$m3-dark-theme: matx.define-theme((color: (theme-type: dark,
+        primary: matx.$m3-blue-palette,
+        tertiary: matx.$m3-azure-palette,
+      )));
 
-$m3-light-theme: matx.define-theme((
-  color: (
-    primary: matx.$m3-azure-palette,
-    tertiary: matx.$m3-blue-palette,
-    )
-));
+$m3-light-theme: matx.define-theme((color: (primary: matx.$m3-azure-palette,
+        tertiary: matx.$m3-blue-palette,
+      )));
 
 .dark-theme {
   @include mat.all-component-colors($m3-dark-theme);
@@ -42,15 +36,15 @@ html {
   @include mat.all-component-themes($m3-light-theme);
 }
 
-  body {
-    font-family: var(--font-family);
-    font-weight: normal;
-    background: var(--surface-ground);
-    color: var(--text-color);
-    
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+body {
+  font-family: var(--font-family);
+  font-weight: normal;
+  background: var(--surface-ground);
+  color: var(--text-color);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .card {
   background: var(--surface-card);
@@ -58,4 +52,3 @@ html {
   border-radius: 10px;
   margin-bottom: 1rem;
 }
-  

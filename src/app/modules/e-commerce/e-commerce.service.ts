@@ -35,8 +35,8 @@ export class ecommerceService {
     return this.http.get<productXCat[]>(`${this.myAppUrl}/api/home/categorias/${id}`);
   }
 
-  getProductDetails(id: string): Observable<productXCat> {
-    return this.http.get<productXCat>(`${this.myAppUrl}/api/home/producto/detalles/${id}`);
+  getProductDetails(id: string): Observable<product_List> {
+    return this.http.get<product_List>(`${this.myAppUrl}/api/home/producto/detalles/${id}`);
   }
 
   getProductxMarca(id: number): Observable<productXCat[]> {
