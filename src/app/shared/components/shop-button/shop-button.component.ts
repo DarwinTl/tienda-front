@@ -33,6 +33,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
       <div class="tw-flex tw-flex-auto">
         @if (!isAddedShoppingCart()) {
           <p-button
+          severity="danger"
             (click)="addShoppingCart()"
             type="button"
             [icon]="

@@ -48,3 +48,37 @@ export type productXCat = {
   medida: medida_product_list;
   inventoryStatus?: string;
 };
+
+export type productComment = {
+  id: number;
+  usuario: usuario;
+  comentario: string;
+  fecha: string;
+}
+
+export type usuario = {
+  id: number;
+  correo: string;
+  password: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string;
+  nombres: string;
+  numeroDocumento: string;
+  estado: boolean;
+  roles: rolUsuario;
+
+}
+
+export type rolUsuario = {
+  id: number;
+  nombre: string;
+}
+
+
+
+
+export type commentSend = {
+  idproducto: number;
+  comentario: string;
+  correo: string;
+}
