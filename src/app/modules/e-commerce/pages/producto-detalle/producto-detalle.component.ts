@@ -182,13 +182,13 @@ export class ProductoDetalleComponent implements OnInit {
 
   getSeverity(product: productXCat) {
     switch (product.inventoryStatus) {
-      case 'INSTOCK':
+      case 'En Stock':
         return 'success';
 
-      case 'LOWSTOCK':
+      case 'Poco Stock':
         return 'warning';
 
-      case 'OUTOFSTOCK':
+      case 'Sin Stock':
         return 'danger';
 
       default:
