@@ -26,11 +26,11 @@
   </div>
   <div class="product-details mt-8">
     <h2>{{ products.nombre }}</h2>
-    <p><span>ID: </span>{{ products.id }}</p>
+    <!-- <p><span>ID: </span>{{ products.id }}</p>
     <p>
       <span>Categoria: </span>{{ products.categoria.nombre }} -
       {{ products.categoria.detalle }}
-    </p>
+    </p> -->
     <p><span>Descripción: </span>: {{ products.descripcion }}</p>
     <p><span>Precio: </span> S/.{{ products.precioVenta }}</p>
     <p><span>Stock Status: </span> {{ products.inventoryStatus }}</p>
@@ -77,11 +77,7 @@
             {{ 'S/.' + productM.precioVenta }}
           </div>
           <span>
-            <p-button
-              icon="pi pi-shopping-cart"
-              label="Agregar al Carrito "
-              styleClass="ml-2"
-            />
+            <app-shop-button [entity]="productM | castProductCart"></app-shop-button>
           </span>
         </div>
       </div>
