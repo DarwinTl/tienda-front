@@ -126,52 +126,32 @@ export class ProductoDetalleComponent implements OnInit {
         this.products = res;
         this.images = [
           {
-            itemImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
-            thumbnailImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
+            itemImageSrc: this.products.ruta,
+            thumbnailImageSrc: this.products.ruta,
             alt: 'Description for Image 1',
             title: 'Title 1',
           },
           {
-            itemImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
-            thumbnailImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
+            itemImageSrc: this.products.ruta,
+            thumbnailImageSrc: this.products.ruta,
             alt: 'Description for Image 1',
             title: 'Title 1',
           },
           {
-            itemImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
-            thumbnailImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
+            itemImageSrc: this.products.ruta,
+            thumbnailImageSrc: this.products.ruta,
             alt: 'Description for Image 1',
             title: 'Title 1',
           },
           {
-            itemImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
-            thumbnailImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
+            itemImageSrc: this.products.ruta,
+            thumbnailImageSrc: this.products.ruta,
             alt: 'Description for Image 1',
             title: 'Title 1',
           },
           {
-            itemImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
-            thumbnailImageSrc:
-              'http://localhost:8080/api/mantenimiento/productos/img/' +
-              this.products.ruta,
+            itemImageSrc: this.products.ruta,
+            thumbnailImageSrc: this.products.ruta,
             alt: 'Description for Image 1',
             title: 'Title 1',
           },
