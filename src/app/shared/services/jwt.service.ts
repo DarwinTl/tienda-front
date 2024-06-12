@@ -15,13 +15,17 @@ export class JwtService {
     return jwtDecode<JwtPayload>(token);
   }
 
-  authorities() {
+  authorities(): string[] {
     return (
       JSON.parse(this.decodedToken().authorities) as JwtAuthorities[]
     ).map((auth) => auth.authority);
   }
 
-  username() {
-    return JSON.parse(this.decodedToken().sub) as string;
+  username(): string {
+    return JSON.parse(this.decodedToken().sub);
+  }
+
+  name(): string {
+    return JSON.parse(this.decodedToken().name);
   }
 }

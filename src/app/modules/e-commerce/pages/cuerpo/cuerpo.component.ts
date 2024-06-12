@@ -1,22 +1,15 @@
-import {
-  ActivatedRoute, Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CabeceraComponent } from '@components/cabecera/cabecera.component';
 import { ShopButtonComponent } from '@components/shop-button/shop-button.component';
 import { ecommerceService } from '@ecommerce/e-commerce.service';
-import { productXCat, product_List } from '../inicio/Inicio.type';
-import { RatingModule } from 'primeng/rating';
-import { SelectItem } from 'primeng/api';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { MenuItem } from 'primeng/api';
 import { MenuStore } from '@shared/store/menu.store';
 import { ShopStore } from '@shared/store/shop.store';
+import { MenuItem, SelectItem } from 'primeng/api';
+import { RatingModule } from 'primeng/rating';
+import { product_List, productXCat } from '../inicio/Inicio.type';
 
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
@@ -24,7 +17,6 @@ import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 
 import { TagModule } from 'primeng/tag';
 import { switchMap } from 'rxjs';
-
 
 @Component({
   selector: 'app-cuerpo',
@@ -39,7 +31,7 @@ import { switchMap } from 'rxjs';
     RatingModule,
     DropdownModule,
     ShopButtonComponent,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './cuerpo.component.html',
   styleUrl: './cuerpo.component.scss',
@@ -68,10 +60,8 @@ export class CuerpoComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const id = params['id'];
       console.log(id);
-
     });
   }
-
 
   ngOnInit(): void {
     this.route.params

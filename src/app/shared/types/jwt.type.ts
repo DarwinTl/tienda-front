@@ -4,6 +4,7 @@ export type JwtPayload = {
   iat: number;
   sub: string;
   username: string;
+  name: string;
 };
 
 export type JwtAuthorities = {

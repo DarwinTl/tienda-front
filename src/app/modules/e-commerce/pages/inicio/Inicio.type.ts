@@ -10,7 +10,6 @@ export type product_List = {
   categoria: categoria_product_list;
   medida: medida_product_list;
   inventoryStatus: string;
-
 };
 
 export type marca_product_list = {
@@ -54,7 +53,7 @@ export type productComment = {
   usuario: usuario;
   comentario: string;
   fecha: string;
-}
+};
 
 export type usuario = {
   id: number;
@@ -66,19 +65,15 @@ export type usuario = {
   numeroDocumento: string;
   estado: boolean;
   roles: rolUsuario;
-
-}
+};
 
 export type rolUsuario = {
   id: number;
   nombre: string;
-}
-
-
-
+};
 
 export type commentSend = {
   idproducto: number;
   comentario: string;
   correo: string;
-}
+};

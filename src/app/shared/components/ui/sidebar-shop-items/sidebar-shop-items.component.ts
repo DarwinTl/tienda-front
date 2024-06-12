@@ -30,14 +30,22 @@ import { SidebarModule } from 'primeng/sidebar';
             <div class="tw-grid tw-gap-4">
               @for (item of shopStore.entities(); track item) {
                 <p-card>
-                  <div class="tw-flex tw-gap-1">
+                  <div class="tw-flex tw-gap-4">
                     <img
-                      class="tw-w-24 tw-h-24 tw-object-cover"
-                      src=""
+                      class="tw-w-24 tw-h-24 tw-object-cover tw-rounded-lg tw-shadow-sm tw-p-1"
+                      [src]="item.ruta"
                       [alt]="item.nombre"
                     />
                     <div class="tw-flex tw-flex-col">
-                      <h4 class="tw-mb-3">{{ item.nombre }}</h4>
+                      <div
+                        class="tw-flex tw-items-center tw-justify-between tw-mb-3"
+                      >
+                        <h4>{{ item.nombre }}</h4>
+                        <span>{{
+                          item.precioVenta * item.cantidad
+                            | currency: 'S/' : 'symbol' : '1.2-2'
+                        }}</span>
+                      </div>
                       <app-shop-button [entity]="item" />
                     </div>
                   </div>
