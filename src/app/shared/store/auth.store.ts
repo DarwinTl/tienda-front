@@ -13,6 +13,7 @@ import { ApiReqPostLogin } from '@api/interface/api.auth';
 import { ApiAuth } from '@api/service/api.auth';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { ApiError } from '@shared/models/error.model';
+import { JwtPayload } from '@shared/types/jwt.type';
 import { jwtDecode } from 'jwt-decode';
 
 type AuthState = {
@@ -40,6 +41,11 @@ export const AuthStore = signalStore(
       const tokenValue = token();
       if (tokenValue === null) return null;
       return jwtDecode(tokenValue).sub as string;
+    }),
+    name: computed(() => {
+      const tokenValue = token();
+      if (tokenValue === null) return null;
+      return jwtDecode<JwtPayload>(tokenValue).name;
     }),
   })),
   withMethods((store, apiAuth = inject(ApiAuth)) => ({

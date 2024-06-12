@@ -62,7 +62,7 @@ import { MaintenanceRoutes } from './layout.routes';
             }
             <span class="tw-grow"></span>
             <div class="tw-text-sm mr-4 tw-text-sky-900">
-              <p>{{ authStore.email() }}</p>
+              <p>{{ authStore.name() }}</p>
             </div>
             <button
               class="tw-justify-end"
