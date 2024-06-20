@@ -15,6 +15,7 @@ import {
   setEntity,
   withEntities,
 } from '@ngrx/signals/entities';
+import { JwtService } from '@shared/services/jwt.service';
 
 export type ProductoCart = Producto & {
   cantidad: number;
@@ -35,13 +36,13 @@ export const ShopStore = signalStore(
       return (id: number) => entities().find((producto) => producto.id === id);
     }),
   })),
-  withMethods((store, apiHome = inject(ApiHome)) => {
+  withMethods((store, apiHome = inject(ApiHome), jwt = inject(JwtService)) => {
     return {
       async add(producto: ProductoCart) {
         const payload: ReqPostAgregarProductoACarrito = {
           idProducto: producto.id,
           cantidad: 1,
-          userId: 7,
+          userId: jwt.userId(),
         };
         const result = await apiHome
           .agregarProductoACarrito(payload)
@@ -60,7 +61,7 @@ export const ShopStore = signalStore(
         const payload: ReqPostAgregarProductoACarrito = {
           idProducto: producto.id,
           cantidad: -1,
-          userId: 7,
+          userId: jwt.userId(),
         };
         const result = await apiHome
           .agregarProductoACarrito(payload)
@@ -80,7 +81,7 @@ export const ShopStore = signalStore(
         if (idProducto) {
           const payload = {
             idProducto: idProducto.idCarrito,
-            userId: 7,
+            userId: jwt.userId(),
           };
 
           await apiHome.removerProductoDeCarrito(payload).toPromise();
@@ -88,7 +89,7 @@ export const ShopStore = signalStore(
         }
       },
       async obtenerCarrito() {
-        const result = await apiHome.obtenerCarrito(7).toPromise();
+        const result = await apiHome.obtenerCarrito(jwt.userId()).toPromise();
         result?.items.forEach((producto) => {
           patchState(store, setEntity(producto));
         });
