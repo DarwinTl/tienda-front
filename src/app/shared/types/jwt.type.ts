@@ -5,6 +5,7 @@ export type JwtPayload = {
   sub: string;
   username: string;
   name: string;
+  id: number;
 };
 
 export type JwtAuthorities = {

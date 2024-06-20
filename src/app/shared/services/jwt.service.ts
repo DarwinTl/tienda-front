@@ -28,4 +28,8 @@ export class JwtService {
   name(): string {
     return JSON.parse(this.decodedToken().name);
   }
+
+  userId(): number {
+    return this.decodedToken().id;
+  }
 }
