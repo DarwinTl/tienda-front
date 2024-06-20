@@ -22,27 +22,20 @@
         </div>
       </ng-template>
     </p-galleria>
-    <!-- <img [src]="'http://localhost:8080/api/mantenimiento/productos/img/' + products.ruta" alt="{{products.nombre}}"> -->
+  
   </div>
   <div class="product-details mt-8">
     <h2>{{ products.nombre }}</h2>
-    <p><span>ID: </span>{{ products.id }}</p>
+    <!-- <p><span>ID: </span>{{ products.id }}</p>
     <p>
       <span>Categoria: </span>{{ products.categoria.nombre }} -
       {{ products.categoria.detalle }}
-    </p>
+    </p> -->
     <p><span>Descripción: </span>: {{ products.descripcion }}</p>
     <p><span>Precio: </span> S/.{{ products.precioVenta }}</p>
     <p><span>Stock Status: </span> {{ products.inventoryStatus }}</p>
     <br />
     <app-shop-button [entity]="products | castProductCart"></app-shop-button>
-    <!-- <p-inputNumber [(ngModel)]="value1" [style]="{'width': '4rem'}" [showButtons]="true" buttonLayout="horizontal"
-            spinnerMode="horizontal" inputId="horizontal" decrementButtonClass="p-button-secondary"
-            incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-            decrementButtonIcon="pi pi-minus" />
-        <div class="button-container">
-            <button pButton label="Agregar al Carrito" icon="pi pi-shopping-cart"
-                styleClass="ui-button-danger" severity="danger"></button> -->
   </div>
 </div>
 <p-divider />
@@ -84,11 +77,7 @@
             {{ 'S/.' + productM.precioVenta }}
           </div>
           <span>
-            <p-button
-              icon="pi pi-shopping-cart"
-              label="Agregar al Carrito "
-              styleClass="ml-2"
-            />
+            <app-shop-button [entity]="productM | castProductCart"></app-shop-button>
           </span>
         </div>
       </div>
