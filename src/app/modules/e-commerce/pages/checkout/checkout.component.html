@@ -1,0 +1,74 @@
+<div class="tw-max-w-[960px] tw-mx-auto tw-my-14">
+  <div class="tw-flex tw-gap-8 tw-mb-12">
+    <p-table [value]="shopStore.entities()">
+      <ng-template pTemplate="caption">
+        <div class="tw-flex tw-gap-0-2">
+          <mat-icon>shopping_cart</mat-icon>
+          <h3>Finalizar compra</h3>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th id="image">Imagen</th>
+          <th id="name">Nombre</th>
+          <th id="price">Precio</th>
+          <th id="quantity">Cantidad</th>
+          <th id="category">Categoria</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>
+            <img
+              [src]="product.ruta"
+              [alt]="product.nombre"
+              width="100"
+              class="shadow-4"
+            />
+          </td>
+          <td>{{ product.nombre }}</td>
+          <td>{{ product.precioVenta | currency: 'USD' }}</td>
+          <td>{{ product.cantidad }}</td>
+          <td>{{ product.categoria.nombre }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <section class="tw-flex-1">
+      <p-card>
+        <h3 class="tw-text-lg tw-mb-3">Resumen de su compra</h3>
+
+        <div class="tw-grid tw-gap-2 tw-mb-6">
+          <div class="tw-flex tw-justify-between">
+            <p>Subtotal</p>
+            <p>
+              {{ shopStore.totalCompra() / 1.18 | currency: 'S/' }}
+            </p>
+          </div>
+          <div class="tw-flex tw-justify-between">
+            <p>IGV 18%</p>
+            <p>
+              {{ (shopStore.totalCompra() / 1.18) * 0.18 | currency: 'S/' }}
+            </p>
+          </div>
+          <div class="tw-flex tw-justify-between">
+            <p>Total</p>
+            <p>{{ shopStore.totalCompra() | currency: 'S/' }}</p>
+          </div>
+        </div>
+
+        <div class="tw-max-w-xs">
+          <p-button
+            label="Finalizar compra"
+            severity="danger"
+            styleClass="tw-w-full tw-m-4"
+          />
+        </div>
+      </p-card>
+    </section>
+  </div>
+
+  <section class="tw-flex tw-gap-2">
+    <p class="tw-mr-4">Medios de pagos autorizados</p>
+    <i class="pi pi-paypal"></i>
+  </section>
+</div>
