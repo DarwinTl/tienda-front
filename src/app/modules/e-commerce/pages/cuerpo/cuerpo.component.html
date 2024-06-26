@@ -85,7 +85,9 @@
                       severity="secondary"
                       [routerLink]="['/producto-detalle', { id: item.id }]"
                     />
-                    <app-shop-button [entity]="item" />
+                    <div *ngIf="item.stock > 0">
+                      <app-shop-button [entity]="item" />
+                    </div>
                   </div>
                 </div>
               </div>

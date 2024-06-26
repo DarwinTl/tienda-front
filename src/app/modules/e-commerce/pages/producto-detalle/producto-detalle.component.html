@@ -22,7 +22,6 @@
         </div>
       </ng-template>
     </p-galleria>
-  
   </div>
   <div class="product-details mt-8">
     <h2>{{ products.nombre }}</h2>
@@ -35,7 +34,9 @@
     <p><span>Precio: </span> S/.{{ products.precioVenta }}</p>
     <p><span>Stock Status: </span> {{ products.inventoryStatus }}</p>
     <br />
-    <app-shop-button [entity]="products | castProductCart"></app-shop-button>
+    <div *ngIf="products.stock > 0">
+      <app-shop-button [entity]="products | castProductCart"></app-shop-button>
+    </div>
   </div>
 </div>
 <p-divider />
@@ -76,8 +77,10 @@
           <div class="mt-0 font-semibold text-xl">
             {{ 'S/.' + productM.precioVenta }}
           </div>
-          <span>
-            <app-shop-button [entity]="productM | castProductCart"></app-shop-button>
+          <span *ngIf="productM.stock > 0">
+            <app-shop-button
+              [entity]="productM | castProductCart"
+            ></app-shop-button>
           </span>
         </div>
       </div>

@@ -50,9 +50,11 @@
           <div class="mt-0 font-semibold text-xl">
             {{ product.precioVenta | currency: 'S/' : 'symbol' : '1.2-2' }}
           </div>
-          <span>
-            <app-shop-button [entity]="product" />
-          </span>
+          <div *ngIf="product.stock > 0">
+            <span>
+              <app-shop-button [entity]="product" />
+            </span>
+          </div>
         </div>
       </div>
     </ng-template>

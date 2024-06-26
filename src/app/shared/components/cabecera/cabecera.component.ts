@@ -12,7 +12,6 @@ import { MainContainerComponent } from '@components/main-container/main-containe
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { categoria_product_list } from '@ecommerce/pages/inicio/Inicio.type';
 
-
 import { AuthStore } from '@shared/store/auth.store';
 import { ShopStore } from '@shared/store/shop.store';
 import { JwtPayload } from '@shared/types/jwt.type';
@@ -49,12 +48,10 @@ export class CabeceraComponent implements OnInit {
   @Output()
   menuEvent = new EventEmitter<void>();
 
-
   @Output()
   shopCartEvent = new EventEmitter<void>();
 
   ngOnInit(): void {
-
     const token = localStorage.getItem('token');
     if (token) {
       this.dtoken = jwtDecode(token);
