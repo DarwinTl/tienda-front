@@ -1,20 +1,9 @@
 <div class="product-container">
   <div class="product-image">
-    <p-galleria
-      [value]="images"
-      [showItemNavigators]="true"
-      [responsiveOptions]="responsiveOptions"
-      [circular]="true"
-      [numVisible]="3"
-      [autoPlay]="true"
-      [containerStyle]="{ 'max-width': '640px' }"
-    >
+    <p-galleria [value]="images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [circular]="true"
+      [numVisible]="3" [autoPlay]="true" [containerStyle]="{ 'max-width': '640px' }">
       <ng-template pTemplate="item" let-item>
-        <img
-          [src]="item.itemImageSrc"
-          style="width: 100%; display: block"
-          alt=""
-        />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block" alt="" />
       </ng-template>
       <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -34,39 +23,31 @@
     <p><span>Precio: </span> S/.{{ products.precioVenta }}</p>
     <p><span>Stock Status: </span> {{ products.inventoryStatus }}</p>
     <br />
-    <div *ngIf="products.stock > 0">
+    @if (products.stock > 0) {
+    <div>
       <app-shop-button [entity]="products | castProductCart"></app-shop-button>
     </div>
+    }
+    @else {
+    <app-shop-button [entity]="products | castProductCart" [disabled]="true" text="Sin Stock :(" />
+    }
+
   </div>
 </div>
 <p-divider />
 
 <div class="recomended-container">
   <h2>Productos similares que prodrian interesarte</h2>
-  <p-carousel
-    [value]="productsM"
-    [numVisible]="2"
-    [numScroll]="1"
-    [circular]="true"
-    [autoplayInterval]="2000"
-    [responsiveOptions]="responsiveOptions"
-    [style]="{ 'max-width': '80%', margin: '0 auto', height: '10%' }"
-  >
+  <p-carousel [value]="productsM" [numVisible]="2" [numScroll]="1" [circular]="true" [autoplayInterval]="2000"
+    [responsiveOptions]="responsiveOptions" [style]="{ 'max-width': '80%', margin: '0 auto', height: '10%' }">
     <ng-template let-productM pTemplate="item">
       <div class="carousel-item border-1 surface-border border-round m-2 p-3">
         <div class="mb-3">
           <div class="relative mx-auto">
-            <img
-              [src]="productM.ruta"
-              [alt]="productM.nombre"
-              class="carousel-image w-full border-round tw-w-40 tw-h-40 tw-object-cover"
-            />
-            <p-tag
-              [value]="productM.inventoryStatus"
-              [severity]="getSeverity(productM.inventoryStatus)"
-              class="absolute"
-              [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
-            />
+            <img [src]="productM.ruta" [alt]="productM.nombre"
+              class="carousel-image w-full border-round tw-w-40 tw-h-40 tw-object-cover" />
+            <p-tag [value]="productM.inventoryStatus" [severity]="getSeverity(productM.inventoryStatus)"
+              class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
           </div>
         </div>
         <div class="mb-3 font-medium">
@@ -77,11 +58,16 @@
           <div class="mt-0 font-semibold text-xl">
             {{ 'S/.' + productM.precioVenta }}
           </div>
-          <span *ngIf="productM.stock > 0">
-            <app-shop-button
-              [entity]="productM | castProductCart"
-            ></app-shop-button>
+          @if (productM.stock > 0) {
+          <span>
+            <app-shop-button [entity]="productM | castProductCart"></app-shop-button>
           </span>
+          }
+          @else {
+          <app-shop-button [entity]="productM | castProductCart" [disabled]="true" text="Sin Stock :(" />
+          }
+
+
         </div>
       </div>
     </ng-template>
@@ -92,31 +78,17 @@
 <div class="comment-container">
   <h2>Reseñas sobre el producto</h2>
   <div class="card justify-content-center">
-    <ng-container
-      *ngIf="commentList && commentList.length > 0; else noComments"
-    >
-      <p-fieldset
-        *ngFor="let item of commentList"
-        [style]="{ 'margin-bottom': '20px', 'max-width': '100%' }"
-      >
+    <ng-container *ngIf="commentList && commentList.length > 0; else noComments">
+      <p-fieldset *ngFor="let item of commentList" [style]="{ 'margin-bottom': '20px', 'max-width': '100%' }">
         <ng-template pTemplate="header">
           <div class="flex align-items-center gap-2 px-2">
-            <span class="font-bold"
-              >{{ item.usuario.nombres }} {{ item.usuario.apellidoPaterno }}
+            <span class="font-bold">{{ item.usuario.nombres }} {{ item.usuario.apellidoPaterno }}
               {{ item.usuario.apellidoMaterno }} - Publicado:
-              {{ item.fecha }}</span
-            >
+              {{ item.fecha }}</span>
           </div>
         </ng-template>
-        <textarea
-          rows="5"
-          cols="30"
-          pInputTextarea
-          [autoResize]="true"
-          [value]="item.comentario"
-          [style]="{ width: '700px' }"
-          [disabled]="true"
-        >
+        <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [value]="item.comentario"
+          [style]="{ width: '700px' }" [disabled]="true">
         </textarea>
       </p-fieldset>
     </ng-container>
@@ -127,17 +99,8 @@
 </div>
 
 <div class="card justify-content-center">
-  <p-button
-    (click)="showDialog()"
-    label="Agregar Comentario"
-    severity="danger"
-  />
-  <p-dialog
-    header="Header"
-    [(visible)]="visible"
-    [modal]="true"
-    [style]="{ width: '25rem' }"
-  >
+  <p-button (click)="showDialog()" label="Agregar Comentario" severity="danger" />
+  <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
     <ng-template pTemplate="header">
       <div class="inline-flex align-items-center justify-content-center gap-2">
         <span class="font-bold white-space-nowrap"> Agregar Comentario </span>
@@ -145,32 +108,16 @@
     </ng-template>
     <div class="flex align-items-center">
       <form [formGroup]="comentario">
-        <textarea
-          rows="5"
-          cols="30"
-          pInputTextarea
-          formControlName="comentarioI"
-          placeholder="Escribir comentario ..."
-          style="margin-left: 18px"
-        >
+        <textarea rows="5" cols="30" pInputTextarea formControlName="comentarioI" placeholder="Escribir comentario ..."
+          style="margin-left: 18px">
         </textarea>
       </form>
     </div>
 
     <ng-template pTemplate="footer">
-      <p-button
-        label="Cancel"
-        [text]="false"
-        severity="danger"
-        (click)="visible = false"
-      />
-      <p-button
-        label="Save"
-        [outlined]="false"
-        severity="secondary"
-        (click)="visible = false"
-        (click)="enviarComentario()"
-      />
+      <p-button label="Cancel" [text]="false" severity="danger" (click)="visible = false" />
+      <p-button label="Save" [outlined]="false" severity="secondary" (click)="visible = false"
+        (click)="enviarComentario()" />
     </ng-template>
   </p-dialog>
 </div>

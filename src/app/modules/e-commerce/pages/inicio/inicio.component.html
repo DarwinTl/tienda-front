@@ -1,14 +1,8 @@
 <div>
   <owl-carousel-o [options]="customOptions1">
-    <ng-template carouselSlide
-      ><img class="tw-h-80" src="assets/imagenes/banner_1.png" alt="..."
-    /></ng-template>
-    <ng-template carouselSlide
-      ><img class="tw-h-80" src="assets/imagenes/banner_2.png" alt="..."
-    /></ng-template>
-    <ng-template carouselSlide
-      ><img class="tw-h-80" src="assets/imagenes/banner_3.png" alt="..."
-    /></ng-template>
+    <ng-template carouselSlide><img class="tw-h-80" src="assets/imagenes/banner_1.png" alt="..." /></ng-template>
+    <ng-template carouselSlide><img class="tw-h-80" src="assets/imagenes/banner_2.png" alt="..." /></ng-template>
+    <ng-template carouselSlide><img class="tw-h-80" src="assets/imagenes/banner_3.png" alt="..." /></ng-template>
   </owl-carousel-o>
 </div>
 
@@ -17,29 +11,15 @@
 </div>
 
 <div class="card">
-  <p-carousel
-    [value]="products"
-    [numVisible]="3"
-    [numScroll]="3"
-    [circular]="true"
-    [autoplayInterval]="7000"
-    [responsiveOptions]="responsiveOptions"
-  >
+  <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [autoplayInterval]="7000"
+    [responsiveOptions]="responsiveOptions">
     <ng-template let-product pTemplate="item">
       <div class="border-1 surface-border border-round m-2 p-3">
         <div class="mb-3">
           <div class="relative mx-auto">
-            <img
-              [src]="product.ruta"
-              [alt]="product.nombre"
-              class="w-full border-round"
-            />
-            <p-tag
-              [value]="product.inventoryStatus"
-              [severity]="getSeverity(product.inventoryStatus)"
-              class="absolute"
-              [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
-            />
+            <img [src]="product.ruta" [alt]="product.nombre" class="w-full border-round" />
+            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute"
+              [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
           </div>
         </div>
         <div class="mb-3 font-medium">
@@ -50,11 +30,16 @@
           <div class="mt-0 font-semibold text-xl">
             {{ product.precioVenta | currency: 'S/' : 'symbol' : '1.2-2' }}
           </div>
-          <div *ngIf="product.stock > 0">
+          @if (product.stock > 0) {
+          <div>
             <span>
               <app-shop-button [entity]="product" />
             </span>
           </div>
+          }
+          @else {
+          <app-shop-button [entity]="product" [disabled]="true" text="Sin Stock :(" />
+          }
         </div>
       </div>
     </ng-template>
