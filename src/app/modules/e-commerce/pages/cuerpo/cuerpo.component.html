@@ -89,12 +89,13 @@
                       <div>
                         <app-shop-button [entity]="item" />
                       </div>
+                    } @else {
+                      <app-shop-button
+                        [entity]="item"
+                        [disabled]="true"
+                        text="Sin Stock :("
+                      />
                     }
-                    @else {
-
-                      <app-shop-button [entity]="item" [disabled]="true" text="Sin Stock :("/>
-                    }
-                    
                   </div>
                 </div>
               </div>

@@ -21,7 +21,14 @@
       class="search-bar"
       type="text"
       placeholder="Hola, ¿qué estás buscando?"
+      #searchInput
+      (keyup)="searchAlgolia()"
     />
+    <div id="searchResults" class="search-results">
+      <ul id="resultsList" class="results-list">
+        <!-- Los resultados se agregarán dinámicamente aquí -->
+      </ul>
+    </div>
   </div>
 
   <div class="tw-flex tw-gap-2 tw-items-center">
