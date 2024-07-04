@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthStore } from '@shared/store/auth.store';
 import { ToastModule } from 'primeng/toast';
-
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -85,7 +85,17 @@
                       severity="secondary"
                       [routerLink]="['/producto-detalle', { id: item.id }]"
                     />
-                    <app-shop-button [entity]="item" />
+                    @if (item.stock > 0) {
+                      <div>
+                        <app-shop-button [entity]="item" />
+                      </div>
+                    } @else {
+                      <app-shop-button
+                        [entity]="item"
+                        [disabled]="true"
+                        text="Sin Stock :("
+                      />
+                    }
                   </div>
                 </div>
               </div>

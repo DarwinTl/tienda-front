@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <title>Market Don Pepe</title>
@@ -11,12 +12,25 @@
   <link href="https://unpkg.com/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.2.1/themes/reset-min.css"
+    integrity="sha256-D+cGTF0LVHjuEf+CDRkHeNw/KTHPg47t1AA/qmzxgtA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.2.1/themes/satellite-min.css"
+    integrity="sha256-mLWwgx85KhAdMLXtn+jK+WZjHgTkyMOTRYTDgDn5fiM=" crossorigin="anonymous">
+
   <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
 </head>
 
 <body>
   <app-root></app-root>
   <script src="https://kit.fontawesome.com/f89e378306.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.24.0/dist/algoliasearch-lite.umd.js"
+    integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.72.2/dist/instantsearch.production.min.js"
+    integrity="sha256-7mNbCrGdzpMTGmD7V4c8iLI9ylmXQay4o/MczQXhHrU=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
+  <script>
+    const { autocomplete } = window['@algolia/autocomplete-js'];
+  </script>
 </body>
 
 </html>

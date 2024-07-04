@@ -28,6 +28,7 @@
       "@shared/*": ["src/app/shared/*"],
       "@auth/*": ["src/app/modules/auth/*"],
     },
+    "allowSyntheticDefaultImports": true,
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
