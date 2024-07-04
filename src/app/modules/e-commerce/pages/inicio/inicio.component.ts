@@ -22,7 +22,8 @@ import { ShopButtonComponent } from '@components/shop-button/shop-button.compone
 import { ecommerceService } from '@ecommerce/e-commerce.service';
 import { CardModule } from 'primeng/card';
 import { categoria_product_list, product_List } from './Inicio.type';
-
+import { JwtPayload } from '@shared/types/jwt.type';
+import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-inicio',
   standalone: true,
@@ -48,7 +49,9 @@ export class InicioComponent implements OnInit {
   products: product_List[] = [];
   categorias: categoria_product_list[] = [];
   responsiveOptions: CarouselResponsiveOptions[] | undefined;
-
+  dtoken?: JwtPayload;
+  existRecommend: boolean = false;
+  recomendaciones: product_List[] = [];
   customOptions1: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -66,12 +69,12 @@ export class InicioComponent implements OnInit {
     nav: true,
   };
 
-  constructor(private _ecommerceService: ecommerceService) {}
+  constructor(private _ecommerceService: ecommerceService) { }
 
   ngOnInit(): void {
     this.fngetList();
     this.fngeCatList();
-
+    this.getRecommended();
     this.responsiveOptions = [
       {
         breakpoint: '1199px',
@@ -128,5 +131,28 @@ export class InicioComponent implements OnInit {
       default:
         return 'success';
     }
+  }
+
+  getRecommended() {
+    var id
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.existRecommend = true
+      this.dtoken = jwtDecode(token);
+      id = this.dtoken.id
+    } else { id = 0 }
+
+    console.log(id)
+
+    this._ecommerceService.getRecomendacion(id?.toString()).subscribe({
+      next: (res) => {
+        this.recomendaciones = res;
+        console.log('recomendaciones', this.recomendaciones);
+      },
+      error: (e: HttpErrorResponse) => {
+        console.log('Error :', e);
+      },
+    });
+
   }
 }

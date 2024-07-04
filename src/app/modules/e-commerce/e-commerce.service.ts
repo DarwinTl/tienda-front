@@ -36,6 +36,19 @@ export class ecommerceService {
       );
   }
 
+  getRecomendacion(id: string): Observable<product_List[]> {
+    return this.http
+      .get<product_List[]>(`${this.myAppUrl}${this.myApiUrl}/reco/` + id)
+      .pipe(
+        map((productos) =>
+          productos.map((producto) => ({
+            ...producto,
+            ruta: `${API.apiProducto}/img/${producto.ruta}`,
+          })),
+        ),
+      );
+  }
+
   getCategories(): Observable<categoria_product_list[]> {
     return this.http.get<categoria_product_list[]>(
       `${this.myAppUrl}${this.myApiUrl}/categorias`,
