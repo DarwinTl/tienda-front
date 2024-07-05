@@ -17,6 +17,7 @@ import { CategoriaRespository } from './repositories/categoria.repository';
 import { MarcaRepository } from './repositories/marca.repository';
 import { ProductoRepository } from './repositories/producto.repository';
 import { UnidadMedidaRepository } from './repositories/unidad-medida.repository';
+import { ApiOrden } from '@api/service/api-orden';
 
 const routes: Routes = [
   {
@@ -75,6 +76,17 @@ const routes: Routes = [
       },
       { provide: Repository, useClass: UnidadMedidaRepository },
       ApiUnidadMedida,
+    ],
+  },
+  {
+    path: MaintenanceRoutes.ORDENES,
+    title: 'Ordenes | Market Don Pepe',
+    loadComponent: () =>
+      import('@maintenance/pages/ordenes/ordenes.component').then(
+        (c) => c.OrdenesComponent,
+      ),
+    providers: [
+      ApiOrden,
     ],
   },
   {

@@ -99,7 +99,6 @@ export class ShopButtonComponent implements OnInit {
         const exist = this.shopStore
           .entities()
           .find(({ id }) => id === this.entity.id);
-        console.log({ exist, entity: this.entity });
 
         if (exist) {
           this.valueQuantity.set(Number(exist.cantidad));
@@ -111,7 +110,6 @@ export class ShopButtonComponent implements OnInit {
         } else {
           this.isAddedShoppingCart.set(false);
         }
-        console.log(this.valueQuantity(), this.isAddedShoppingCart());
       },
       { allowSignalWrites: true },
     );

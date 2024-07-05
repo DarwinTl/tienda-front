@@ -7,4 +7,5 @@ export const API = {
   apiProducto: `${environment.apiUrl}/api/mantenimiento/productos`,
   apiHome: `${environment.apiUrl}/api/home`,
   apiAth: `${environment.apiUrl}`,
+  apiBase: `${environment.apiUrl}/api`
 };
