@@ -17,4 +17,9 @@ export class ApiOrden extends HttpBase {
     const endpoint = `${API.apiBase}/ordenes/preparar?numero=${boleta}`;
     return this.http.put(endpoint, {});
   }
+
+  ingresarCompra(userId: number) {
+    const endpoint = `${API.apiBase}/home/comprar/${userId}`;
+    return this.http.post(endpoint, {})
+  }
 }
