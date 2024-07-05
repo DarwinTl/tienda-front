@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { Role } from '@shared/enums/role.enum';
 import { AuthStore } from '@shared/store/auth.store';
 import { JwtAuthorities, JwtPayload } from '@shared/types/jwt.type';
 import { jwtDecode } from 'jwt-decode';
@@ -15,7 +16,7 @@ export class JwtService {
     return jwtDecode<JwtPayload>(token);
   }
 
-  authorities(): string[] {
+  authorities(): Role[] {
     return (
       JSON.parse(this.decodedToken().authorities) as JwtAuthorities[]
     ).map((auth) => auth.authority);

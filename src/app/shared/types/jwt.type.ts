@@ -1,3 +1,5 @@
+import { Role } from "@shared/enums/role.enum";
+
 export type JwtPayload = {
   authorities: string;
   exp: number;
@@ -9,5 +11,5 @@ export type JwtPayload = {
 };
 
 export type JwtAuthorities = {
-  authority: string;
+  authority: Role;
 };

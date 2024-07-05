@@ -27,6 +27,14 @@ const routes: Routes = [
           ).then((c) => c.ProductoDetalleComponent),
       },
       {
+        path: 'checkout',
+        title: 'Checkout | Don Pepe SuperMarket',
+        loadComponent: () =>
+          import('@ecommerce/pages/checkout/checkout.component').then(
+            (c) => c.CheckoutComponent,
+          ),
+      },
+      {
         path: '',
         title: 'Pagina Inicio | Don Pepe SuperMarket',
         loadComponent: () =>

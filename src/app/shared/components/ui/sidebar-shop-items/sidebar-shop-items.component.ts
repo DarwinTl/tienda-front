@@ -5,15 +5,24 @@ import {
   Component,
   inject,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ShopButtonComponent } from '@components/shop-button/shop-button.component';
 import { ShopStore } from '@shared/store/shop.store';
+import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { SidebarModule } from 'primeng/sidebar';
 
 @Component({
   selector: 'app-sidebar-shop-items',
   standalone: true,
-  imports: [CurrencyPipe, SidebarModule, CardModule, ShopButtonComponent],
+  imports: [
+    CurrencyPipe,
+    SidebarModule,
+    CardModule,
+    ShopButtonComponent,
+    ButtonModule,
+    RouterLink,
+  ],
   template: `
     <p-sidebar
       position="right"
@@ -55,7 +64,7 @@ import { SidebarModule } from 'primeng/sidebar';
           </div>
         </div>
         <p-card class="tw-p-4 tw-shadow-md">
-          <div class="tw-grid tw-gap-4">
+          <div class="tw-grid tw-gap-4 tw-pb-4">
             <div class="tw-flex tw-justify-between tw-font-semibold">
               <p>Total</p>
               <p>
@@ -65,6 +74,14 @@ import { SidebarModule } from 'primeng/sidebar';
               </p>
             </div>
           </div>
+          @if (shopStore.entities().length) {
+            <p-button
+              severity="danger"
+              label="Finalizar compra"
+              styleClass="tw-w-full tw-flex"
+              routerLink="/checkout"
+            />
+          }
         </p-card>
       </div>
     </p-sidebar>

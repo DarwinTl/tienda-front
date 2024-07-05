@@ -3,4 +3,5 @@ export enum MaintenanceRoutes {
   CATEGORIAS = 'categorias',
   MARCAS = 'marcas',
   UNIDADES = 'unidades-medida',
+  ORDENES = 'ordenes',
 }

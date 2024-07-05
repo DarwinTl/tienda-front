@@ -9,7 +9,7 @@ export const authRoleGuard: CanActivateFn = () => {
   const router = inject(Router);
   const jwt = inject(JwtService);
 
-  if (authStore.isLogged() && jwt.authorities().includes(Role.ADMIN)) {
+  if (authStore.isLogged() && (jwt.authorities().includes(Role.ADMIN) || jwt.authorities().includes(Role.PICKER))) {
     return true;
   }
   return router.createUrlTree(['autenticacion/login']);
@@ -22,6 +22,10 @@ export const hasLoginGuard: CanActivateFn = () => {
 
   if (authStore.isLogged() && jwt.authorities().includes(Role.ADMIN)) {
     return router.createUrlTree(['mantenimiento']);
+  }
+
+  if (authStore.isLogged() && jwt.authorities().includes(Role.PICKER)) {
+    return router.createUrlTree(['mantenimiento/ordenes']);
   }
 
   if (!authStore.isLogged()) {

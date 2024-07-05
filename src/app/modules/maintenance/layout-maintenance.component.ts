@@ -26,6 +26,8 @@ import { MainContainerComponent } from '@components/main-container/main-containe
 import { AuthStore } from '@shared/store/auth.store';
 import { ModulesRoutes } from 'src/app/modules.routes';
 import { MaintenanceRoutes } from './layout.routes';
+import { JwtService } from '@shared/services/jwt.service';
+import { Role } from '@shared/enums/role.enum';
 
 @Component({
   selector: 'app-layout-maintenance',
@@ -92,7 +94,7 @@ import { MaintenanceRoutes } from './layout.routes';
                   alt="logo"
                 />
               </div>
-              <h3 mat-subheader class="tw-text-gray-600">General</h3>
+              <h3 mat-subheader class="tw-text-gray-600">Menu</h3>
               @for (opcion of opciones; track opcion) {
                 <mat-list-item
                   class="nav-item"
@@ -126,34 +128,45 @@ import { MaintenanceRoutes } from './layout.routes';
 export class LayoutMaintenanceComponent {
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
+  jwt = inject(JwtService);
   authStore = inject(AuthStore);
   breakpoint = inject(BreakpointObserver);
 
   sideNav = signal(false);
   smallScreen = signal(false);
 
-  opciones: { title: string; icon: string; link: string }[] = [
+  opciones: { title: string; icon: string; link: string; roles: Role[] }[] = [
     {
       title: 'Categorías',
       icon: 'fact_check',
       link: MaintenanceRoutes.CATEGORIAS,
+      roles: [Role.ADMIN]
     },
     {
       title: 'Marcas',
       icon: 'fact_check',
       link: MaintenanceRoutes.MARCAS,
+      roles: [Role.ADMIN]
     },
     {
       title: 'Productos',
       icon: 'fact_check',
       link: MaintenanceRoutes.PRODUCTOS,
+      roles: [Role.ADMIN]
     },
     {
       title: 'Unidad de Medida',
       icon: 'fact_check',
       link: MaintenanceRoutes.UNIDADES,
+      roles: [Role.ADMIN]
     },
-  ];
+    {
+      title: 'Ordenes',
+      icon: 'fact_check',
+      link: MaintenanceRoutes.ORDENES,
+      roles: [Role.PICKER]
+    },
+  ].filter(opcion => this.jwt.authorities().some(role => opcion.roles.includes(role)))
 
   constructor() {
     this.breakpoint.observe('(max-width: 768px)').subscribe((state) => {
