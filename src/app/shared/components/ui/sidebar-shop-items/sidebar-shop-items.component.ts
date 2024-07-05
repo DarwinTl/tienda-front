@@ -80,6 +80,7 @@ import { SidebarModule } from 'primeng/sidebar';
               label="Finalizar compra"
               styleClass="tw-w-full tw-flex"
               routerLink="/checkout"
+              (onClick)="visibility = false"
             />
           }
         </p-card>
@@ -97,4 +98,6 @@ export class SidebarShopItemsComponent {
     this.visibility = !this.visibility;
     this.cdRef.detectChanges();
   }
+
+  
 }
