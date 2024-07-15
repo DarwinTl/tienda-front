@@ -22,4 +22,9 @@ export class ApiOrden extends HttpBase {
     const endpoint = `${API.apiBase}/home/comprar/${userId}`;
     return this.http.post(endpoint, {})
   }
+
+  buscarNumeroBoleta(nroBoleta: string) {
+    const endpoint = `${API.apiBase}/ordenes/${nroBoleta}`;
+    return this.http.get<GetOrden>(endpoint);
+  }
 }
