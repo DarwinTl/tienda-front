@@ -10,17 +10,34 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiError } from '@shared/models/error.model';
-import { finalize } from 'rxjs';
+import { debounceTime, delay, finalize } from 'rxjs';
+import { MatFormField, MatInputModule } from '@angular/material/input';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ordenes',
   standalone: true,
-  imports: [MatPaginator, LoadingComponent, MatTableModule, CurrencyPipe,TitleCasePipe, MatCheckboxModule, MatIconModule, MatButtonModule],
+  imports: [
+    MatPaginator,
+    LoadingComponent,
+    MatTableModule,
+    CurrencyPipe,
+    TitleCasePipe,
+    MatCheckboxModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormField,
+    ReactiveFormsModule
+  ],
   template: `
-  <section class="tw-p-4">
+    <section class="tw-p-4">
       <h3 class="tw-text-gray-700 tw-text-2xl">Ordenes</h3>
     </section>
-  <section class="tw-p-4">
+    <section class="tw-p-4">
+      <mat-form-field class="tw-block tw-max-w-[50%] tw-mb-4">
+        <input [formControl]="searchControl" matInput class="tw-w-full tw-uppercase" type="text" placeholder="Búsqueda N° de boleta" />
+      </mat-form-field>
       <app-loading [isLoading]="isLoadingDataTable()" [diameter]="50">
         <table mat-table [dataSource]="dataSource">
           @for (data of columns; track data) {
@@ -77,14 +94,18 @@ export class OrdenesComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  fb = inject(FormBuilder);
   cRef = inject(ChangeDetectorRef);
   apiOrden = inject(ApiOrden);
   dataSource = new MatTableDataSource<GetOrden>();
   columns = ORDENES_COLUMNS_DATA_TABLE;
-  isLoadingDataTable = signal(false)
+  isLoadingDataTable = signal(false);
+
+  searchControl = this.fb.control('', { nonNullable: true});
 
   ngOnInit(): void {
-  this.#loadOrdenes();  
+    this.#loadOrdenes();  
+    this.search();
   }
 
   #loadOrdenes() {
@@ -95,6 +116,16 @@ export class OrdenesComponent implements OnInit {
         this.cRef.detectChanges()
       }
     })
+  }
+
+  search() {
+    this.searchControl.valueChanges.pipe(debounceTime(1000)).subscribe(value => {
+      if (value === '') {
+        this.#loadOrdenes();
+      } else {
+        this.buscarBoleta(value);
+      }
+    });
   }
 
   aprobarOrden(orden: GetOrden) {
@@ -114,9 +145,20 @@ export class OrdenesComponent implements OnInit {
     this.isLoadingDataTable.set(true);
     const {numeroBoleta} = orden;
     this.apiOrden.prepararOrden(numeroBoleta).pipe(finalize(() => this.isLoadingDataTable.set(false))).subscribe({
-      next: value => {
-        console.log(value);
+      next: () => {
         this.#loadOrdenes();
+      },
+      error: (error: ApiError) => {
+        console.log({error});
+      }
+    })
+  }
+
+  buscarBoleta(nroBoleta: string) {
+    this.isLoadingDataTable.set(true);
+    this.apiOrden.buscarNumeroBoleta(nroBoleta).pipe(delay(1000), finalize(() => this.isLoadingDataTable.set(false))).subscribe({
+      next: value => {
+        this.dataSource = new MatTableDataSource<GetOrden>([value]);
       },
       error: (error: ApiError) => {
         console.log({error});
