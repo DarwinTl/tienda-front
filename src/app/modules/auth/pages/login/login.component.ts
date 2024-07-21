@@ -16,12 +16,12 @@ import { FormFieldComponent } from '@components/form-field/form-field.component'
 import { AuthStore } from '@shared/store/auth.store';
 import { CustomValidatorService } from '@shared/validators/custom-validator.service';
 import { ModulesRoutes } from 'src/app/modules.routes';
-
+import { RecaptchaModule, RecaptchaFormsModule } from "ng-recaptcha";
+import { NgxCaptchaModule } from 'ngx-captcha';
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
     MatButton,
     MatIcon,
     MatIconButton,
@@ -31,6 +31,11 @@ import { ModulesRoutes } from 'src/app/modules.routes';
     MatInput,
     RouterLink,
     FormFieldComponent,
+    RecaptchaModule,
+    RecaptchaFormsModule,
+    ReactiveFormsModule,
+    NgxCaptchaModule,
+    NgxCaptchaModule
   ],
   template: `
     <div class="tw-relative tw-min-w-80">
@@ -83,7 +88,9 @@ import { ModulesRoutes } from 'src/app/modules.routes';
               </button>
             </mat-form-field>
           </app-form-field>
-
+          <div class="tw-flex tw-justify-center mb-4">
+    <re-captcha (resolved)="resolved($event)" [siteKey]="siteKey" formControlName="recaptcha"></re-captcha>
+    </div>
           @if (authStore.error()) {
             <div class="tw-flex tw-mx-2 tw-pb-4">
               <p class="tw-text-red-500 tw-text-sm">{{ authStore.error() }}</p>
@@ -96,6 +103,7 @@ import { ModulesRoutes } from 'src/app/modules.routes';
               class="tw-w-full"
               mat-raised-button
               color="primary"
+              [disabled]="!captchaResolved"
             >
               Iniciar sesión
             </button>
@@ -115,6 +123,7 @@ import { ModulesRoutes } from 'src/app/modules.routes';
         </div>
       </div>
     </div>
+    
   `,
   styles: ``,
 })
@@ -125,6 +134,8 @@ export class LoginComponent {
   private router = inject(Router);
   formLogin = this.#createLoginForm();
   hide = true;
+  siteKey: string = "6LfC3hQqAAAAAJFKsjWGVUbzr8aFC-kO1dpRyeuw";
+  captchaResolved = false;
 
   #createLoginForm() {
     return this.fb.group<AuthLoginForm>({
@@ -136,11 +147,19 @@ export class LoginComponent {
         nonNullable: true,
         validators: [Validators.required],
       }),
+      recaptcha: this.fb.control('', {
+        validators: [Validators.required]
+      })
     });
   }
 
   onSubmitLogin() {
-    if (this.formLogin.invalid) return;
+    if (this.formLogin.invalid || !this.captchaResolved) {
+      if (!this.captchaResolved) {
+        console.error('Captcha is not resolved');
+      }
+      return;
+    }
     const formValue = this.formLogin.getRawValue();
     const payload: ApiReqPostLogin = {
       correo: formValue.correo,
@@ -148,6 +167,7 @@ export class LoginComponent {
     };
     this.#login(payload);
   }
+
   navigateToRegister() {
     this.authStore.restoreError();
     this.router.navigate([ModulesRoutes.AUTEHNTICATION, AuthRoutes.REGISTER]);
@@ -155,5 +175,15 @@ export class LoginComponent {
 
   #login(payload: ApiReqPostLogin) {
     this.authStore.login(payload);
+  }
+
+  resolved(captchaResponse: string | null) {
+    if (captchaResponse) {
+      this.captchaResolved = true;
+      console.log(`Resolved captcha with response: ${captchaResponse}`);
+    } else {
+      this.captchaResolved = false;
+      console.error('Captcha response was null');
+    }
   }
 }

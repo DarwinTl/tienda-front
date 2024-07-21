@@ -11,8 +11,6 @@ import { routes } from './app.routes';
 import { CoreModule } from './core/core.module';
 import { unAuthorizedInterceptor } from './core/interceptors/error.interceptor';
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
-import { ApiOrden } from '@api/service/api-orden';
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -25,7 +23,6 @@ export const appConfig: ApplicationConfig = {
     AuthStore,
     MessageService,
     ApiHome,
-    DatePipe,
-    ApiOrden,
+    DatePipe
   ],
 };

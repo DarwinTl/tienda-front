@@ -9,11 +9,13 @@ export type AuthRegisterField = {
   apellidoMaterno: string;
   tipoDocumento: string;
   numeroDocumento: string;
+
 };
 
 export type AuthLoginField = {
   correo: string;
   contrasenia: string;
+  recaptcha: any
 };
 
 export type AuthRegisterForm = CustomAbstractControl<AuthRegisterField>;
