@@ -1,0 +1,44 @@
+.nav-item {
+  border-radius: 0.25rem;
+  cursor: pointer !important;
+  @apply tw-text-gray-600;
+  &.active {
+    @apply tw-bg-blue-100;
+  }
+  &:hover:not(.active) {
+    @apply tw-bg-gray-100;
+  }
+}
+
+.line-divider {
+  display: flex;
+  align-items: center;
+  
+  &::before,
+  &::after{
+    content: "";
+    background-color: #bdb4b4;
+    height: 1px;
+    flex-grow: 1;
+    line-height: 0;
+    margin-inline: 0.5rem;
+  }
+
+  @media screen and (min-width: 768px){
+    &::before,
+    &::after{
+      background-color: #edecec;
+    }
+  }
+}
+
+.main-content {
+  height: calc(100vh - $header-mobile);
+  @media screen and (min-width: 600px){
+    height: calc(100vh - $header);
+  }
+}
+
+.bg-opacity {
+  background-color: rgba(255, 255, 255, 0.7);
+}

@@ -1,40 +1,10 @@
-.footer {
-  background-color: #333;
-  color: #fff;
-  padding: 20px 0;
-  bottom: 0;
-}
-
-.footer h3 {
-  color: #fff;
-}
-
-.footer p,
-.footer ul {
-  margin-bottom: 10px;
-}
-
-.footer ul li {
-  list-style: none;
-}
-
-.footer ul li a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer ul li a:hover {
-  text-decoration: underline;
-}
-
-.example-card {
-  width: 450px;
-
-  margin-right: 16px;
-
-  margin-bottom: 16px;
-}
-.img-carousel{
-  max-width: 50%;
-  max-height: 50%;
-}
+.card-title {
+    font-family: Arial, Helvetica, sans-serif; /* Tipo de fuente */
+    font-size: 32px;                   /* Tamaño de fuente */
+    font-weight: 800;                  /* Grosor de la fuente */
+    color: #333;                       /* Color del texto */
+    margin: 0 0 10px;                  /* Margen */
+    padding: 0;                        /* Relleno */
+    text-align: center;                /* Alineación del texto */
+  }
+  

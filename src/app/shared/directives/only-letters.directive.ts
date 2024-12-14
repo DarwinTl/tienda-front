@@ -14,7 +14,6 @@ export class OnlyLettersDirective {
       /[^a-zA-ZñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ'\s]+/,
       '',
     );
-    // this.el.nativeElement.value = initalValue.replace(/[^a-zA-Z]*/g, '');
     if (initalValue !== this.el.nativeElement.value) {
       event.stopPropagation();
     }

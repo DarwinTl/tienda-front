@@ -5,4 +5,5 @@ export const PRODUCTOS_COLUMNS_DATA_TABLE = [
   'precioVenta',
   'descripcion',
   'acciones',
+  'actualizar stock',
 ];

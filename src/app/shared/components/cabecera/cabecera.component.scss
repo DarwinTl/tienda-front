@@ -1,6 +1,6 @@
 a {
   font-size: 18px;
-  // color: white;
+  color: white;
 }
 
 .btn-menu-navbar {
@@ -9,17 +9,10 @@ a {
 }
 
 .custome-toolbar {
-  position: fixed;
-  top: 0 !important;
-  width: 100%;
-  z-index: 1000;
-
-  /* Ajusta este valor según sea necesario */
   background-color: #cc292e;
 
-  // color: white;
   .img-banner {
-    max-width: 15%;
+    max-width: 12rem;
   }
 }
 
@@ -28,20 +21,69 @@ a {
   justify-content: center;
   align-items: center;
   flex: 1 1 auto;
+  position: relative;
 
   .search-bar {
-    width: 700px;
-    height: 40px;
     padding: 10px;
-    font-size: 75%;
     border: none;
+    flex-grow: 1;
+    font-size: 1rem;
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
+    color: black;
 
     &:focus {
       outline: none;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .search-results {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 300px;
+    overflow-y: auto;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+
+      li.result-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #f0f0f0; // Cambia el color a gris cuando el cursor está sobre el <li>
+        }
+
+        .result-image {
+          width: 100px;
+          height: auto;
+          margin-right: 10px;
+        }
+
+        .result-title {
+          flex-grow: 1;
+          font-size: 16px;
+        }
+
+        a {
+          color: black;
+          text-decoration: none;
+        }
+      }
     }
   }
 }

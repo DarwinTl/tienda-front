@@ -1,16 +1,21 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
-import { ConfirmDialogComponent } from '@components/dialog/confirm/confirm.component';
+import { Component, inject } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatIcon } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable } from '@angular/material/table';
+import { ApiProducto } from '@api/service/api-producto';
+import {
+  ConfirmDialogComponent,
+  DialogConfirmData,
+} from '@components/dialog/confirm/confirm.component';
 import { LoadingComponent } from '@components/loading/loading.component';
 import { MaintenanceTableComponent } from '@components/ui/maintenance-table/maintenance-table.component';
 import { Maintenance } from '@shared/models/maintenance.model';
 import { DataTableMarcas } from '../marcas/marcas.type';
 import { ProductsFormComponent } from './products-form.component';
+import { ProductsStockFormComponent } from './products-stock-form.component';
 import { DataTableProducts } from './products.type';
 
 @Component({
@@ -18,11 +23,11 @@ import { DataTableProducts } from './products.type';
   standalone: true,
   imports: [
     TitleCasePipe,
-    MatPaginatorModule,
-    MatTableModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
+    MatPaginator,
+    MatTable,
+    MatButton,
+    MatCheckbox,
+    MatIcon,
     LoadingComponent,
     MaintenanceTableComponent,
   ],
@@ -36,17 +41,21 @@ import { DataTableProducts } from './products.type';
       (eventChangeState)="onChangeState($event)"
       (eventEdit)="openDialogEdit($event)"
       (eventDelete)="openDialogDelete($event)"
+      (eventStock)="openDialogStock($event)"
     >
       <mat-paginator aria-label="Páginas de productos" />
     </app-maintenance-table>
   `,
 })
 export class ProductsComponent extends Maintenance<DataTableProducts> {
+  apiProducto = inject(ApiProducto);
+
   openDialogCreate() {
     this.dialog
       .open(ProductsFormComponent)
       .afterClosed()
       .subscribe((result) => {
+        if (!result) return;
         const data = new FormData();
         data.append('categoria', result.categoria);
         data.append('descripcion', result.descripcion);
@@ -56,7 +65,7 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
         data.append('precioVenta', result.precioVenta);
         data.append('stock', result.stock);
         data.append('foto', result.ruta);
-        console.log({ result, data });
+        data.append('medida', result.medida);
         this.onCreate(data);
       });
   }
@@ -81,7 +90,7 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
         data.append('precioVenta', result.precioVenta);
         data.append('stock', result.stock);
         data.append('foto', result.ruta);
-        console.log({ result, data });
+        data.append('medida', result.medida);
         this.onUpdate(data);
       });
   }
@@ -90,14 +99,48 @@ export class ProductsComponent extends Maintenance<DataTableProducts> {
     this.dialog
       .open(ConfirmDialogComponent, {
         data: {
-          id: data.id,
-        },
+          title: 'Eliminar producto',
+          message: `¿Estás seguro de eliminar el producto ${data.nombre}?`,
+          icon: 'warning',
+          accept: 'Cancelar',
+          cancel: 'Eliminar',
+          iconColor: 'tw-text-red-500',
+        } as DialogConfirmData,
       })
       .afterClosed()
       .subscribe((result) => {
         !result && this.onDelete(data.id);
       });
   }
+
+  openDialogStock(data: DataTableMarcas) {
+    console.log(data);
+    this.dialog
+      .open(ProductsStockFormComponent, {
+        data,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        console.log({ result });
+        if (!result) return;
+        this.apiProducto.updateStock({ id: data.id, stock: result }).subscribe({
+          next: () => {
+            this.msg.add({ severity: 'success', summary: 'Stock actualizado' });
+            this.onLoadData({
+              page: this.paginator.pageIndex,
+              size: this.paginator.pageSize,
+            });
+          },
+          error: () => {
+            this.msg.add({
+              severity: 'error',
+              summary: 'Error al actualizar el stock',
+            });
+          },
+        });
+      });
+  }
+
   onChangeState({
     state,
     checkboxRef,

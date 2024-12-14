@@ -1,13 +1,17 @@
+import { DatePipe } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
+import { ApiHome } from '@api/service/api-home';
 import { ApiAuth } from '@api/service/api.auth';
 import { AuthStore } from '@shared/store/auth.store';
+import { MessageService } from 'primeng/api';
 import { routes } from './app.routes';
 import { CoreModule } from './core/core.module';
 import { unAuthorizedInterceptor } from './core/interceptors/error.interceptor';
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
+import { ApiOrden } from '@api/service/api-orden';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +23,9 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(CoreModule),
     ApiAuth,
     AuthStore,
+    MessageService,
+    ApiHome,
+    DatePipe,
+    ApiOrden,
   ],
 };

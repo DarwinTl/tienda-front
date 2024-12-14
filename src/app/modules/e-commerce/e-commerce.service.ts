@@ -1,8 +1,16 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { product_List } from './pages/inicio/Inicio.type';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { API } from '@api/api.const';
+import { map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import {
+  categoria_product_list,
+  commentSend,
+  product_List,
+  productComment,
+  productXCat,
+} from './pages/inicio/Inicio.type';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +24,84 @@ export class ecommerceService {
   }
 
   getProducts(): Observable<product_List[]> {
-    console.log(`${this.myAppUrl}${this.myApiUrl}`)
-    return this.http.get<product_List[]>(`${this.myAppUrl}${this.myApiUrl}`);
+    return this.http
+      .get<product_List[]>(`${this.myAppUrl}${this.myApiUrl}`)
+      .pipe(
+        map((productos) =>
+          productos.map((producto) => ({
+            ...producto,
+            ruta: `${API.apiProducto}/img/${producto.ruta}`,
+          })),
+        ),
+      );
+  }
+
+  getRecomendacion(id: string): Observable<product_List[]> {
+    return this.http
+      .get<product_List[]>(`${this.myAppUrl}${this.myApiUrl}/reco/` + id)
+      .pipe(
+        map((productos) =>
+          productos.map((producto) => ({
+            ...producto,
+            ruta: `${API.apiProducto}/img/${producto.ruta}`,
+          })),
+        ),
+      );
+  }
+
+  getCategories(): Observable<categoria_product_list[]> {
+    return this.http.get<categoria_product_list[]>(
+      `${this.myAppUrl}${this.myApiUrl}/categorias`,
+    );
+  }
+
+  getProductsXCat(id: string): Observable<productXCat[]> {
+    return this.http
+      .get<productXCat[]>(`${this.myAppUrl}/api/home/categorias/${id}`)
+      .pipe(
+        map((productos) =>
+          productos.map((producto) => ({
+            ...producto,
+            ruta: `${API.apiProducto}/img/${producto.ruta}`,
+          })),
+        ),
+      );
+  }
+
+  getProductDetails(id: string): Observable<productXCat> {
+    return this.http
+      .get<productXCat>(`${this.myAppUrl}/api/home/producto/detalles/${id}`)
+      .pipe(
+        map((producto) => ({
+          ...producto,
+          ruta: `${API.apiProducto}/img/${producto.ruta}`,
+        })),
+      );
+  }
+
+  getProductxMarca(id: number): Observable<productXCat[]> {
+    return this.http
+      .get<productXCat[]>(`${this.myAppUrl}/api/home/marcas/${id}`)
+      .pipe(
+        map((productos) =>
+          productos.map((producto) => ({
+            ...producto,
+            ruta: `${API.apiProducto}/img/${producto.ruta}`,
+          })),
+        ),
+      );
+  }
+
+  getProductComments(id: number): Observable<productComment[]> {
+    return this.http.get<productComment[]>(
+      `${this.myAppUrl}/api/home/comentarios/${id}`,
+    );
+  }
+
+  sendProductComments(comentario: commentSend): Observable<productComment> {
+    return this.http.post<productComment>(
+      `${this.myAppUrl}/api/usuario/${comentario.idproducto}/comentario/${comentario.correo}`,
+      { comentario: comentario.comentario },
+    );
   }
 }

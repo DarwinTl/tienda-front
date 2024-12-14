@@ -2,15 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { product_List } from './Inicio.type';
-import { Router } from '@angular/router';
-import { ecommerceService } from '@ecommerce/e-commerce.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import {
+  CarouselModule as OwlCarouselModule,
+  OwlOptions,
+} from 'ngx-owl-carousel-o';
+import { ButtonModule } from 'primeng/button';
+import {
+  CarouselResponsiveOptions,
+  CarouselModule as PrimeCarouselModule,
+} from 'primeng/carousel';
+import { TagModule } from 'primeng/tag';
 
+import { CurrencyPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ShopButtonComponent } from '@components/shop-button/shop-button.component';
+import { ecommerceService } from '@ecommerce/e-commerce.service';
+import { CardModule } from 'primeng/card';
+import { categoria_product_list, product_List } from './Inicio.type';
+import { JwtPayload } from '@shared/types/jwt.type';
+import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-inicio',
   standalone: true,
@@ -21,16 +34,25 @@ import { HttpErrorResponse } from '@angular/common/http';
     MatCardModule,
     MatIconModule,
     MatGridListModule,
-    CarouselModule
-
+    OwlCarouselModule,
+    ButtonModule,
+    TagModule,
+    PrimeCarouselModule,
+    CardModule,
+    ShopButtonComponent,
+    CurrencyPipe,
   ],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss',
 })
-
 export class InicioComponent implements OnInit {
-  productos: product_List[] = []
-  customOptions: OwlOptions = {
+  products: product_List[] = [];
+  categorias: categoria_product_list[] = [];
+  responsiveOptions: CarouselResponsiveOptions[] | undefined;
+  dtoken?: JwtPayload;
+  existRecommend: boolean = false;
+  recomendaciones: product_List[] = [];
+  customOptions1: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: false,
@@ -41,41 +63,96 @@ export class InicioComponent implements OnInit {
     navText: ['Anterior', 'Siguiente'],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
-      400: {
-        items: 2
-      },
-      740: {
-        items: 3
-      },
-      940: {
-        items: 4
-      }
     },
-    nav: true
-  }
+    nav: true,
+  };
 
-  constructor(private router: Router, private _ecommerceService: ecommerceService) {
-
-  }
+  constructor(private _ecommerceService: ecommerceService) { }
 
   ngOnInit(): void {
-    this.fngetList()
+    this.fngetList();
+    this.fngeCatList();
+    this.getRecommended();
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
   }
 
   fngetList() {
     this._ecommerceService.getProducts().subscribe({
       next: (res) => {
+        this.products = res;
 
-        this.productos = res;
-
-        console.log(this.productos)
+        console.log(this.products);
       },
       error: (e: HttpErrorResponse) => {
-        console.log('Error :', e)
-        return
-      }
+        console.log('Error :', e);
+      },
     });
+  }
+
+  fngeCatList() {
+    this._ecommerceService.getCategories().subscribe({
+      next: (res) => {
+        this.categorias = res;
+
+        console.log(this.categorias);
+      },
+      error: (e: HttpErrorResponse) => {
+        console.log('Error :', e);
+      },
+    });
+  }
+
+  getSeverity(status: string) {
+    switch (status) {
+      case 'En Stock':
+        return 'success';
+      case 'Poco Stock':
+        return 'warning';
+      case 'Sin Stock':
+        return 'danger';
+      default:
+        return 'success';
+    }
+  }
+
+  getRecommended() {
+    var id
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.existRecommend = true
+      this.dtoken = jwtDecode(token);
+      id = this.dtoken.id
+    } else { id = 0 }
+
+    console.log(id)
+
+    this._ecommerceService.getRecomendacion(id?.toString()).subscribe({
+      next: (res) => {
+        this.recomendaciones = res;
+        console.log('recomendaciones', this.recomendaciones);
+      },
+      error: (e: HttpErrorResponse) => {
+        console.log('Error :', e);
+      },
+    });
+
   }
 }

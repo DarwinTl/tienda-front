@@ -1,10 +1,10 @@
 import { JsonPipe, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
+import { MatButton } from '@angular/material/button';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatIcon } from '@angular/material/icon';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable } from '@angular/material/table';
 
 import { ApiCategoriaAdapter } from '@api/adapters/api-categoria.adapter';
 import {
@@ -27,11 +27,11 @@ import { DataTableCategories } from './categories.type';
   imports: [
     TitleCasePipe,
     JsonPipe,
-    MatPaginatorModule,
-    MatTableModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
+    MatPaginator,
+    MatTable,
+    MatButton,
+    MatCheckbox,
+    MatIcon,
     LoadingComponent,
     MaintenanceTableComponent,
   ],
@@ -73,7 +73,7 @@ export class CategoriesComponent extends Maintenance<DataTableCategories> {
       .afterClosed()
       .subscribe((result) => {
         if (result) {
-          console.log('Cambiar estado');
+          // TODO: implementar el cambio de estado
         } else {
           checkboxRef.checked = state;
         }
@@ -107,15 +107,16 @@ export class CategoriesComponent extends Maintenance<DataTableCategories> {
       .open(ConfirmDialogComponent, {
         data: {
           title: 'Eliminar categoría',
-          message: `¿Estás seguro de eliminar la categoría ${data.detalle ?? '-'}?`,
+          message: `¿Estás seguro de eliminar la categoría ${data.nombre ?? '-'}?`,
           icon: 'warning',
-          accept: 'Eliminar',
-          cancel: 'Cancelar',
+          accept: 'Cancelar',
+          cancel: 'Elminar',
+          iconColor: 'tw-text-red-500',
         } as DialogConfirmData,
       })
       .afterClosed()
       .subscribe((result) => {
-        result && this.onDelete(data.id);
+        !result && this.onDelete(data.id);
       });
   }
 }

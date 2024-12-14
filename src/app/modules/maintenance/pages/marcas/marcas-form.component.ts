@@ -6,11 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { FormFieldComponent } from '@components/form-field/form-field.component';
 import { OnlyLettersDirective } from '@shared/directives/only-letters.directive';
 
 import { CustomAbstractControl } from '@shared/types/utilities.type';
@@ -28,42 +29,66 @@ export type MarcaField = {
   standalone: true,
   imports: [
     OnlyLettersDirective,
-    MatFormFieldModule,
+    MatFormField,
     MatLabel,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
+    MatInput,
+    MatButton,
+    MatIcon,
     MatDialogModule,
     ReactiveFormsModule,
+    FormFieldComponent,
   ],
   template: `
-    <div class="max-w-xl">
+    <div class="tw-max-w-xl">
       <div class="p-8">
-        <h4 class="text-xl mb-6 text-center">
+        <h4 class="tw-text-xl tw-mb-6 tw-text-center">
           {{ data ? 'Editar' : 'Registro de nueva' }} marca
         </h4>
         <form
           [formGroup]="form"
-          class="grid grid-cols-1 gap-2 mx-4"
+          class="tw-grid tw-grid-cols-1 tw-gap-2 tw-mx-4"
           (submit)="onSubmit()"
         >
-          <mat-form-field class="grow">
-            <mat-label>Nombre</mat-label>
-            <input
-              appOnlyLetters
-              formControlName="nombre"
-              matInput
-              placeholder="Nombre"
-              type="text"
-            />
-          </mat-form-field>
-          <mat-form-field class="grow">
-            <mat-label>Description</mat-label>
-            <textarea formControlName="detalle" matInput type="text"></textarea>
-          </mat-form-field>
-          <div class="flex justify-center gap-4">
-            <button mat-button color="warn" mat-dialog-close>Cerrar</button>
-            <button type="submit" mat-raised-button color="primary">
+          <app-form-field>
+            <mat-form-field class="grow">
+              <mat-label>Nombre</mat-label>
+              <input
+                appOnlyLetters
+                formControlName="nombre"
+                matInput
+                placeholder="Nombre"
+                type="text"
+              />
+            </mat-form-field>
+          </app-form-field>
+
+          <app-form-field>
+            <mat-form-field class="grow">
+              <mat-label>Description</mat-label>
+              <textarea
+                formControlName="detalle"
+                matInput
+                type="text"
+              ></textarea>
+            </mat-form-field>
+          </app-form-field>
+
+          <div class="tw-flex tw-justify-center tw-gap-4">
+            <button
+              class="grow"
+              mat-stroked-button
+              color="primary"
+              mat-dialog-close
+            >
+              Cerrar
+            </button>
+            <button
+              class="grow"
+              type="submit"
+              mat-raised-button
+              color="primary"
+              [disabled]="form.invalid"
+            >
               Guardar
             </button>
           </div>

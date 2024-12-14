@@ -1,73 +1,97 @@
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-      aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-      aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-      aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-
-      <img src="assets/imagenes/banner_1.png" class="d-block w-100" alt="..." />
-    </div>
-    <div class="carousel-item">
-      <img src="assets/imagenes/banner_2.png" class="d-block w-100" alt="..." />
-    </div>
-    <div class="carousel-item">
-      <img src="assets/imagenes/banner_3.png" class="d-block w-100" alt="..." />
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+<div>
+  <owl-carousel-o [options]="customOptions1">
+    <ng-template carouselSlide><img class="tw-h-80" src="assets/imagenes/banner_1.png" alt="..." /></ng-template>
+    <ng-template carouselSlide><img class="tw-h-80" src="assets/imagenes/banner_2.png" alt="..." /></ng-template>
+    <ng-template carouselSlide><img class="tw-h-80" src="assets/imagenes/banner_3.png" alt="..." /></ng-template>
+  </owl-carousel-o>
 </div>
 
-<section  style="margin-top: 20px; margin-left: 20px; padding: auto;" >
-  <owl-carousel-o [options]="customOptions">
-    @for(producto of productos; track producto){
-    <ng-template carouselSlide>
-      <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>{{ producto.nombre }}</mat-card-title>
-            <mat-card-subtitle style="text-align: left;">{{ producto.marca.detalle }}</mat-card-subtitle>
-            <img  class="img-carousel" src="http://localhost:8080/api/mantenimiento/productos/img/{{producto.ruta}}" alt="" />
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content style="margin-top: 8px;">
-          {{ producto.descripcion }} x {{ producto.medida.descripcion }}
-        </mat-card-content>
-      </mat-card>
-    </ng-template>
-    }
-  </owl-carousel-o>
-</section>
 
-<footer class="footer" style="margin-top: 10px;">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Información de contacto</h3>
-        <p>Dirección: Calle Principal, Ciudad, País</p>
-        <p>Teléfono: +123456789</p>
-        <p></p>
-      </div>
-      <div class="col-md-6">
-        <h3>Enlaces rápidos</h3>
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Acerca de</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Contacto</a></li>
-        </ul>
-      </div>
-    </div>
+
+<div class="card" *ngIf="existRecommend">
+  <div style="margin: 8px">
+    <p class="card-title">Recomendaciones basadas en tus preferencias </p>
   </div>
-</footer>
+  <p-carousel [value]="recomendaciones" [numVisible]="3" [numScroll]="3" [circular]="true" [autoplayInterval]="7000"
+    [responsiveOptions]="responsiveOptions">
+    <ng-template let-reco pTemplate="item">
+      <div class="border-1 surface-border border-round m-2 p-3">
+        <div class="mb-3">
+          <div class="relative mx-auto">
+            <img [src]="reco.ruta" [alt]="reco.nombre" class="w-full border-round" />
+            <p-tag [value]="reco.inventoryStatus" [severity]="getSeverity(reco.inventoryStatus)" class="absolute"
+              [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+          </div>
+        </div>
+        <div class="mb-3 font-medium">
+          {{ reco.nombre }}
+        </div>
+        <div class="mb-3">{{ reco.descripcion }}</div>
+        <div class="flex justify-content-between align-items-center">
+          <div class="mt-0 font-semibold text-xl">
+            {{ reco.precioVenta | currency: 'S/' : 'symbol' : '1.2-2' }}
+          </div>
+          @if (reco.stock > 0) {
+          <div>
+            <span>
+              <app-shop-button [entity]="reco" />
+            </span>
+          </div>
+          } @else {
+          <app-shop-button [entity]="reco" [disabled]="true" text="Sin Stock :(" />
+          }
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+
+<div class="card">
+  <div style="margin: 8px">
+    <p class="card-title">Lo más vendido</p>
+  </div>
+  <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [autoplayInterval]="7000"
+    [responsiveOptions]="responsiveOptions">
+    <ng-template let-product pTemplate="item">
+      <div class="border-1 surface-border border-round m-2 p-3">
+        <div class="mb-3">
+          <div class="relative mx-auto">
+            <img [src]="product.ruta" [alt]="product.nombre" class="w-full border-round" />
+            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute"
+              [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+          </div>
+        </div>
+        <div class="mb-3 font-medium">
+          {{ product.nombre }}
+        </div>
+        <div class="mb-3">{{ product.descripcion }}</div>
+        <div class="flex justify-content-between align-items-center">
+          <div class="mt-0 font-semibold text-xl">
+            {{ product.precioVenta | currency: 'S/' : 'symbol' : '1.2-2' }}
+          </div>
+          @if (product.stock > 0) {
+          <div>
+            <span>
+              <app-shop-button [entity]="product" />
+            </span>
+          </div>
+          } @else {
+          <app-shop-button [entity]="product" [disabled]="true" text="Sin Stock :(" />
+          }
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+
+<div class="tw-grid" style="padding: 4px">
+  <div class="col">
+    <div class="text-center p-3 border-round-sm bg-primary font-bold">1</div>
+  </div>
+  <div class="col">
+    <div class="text-center p-3 border-round-sm bg-primary font-bold">2</div>
+  </div>
+  <div class="col">
+    <div class="text-center p-3 border-round-sm bg-primary font-bold">3</div>
+  </div>
+</div>

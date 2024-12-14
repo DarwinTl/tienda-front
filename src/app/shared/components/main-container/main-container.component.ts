@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-main-container',
   standalone: true,
   template: `
-    <div class="max-w-3xl mx-auto">
+    <div class="tw-max-w-3xl tw-mx-auto">
       <ng-content />
     </div>
   `,

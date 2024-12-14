@@ -7,5 +7,14 @@ export interface ApiRespLogin {
   mensaje: string;
   token: string;
 }
-export interface ApiReqPostRegister {}
+export interface ApiReqPostRegister {
+  correo: string;
+  password: string;
+  nombres: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string;
+  tipoDocumento: string;
+  numeroDocumento: string;
+  estado: boolean;
+}
 export interface ApiRespRegister {}
